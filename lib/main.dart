@@ -4,8 +4,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   runApp(
-    const ProviderScope(
-      child: MyApp(),
+    ProviderScope(
+      child: MaterialApp(routes: <String, WidgetBuilder>{
+        '/': (BuildContext context) => Builder(
+              builder: (BuildContext context) {
+                return Consumer(
+                  builder:
+                      (BuildContext context, WidgetRef ref, Widget? child) {
+                    if (ref.watch(settingsViewModelProvider).token == null) {
+                      return const Scaffold(
+                        body: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    } else {
+                      return const MyApp();
+                    }
+                  },
+                );
+              },
+            ),
+      }),
     ),
   );
 }
@@ -45,6 +64,10 @@ class MyApp extends StatelessWidget {
               ChangeSettingWidget(),
               Text(ref.watch(settingsViewModelProvider).token ?? 'null'),
               const Text("aiueo"),
+              TextButton(
+                child: Text("推して"),
+                onPressed: () {},
+              )
             ],
           );
         }),
