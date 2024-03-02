@@ -1,3 +1,4 @@
+import 'package:accountbook_for_obsidian_rest_api/view/signup.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,11 +13,7 @@ void main() {
                   builder:
                       (BuildContext context, WidgetRef ref, Widget? child) {
                     if (ref.watch(settingsViewModelProvider).token == null) {
-                      return const Scaffold(
-                        body: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
+                      return SignUpWidget();
                     } else {
                       return const MyApp();
                     }

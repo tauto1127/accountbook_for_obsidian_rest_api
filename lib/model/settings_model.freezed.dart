@@ -21,6 +21,8 @@ SettingsState _$SettingsStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SettingsState {
   String? get token => throw _privateConstructorUsedError;
+  String? get serverAddress => throw _privateConstructorUsedError;
+  int? get port => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +36,7 @@ abstract class $SettingsStateCopyWith<$Res> {
           SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res, SettingsState>;
   @useResult
-  $Res call({String? token});
+  $Res call({String? token, String? serverAddress, int? port});
 }
 
 /// @nodoc
@@ -51,12 +53,22 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   @override
   $Res call({
     Object? token = freezed,
+    Object? serverAddress = freezed,
+    Object? port = freezed,
   }) {
     return _then(_value.copyWith(
       token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      serverAddress: freezed == serverAddress
+          ? _value.serverAddress
+          : serverAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      port: freezed == port
+          ? _value.port
+          : port // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -69,7 +81,7 @@ abstract class _$$SettingsStateImplCopyWith<$Res>
       __$$SettingsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? token});
+  $Res call({String? token, String? serverAddress, int? port});
 }
 
 /// @nodoc
@@ -84,12 +96,22 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? token = freezed,
+    Object? serverAddress = freezed,
+    Object? port = freezed,
   }) {
     return _then(_$SettingsStateImpl(
       token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      serverAddress: freezed == serverAddress
+          ? _value.serverAddress
+          : serverAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      port: freezed == port
+          ? _value.port
+          : port // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -97,17 +119,21 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SettingsStateImpl implements _SettingsState {
-  _$SettingsStateImpl({this.token});
+  _$SettingsStateImpl({this.token, this.serverAddress, this.port});
 
   factory _$SettingsStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$SettingsStateImplFromJson(json);
 
   @override
   final String? token;
+  @override
+  final String? serverAddress;
+  @override
+  final int? port;
 
   @override
   String toString() {
-    return 'SettingsState(token: $token)';
+    return 'SettingsState(token: $token, serverAddress: $serverAddress, port: $port)';
   }
 
   @override
@@ -115,12 +141,15 @@ class _$SettingsStateImpl implements _SettingsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SettingsStateImpl &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.serverAddress, serverAddress) ||
+                other.serverAddress == serverAddress) &&
+            (identical(other.port, port) || other.port == port));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, token);
+  int get hashCode => Object.hash(runtimeType, token, serverAddress, port);
 
   @JsonKey(ignore: true)
   @override
@@ -137,13 +166,20 @@ class _$SettingsStateImpl implements _SettingsState {
 }
 
 abstract class _SettingsState implements SettingsState {
-  factory _SettingsState({final String? token}) = _$SettingsStateImpl;
+  factory _SettingsState(
+      {final String? token,
+      final String? serverAddress,
+      final int? port}) = _$SettingsStateImpl;
 
   factory _SettingsState.fromJson(Map<String, dynamic> json) =
       _$SettingsStateImpl.fromJson;
 
   @override
   String? get token;
+  @override
+  String? get serverAddress;
+  @override
+  int? get port;
   @override
   @JsonKey(ignore: true)
   _$$SettingsStateImplCopyWith<_$SettingsStateImpl> get copyWith =>

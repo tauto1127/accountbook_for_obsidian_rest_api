@@ -7,6 +7,8 @@ part 'settings_model.g.dart';
 class SettingsState with _$SettingsState {
   factory SettingsState({
     String? token,
+    String? serverAddress,
+    int? port,
   }) = _SettingsState;
 
   factory SettingsState.fromJson(Map<String, dynamic> json) =>
