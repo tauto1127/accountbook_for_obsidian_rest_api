@@ -13,7 +13,7 @@ void main() {
                   builder:
                       (BuildContext context, WidgetRef ref, Widget? child) {
                     if (ref.watch(settingsViewModelProvider).token == null) {
-                      return SignUpWidget();
+                      return const SignUpWidget();
                     } else {
                       return const MyApp();
                     }
@@ -58,11 +58,11 @@ class MyApp extends StatelessWidget {
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
           return Column(
             children: [
-              ChangeSettingWidget(),
+              changeSettingWidget(),
               Text(ref.watch(settingsViewModelProvider).token ?? 'null'),
               const Text("aiueo"),
               TextButton(
-                child: Text("推して"),
+                child: const Text("推して"),
                 onPressed: () {},
               )
             ],
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Widget ChangeSettingWidget() {
+  Widget changeSettingWidget() {
     String value = "";
     return Column(
       children: [

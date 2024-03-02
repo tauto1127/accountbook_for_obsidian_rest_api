@@ -42,6 +42,8 @@ abstract class $RestApiStatusModelCopyWith<$Res> {
       RestApiVersionModel versions,
       String service,
       bool authenticated});
+
+  $RestApiVersionModelCopyWith<$Res> get versions;
 }
 
 /// @nodoc
@@ -58,7 +60,7 @@ class _$RestApiStatusModelCopyWithImpl<$Res, $Val extends RestApiStatusModel>
   @override
   $Res call({
     Object? status = null,
-    Object? versions = freezed,
+    Object? versions = null,
     Object? service = null,
     Object? authenticated = null,
   }) {
@@ -67,7 +69,7 @@ class _$RestApiStatusModelCopyWithImpl<$Res, $Val extends RestApiStatusModel>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      versions: freezed == versions
+      versions: null == versions
           ? _value.versions
           : versions // ignore: cast_nullable_to_non_nullable
               as RestApiVersionModel,
@@ -80,6 +82,14 @@ class _$RestApiStatusModelCopyWithImpl<$Res, $Val extends RestApiStatusModel>
           : authenticated // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RestApiVersionModelCopyWith<$Res> get versions {
+    return $RestApiVersionModelCopyWith<$Res>(_value.versions, (value) {
+      return _then(_value.copyWith(versions: value) as $Val);
+    });
   }
 }
 
@@ -96,6 +106,9 @@ abstract class _$$RestApiStatusModelImplCopyWith<$Res>
       RestApiVersionModel versions,
       String service,
       bool authenticated});
+
+  @override
+  $RestApiVersionModelCopyWith<$Res> get versions;
 }
 
 /// @nodoc
@@ -110,7 +123,7 @@ class __$$RestApiStatusModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
-    Object? versions = freezed,
+    Object? versions = null,
     Object? service = null,
     Object? authenticated = null,
   }) {
@@ -119,7 +132,7 @@ class __$$RestApiStatusModelImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      versions: freezed == versions
+      versions: null == versions
           ? _value.versions
           : versions // ignore: cast_nullable_to_non_nullable
               as RestApiVersionModel,
@@ -167,7 +180,8 @@ class _$RestApiStatusModelImpl implements _RestApiStatusModel {
         (other.runtimeType == runtimeType &&
             other is _$RestApiStatusModelImpl &&
             (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other.versions, versions) &&
+            (identical(other.versions, versions) ||
+                other.versions == versions) &&
             (identical(other.service, service) || other.service == service) &&
             (identical(other.authenticated, authenticated) ||
                 other.authenticated == authenticated));
@@ -175,8 +189,8 @@ class _$RestApiStatusModelImpl implements _RestApiStatusModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, status,
-      const DeepCollectionEquality().hash(versions), service, authenticated);
+  int get hashCode =>
+      Object.hash(runtimeType, status, versions, service, authenticated);
 
   @JsonKey(ignore: true)
   @override

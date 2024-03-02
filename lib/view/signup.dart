@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SignUpWidget extends StatelessWidget {
+  const SignUpWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign Up'),
+        title: const Text('Sign Up'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
             Row(
@@ -23,7 +25,7 @@ class SignUpWidget extends StatelessWidget {
                         controller: ref
                             .watch(signupViewModelProvider.notifier)
                             .serverAddressController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'ServerAddress',
                           enabledBorder: OutlineInputBorder(
                             borderSide:
@@ -45,11 +47,16 @@ class SignUpWidget extends StatelessWidget {
                             .portController,
                         decoration: InputDecoration(
                           labelText: 'Port',
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: Colors.black, width: 1),
                           ),
+                          errorText:
+                              ref.watch(signupViewModelProvider).portHintText,
                         ),
+                        onChanged: (String str) => ref
+                            .read(signupViewModelProvider.notifier)
+                            .checkPortText(str),
                       );
                     })),
               ],
@@ -73,8 +80,20 @@ class SignUpWidget extends StatelessWidget {
             ),
             Consumer(
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              return TextButton(child: Text("Proceed"), onPressed: () {});
-            })
+              return TextButton(
+                  child: const Text("Proceed"),
+                  onPressed: () {
+                    ref
+                        .read(signupViewModelProvider.notifier)
+                        .checkConnection();
+                  });
+            }),
+            Consumer(
+              builder: (context, ref, child) => Text(
+                ref.watch(signupViewModelProvider).hintText ?? "",
+                style: const TextStyle(color: Colors.red),
+              ),
+            ),
           ],
         ),
       ),
