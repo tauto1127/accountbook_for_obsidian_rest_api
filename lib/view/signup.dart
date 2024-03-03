@@ -95,6 +95,22 @@ class SignUpWidget extends StatelessWidget {
                 style: const TextStyle(color: Colors.red),
               ),
             ),
+            Consumer(
+              builder: (context, ref, child) {
+                if (ref.watch(signupViewModelProvider).isSuccessful) {
+                  return TextButton(
+                      child: const Text("次に進む"),
+                      onPressed: () {
+                        ref
+                            .read(signupViewModelProvider.notifier)
+                            .saveSettings();
+                        Navigator.of(context).pushNamed('home');
+                      });
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
+            )
           ],
         ),
       ),

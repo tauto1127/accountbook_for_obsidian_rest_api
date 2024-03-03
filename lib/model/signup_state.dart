@@ -11,6 +11,7 @@ class SignupState with _$SignupState {
     String? portHintText,
     String? hintText,
     @Default(false) bool isChecking,
+    @Default(false) bool isSuccessful,
   }) = _SignupState;
 
   factory SignupState.fromJson(Map<String, dynamic> json) =>

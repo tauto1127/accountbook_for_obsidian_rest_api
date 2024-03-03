@@ -1,3 +1,4 @@
+import 'package:accountbook_for_obsidian_rest_api/view/post.dart';
 import 'package:accountbook_for_obsidian_rest_api/view/signup.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +16,13 @@ void main() {
                     if (ref.watch(settingsViewModelProvider).token == null) {
                       return const SignUpWidget();
                     } else {
-                      return const MyApp();
+                      return const Post();
                     }
                   },
                 );
               },
             ),
+        'home': (context) => const Post(),
       }),
     ),
   );

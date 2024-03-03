@@ -1,3 +1,4 @@
+import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/signup_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
 import 'package:flutter/material.dart';
@@ -39,15 +40,31 @@ class SignupViewModel extends StateNotifier<SignupState> {
     }
   }
 
+  void _writeTextFieldToState() {
+    state = state.copyWith(
+        settingsState: state.settingsState.copyWith(
+            serverAddress: serverAddressController.text,
+            port: int.tryParse(portController.text) ?? defaultPort,
+            token: tokenController.text));
+  }
+
   void checkConnection() async {
     state = state.copyWith(isChecking: true);
 
     ProviderContainer container = ProviderContainer();
     RestApiConnectionResult result = await container
         .read(settingsViewModelProvider.notifier)
-        .checkInvalidServer(serverAddressController.text, tokenController.text,
-            port: int.parse(portController.text));
+        .checkInvalidServer(SettingsState(
+            token: tokenController.text,
+            serverAddress: serverAddressController.text,
+            port: int.tryParse(portController.text) ?? defaultPort));
 
-    state = state.copyWith(hintText: result.errorMessage, isChecking: false);
+    state = state.copyWith(
+        hintText: result.errorMessage,
+        isChecking: false,
+        isSuccessful: result.status == RestApiConnectionStatus.success);
+    if (state.isSuccessful) {
+      _writeTextFieldToState();
+    }
   }
 }

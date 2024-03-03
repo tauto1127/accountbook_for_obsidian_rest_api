@@ -37,15 +37,24 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
   }
 
   Future<RestApiConnectionResult> checkInvalidServer(
-      String serverAddress, String token,
-      {int port = defaultPort}) async {
+      SettingsState? settingState) async {
+    SettingsState setting = settingState ?? state;
+
     // 接続のチェックを行うロジックを実装する
     try {
-      Uri uri = Uri.parse("$serverAddress:$port");
+      Uri uri = Uri.parse("${setting.serverAddress}:${setting.port}");
+      debugPrint("$setting.token");
 
-      Response response = await get(uri,
-          headers: {"Authorization": authorizationHeaderPrefix + token});
-      debugPrint("serverAddress: $serverAddress, port: $port, token: $token");
+      if (setting.token == null) {
+        return RestApiConnectionResult(
+            RestApiConnectionStatus.invalidToken, 'Invalid token');
+      }
+
+      Response response = await get(uri, headers: {
+        "Authorization": authorizationHeaderPrefix + setting.token!
+      });
+      debugPrint(
+          "check connection ¥n serverAddress: ${setting.serverAddress}, port: ${setting.port}, token: ${setting.token}");
 
       if (response.statusCode != 200) {
         return RestApiConnectionResult(RestApiConnectionStatus.connectionError,

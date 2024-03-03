@@ -13,6 +13,7 @@ _$SignupStateImpl _$$SignupStateImplFromJson(Map<String, dynamic> json) =>
       portHintText: json['portHintText'] as String?,
       hintText: json['hintText'] as String?,
       isChecking: json['isChecking'] as bool? ?? false,
+      isSuccessful: json['isSuccessful'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$SignupStateImplToJson(_$SignupStateImpl instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$$SignupStateImplToJson(_$SignupStateImpl instance) =>
       'portHintText': instance.portHintText,
       'hintText': instance.hintText,
       'isChecking': instance.isChecking,
+      'isSuccessful': instance.isSuccessful,
     };

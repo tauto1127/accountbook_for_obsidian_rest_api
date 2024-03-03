@@ -24,6 +24,7 @@ mixin _$SignupState {
   String? get portHintText => throw _privateConstructorUsedError;
   String? get hintText => throw _privateConstructorUsedError;
   bool get isChecking => throw _privateConstructorUsedError;
+  bool get isSuccessful => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,8 @@ abstract class $SignupStateCopyWith<$Res> {
       {SettingsState settingsState,
       String? portHintText,
       String? hintText,
-      bool isChecking});
+      bool isChecking,
+      bool isSuccessful});
 
   $SettingsStateCopyWith<$Res> get settingsState;
 }
@@ -63,6 +65,7 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
     Object? portHintText = freezed,
     Object? hintText = freezed,
     Object? isChecking = null,
+    Object? isSuccessful = null,
   }) {
     return _then(_value.copyWith(
       settingsState: null == settingsState
@@ -80,6 +83,10 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
       isChecking: null == isChecking
           ? _value.isChecking
           : isChecking // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccessful: null == isSuccessful
+          ? _value.isSuccessful
+          : isSuccessful // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -105,7 +112,8 @@ abstract class _$$SignupStateImplCopyWith<$Res>
       {SettingsState settingsState,
       String? portHintText,
       String? hintText,
-      bool isChecking});
+      bool isChecking,
+      bool isSuccessful});
 
   @override
   $SettingsStateCopyWith<$Res> get settingsState;
@@ -126,6 +134,7 @@ class __$$SignupStateImplCopyWithImpl<$Res>
     Object? portHintText = freezed,
     Object? hintText = freezed,
     Object? isChecking = null,
+    Object? isSuccessful = null,
   }) {
     return _then(_$SignupStateImpl(
       settingsState: null == settingsState
@@ -144,6 +153,10 @@ class __$$SignupStateImplCopyWithImpl<$Res>
           ? _value.isChecking
           : isChecking // ignore: cast_nullable_to_non_nullable
               as bool,
+      isSuccessful: null == isSuccessful
+          ? _value.isSuccessful
+          : isSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -155,7 +168,8 @@ class _$SignupStateImpl implements _SignupState {
       {required this.settingsState,
       this.portHintText,
       this.hintText,
-      this.isChecking = false});
+      this.isChecking = false,
+      this.isSuccessful = false});
 
   factory _$SignupStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$SignupStateImplFromJson(json);
@@ -169,10 +183,13 @@ class _$SignupStateImpl implements _SignupState {
   @override
   @JsonKey()
   final bool isChecking;
+  @override
+  @JsonKey()
+  final bool isSuccessful;
 
   @override
   String toString() {
-    return 'SignupState(settingsState: $settingsState, portHintText: $portHintText, hintText: $hintText, isChecking: $isChecking)';
+    return 'SignupState(settingsState: $settingsState, portHintText: $portHintText, hintText: $hintText, isChecking: $isChecking, isSuccessful: $isSuccessful)';
   }
 
   @override
@@ -187,13 +204,15 @@ class _$SignupStateImpl implements _SignupState {
             (identical(other.hintText, hintText) ||
                 other.hintText == hintText) &&
             (identical(other.isChecking, isChecking) ||
-                other.isChecking == isChecking));
+                other.isChecking == isChecking) &&
+            (identical(other.isSuccessful, isSuccessful) ||
+                other.isSuccessful == isSuccessful));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, settingsState, portHintText, hintText, isChecking);
+  int get hashCode => Object.hash(runtimeType, settingsState, portHintText,
+      hintText, isChecking, isSuccessful);
 
   @JsonKey(ignore: true)
   @override
@@ -214,7 +233,8 @@ abstract class _SignupState implements SignupState {
       {required final SettingsState settingsState,
       final String? portHintText,
       final String? hintText,
-      final bool isChecking}) = _$SignupStateImpl;
+      final bool isChecking,
+      final bool isSuccessful}) = _$SignupStateImpl;
 
   factory _SignupState.fromJson(Map<String, dynamic> json) =
       _$SignupStateImpl.fromJson;
@@ -227,6 +247,8 @@ abstract class _SignupState implements SignupState {
   String? get hintText;
   @override
   bool get isChecking;
+  @override
+  bool get isSuccessful;
   @override
   @JsonKey(ignore: true)
   _$$SignupStateImplCopyWith<_$SignupStateImpl> get copyWith =>
