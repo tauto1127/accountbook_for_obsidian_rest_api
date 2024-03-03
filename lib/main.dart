@@ -1,5 +1,6 @@
 import 'package:accountbook_for_obsidian_rest_api/view/post.dart';
 import 'package:accountbook_for_obsidian_rest_api/view/signup.dart';
+import 'package:accountbook_for_obsidian_rest_api/view/template_editor.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,6 +24,7 @@ void main() {
               },
             ),
         'home': (context) => const Post(),
+        'template_editor': (context) => TemplateEditor(),
       }),
     ),
   );
