@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 
 const int defaultPort = 27124;
+const String authorizationHeaderPrefix = "Bearer ";
 
 final settingsViewModelProvider =
     StateNotifierProvider<SettingsViewModel, SettingsState>(
@@ -41,8 +42,11 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
     // 接続のチェックを行うロジックを実装する
     try {
       Uri uri = Uri.parse("$serverAddress:$port");
-      Response response = await get(uri);
+
+      Response response = await get(uri,
+          headers: {"Authorization": authorizationHeaderPrefix + token});
       debugPrint("serverAddress: $serverAddress, port: $port, token: $token");
+
       if (response.statusCode != 200) {
         return RestApiConnectionResult(RestApiConnectionStatus.connectionError,
             'Connection error. Status code: ${response.statusCode}');

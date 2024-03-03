@@ -23,6 +23,7 @@ mixin _$SignupState {
   SettingsState get settingsState => throw _privateConstructorUsedError;
   String? get portHintText => throw _privateConstructorUsedError;
   String? get hintText => throw _privateConstructorUsedError;
+  bool get isChecking => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,10 @@ abstract class $SignupStateCopyWith<$Res> {
       _$SignupStateCopyWithImpl<$Res, SignupState>;
   @useResult
   $Res call(
-      {SettingsState settingsState, String? portHintText, String? hintText});
+      {SettingsState settingsState,
+      String? portHintText,
+      String? hintText,
+      bool isChecking});
 
   $SettingsStateCopyWith<$Res> get settingsState;
 }
@@ -58,6 +62,7 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
     Object? settingsState = null,
     Object? portHintText = freezed,
     Object? hintText = freezed,
+    Object? isChecking = null,
   }) {
     return _then(_value.copyWith(
       settingsState: null == settingsState
@@ -72,6 +77,10 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
               as String?,
+      isChecking: null == isChecking
+          ? _value.isChecking
+          : isChecking // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -93,7 +102,10 @@ abstract class _$$SignupStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {SettingsState settingsState, String? portHintText, String? hintText});
+      {SettingsState settingsState,
+      String? portHintText,
+      String? hintText,
+      bool isChecking});
 
   @override
   $SettingsStateCopyWith<$Res> get settingsState;
@@ -113,6 +125,7 @@ class __$$SignupStateImplCopyWithImpl<$Res>
     Object? settingsState = null,
     Object? portHintText = freezed,
     Object? hintText = freezed,
+    Object? isChecking = null,
   }) {
     return _then(_$SignupStateImpl(
       settingsState: null == settingsState
@@ -127,6 +140,10 @@ class __$$SignupStateImplCopyWithImpl<$Res>
           ? _value.hintText
           : hintText // ignore: cast_nullable_to_non_nullable
               as String?,
+      isChecking: null == isChecking
+          ? _value.isChecking
+          : isChecking // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -135,7 +152,10 @@ class __$$SignupStateImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SignupStateImpl implements _SignupState {
   _$SignupStateImpl(
-      {required this.settingsState, this.portHintText, this.hintText});
+      {required this.settingsState,
+      this.portHintText,
+      this.hintText,
+      this.isChecking = false});
 
   factory _$SignupStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$SignupStateImplFromJson(json);
@@ -146,10 +166,13 @@ class _$SignupStateImpl implements _SignupState {
   final String? portHintText;
   @override
   final String? hintText;
+  @override
+  @JsonKey()
+  final bool isChecking;
 
   @override
   String toString() {
-    return 'SignupState(settingsState: $settingsState, portHintText: $portHintText, hintText: $hintText)';
+    return 'SignupState(settingsState: $settingsState, portHintText: $portHintText, hintText: $hintText, isChecking: $isChecking)';
   }
 
   @override
@@ -162,13 +185,15 @@ class _$SignupStateImpl implements _SignupState {
             (identical(other.portHintText, portHintText) ||
                 other.portHintText == portHintText) &&
             (identical(other.hintText, hintText) ||
-                other.hintText == hintText));
+                other.hintText == hintText) &&
+            (identical(other.isChecking, isChecking) ||
+                other.isChecking == isChecking));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, settingsState, portHintText, hintText);
+  int get hashCode => Object.hash(
+      runtimeType, settingsState, portHintText, hintText, isChecking);
 
   @JsonKey(ignore: true)
   @override
@@ -188,7 +213,8 @@ abstract class _SignupState implements SignupState {
   factory _SignupState(
       {required final SettingsState settingsState,
       final String? portHintText,
-      final String? hintText}) = _$SignupStateImpl;
+      final String? hintText,
+      final bool isChecking}) = _$SignupStateImpl;
 
   factory _SignupState.fromJson(Map<String, dynamic> json) =
       _$SignupStateImpl.fromJson;
@@ -199,6 +225,8 @@ abstract class _SignupState implements SignupState {
   String? get portHintText;
   @override
   String? get hintText;
+  @override
+  bool get isChecking;
   @override
   @JsonKey(ignore: true)
   _$$SignupStateImplCopyWith<_$SignupStateImpl> get copyWith =>

@@ -40,11 +40,14 @@ class SignupViewModel extends StateNotifier<SignupState> {
   }
 
   void checkConnection() async {
+    state = state.copyWith(isChecking: true);
+
     ProviderContainer container = ProviderContainer();
     RestApiConnectionResult result = await container
         .read(settingsViewModelProvider.notifier)
         .checkInvalidServer(serverAddressController.text, tokenController.text,
             port: int.parse(portController.text));
-    state = state.copyWith(hintText: result.errorMessage);
+
+    state = state.copyWith(hintText: result.errorMessage, isChecking: false);
   }
 }

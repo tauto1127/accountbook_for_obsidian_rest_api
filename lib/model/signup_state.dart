@@ -6,10 +6,12 @@ part 'signup_state.g.dart';
 
 @freezed
 class SignupState with _$SignupState {
-  factory SignupState(
-      {required SettingsState settingsState,
-      String? portHintText,
-      String? hintText}) = _SignupState;
+  factory SignupState({
+    required SettingsState settingsState,
+    String? portHintText,
+    String? hintText,
+    @Default(false) bool isChecking,
+  }) = _SignupState;
 
   factory SignupState.fromJson(Map<String, dynamic> json) =>
       _$SignupStateFromJson(json);

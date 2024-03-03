@@ -81,12 +81,13 @@ class SignUpWidget extends StatelessWidget {
             Consumer(
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
               return TextButton(
-                  child: const Text("Proceed"),
-                  onPressed: () {
-                    ref
-                        .read(signupViewModelProvider.notifier)
-                        .checkConnection();
-                  });
+                child: ref.watch(signupViewModelProvider).isChecking
+                    ? CircularProgressIndicator()
+                    : const Text('Check Connection'),
+                onPressed: () {
+                  ref.read(signupViewModelProvider.notifier).checkConnection();
+                },
+              );
             }),
             Consumer(
               builder: (context, ref, child) => Text(
