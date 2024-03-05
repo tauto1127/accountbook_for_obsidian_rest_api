@@ -1,5 +1,7 @@
+import 'package:accountbook_for_obsidian_rest_api/view_model/template_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TemplateEditor extends StatelessWidget {
   const TemplateEditor({super.key});
@@ -14,18 +16,36 @@ class TemplateEditor extends StatelessWidget {
         children: [
           Flexible(
             flex: 9,
-            child: TextField(
-              decoration: const InputDecoration(
-                labelText: 'Template',
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 1),
+            child: Consumer(
+                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+              return TextField(
+                expands: true,
+                minLines: null,
+                maxLines: null,
+                controller: ref
+                    .watch(templateViewModelProvider.notifier)
+                    .templateTextFieldController,
+                decoration: InputDecoration(
+                  labelText: 'Template',
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 1),
+                  ),
                 ),
-              ),
-            ),
+              );
+            }),
           ),
           Flexible(
+            fit: FlexFit.tight,
             flex: 1,
-            child: TextButton(onPressed: () {}, child: Text("button")),
+            child: SizedBox.expand(
+              child: TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  fixedSize: const Size(double.infinity, double.infinity),
+                ),
+                child: const Text("apply"),
+              ),
+            ),
           ),
         ],
       ),
