@@ -24,7 +24,7 @@ void main() {
               },
             ),
         'home': (context) => const Post(),
-        'template_editor': (context) => TemplateEditor(),
+        'template_editor': (context) => const TemplateEditor(),
       }),
     ),
   );

@@ -82,7 +82,7 @@ class SignUpWidget extends StatelessWidget {
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
               return TextButton(
                 child: ref.watch(signupViewModelProvider).isChecking
-                    ? CircularProgressIndicator()
+                    ? const CircularProgressIndicator()
                     : const Text('Check Connection'),
                 onPressed: () {
                   ref.read(signupViewModelProvider.notifier).checkConnection();
