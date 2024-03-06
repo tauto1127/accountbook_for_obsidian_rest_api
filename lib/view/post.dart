@@ -1,6 +1,5 @@
 import 'package:accountbook_for_obsidian_rest_api/view_model/template_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Post extends StatelessWidget {

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final templateViewModelProvider =
-    StateNotifierProvider<TemplateViewModel, TemplateState>(
-        (ref) => TemplateViewModel(TemplateState(template: ""), ref));
+    StateNotifierProvider.autoDispose<TemplateViewModel, TemplateState>(
+        (ref) => TemplateViewModel(TemplateState(), ref));
 
 class TemplateViewModel extends StateNotifier<TemplateState> {
   TemplateViewModel(TemplateState state, this.ref) : super(state) {
@@ -18,7 +18,17 @@ class TemplateViewModel extends StateNotifier<TemplateState> {
     ref.read(templateNotifierProvider.notifier).loadTemplate();
   }
 
+  void resetErrorText() async {
+    if (state.errorText != null) {
+      state = state.copyWith(errorText: null);
+    }
+  }
+
   void saveTemplate() async {
+    if (templateTextFieldController.text.isEmpty) {
+      state = state.copyWith(errorText: 'Template is empty');
+      return;
+    }
     ref
         .read(templateNotifierProvider.notifier)
         .saveTemplate(templateTextFieldController.text);

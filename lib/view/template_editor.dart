@@ -13,6 +13,7 @@ class TemplateEditor extends StatelessWidget {
       ),
       body: Column(
         children: [
+          const SizedBox(height: 10),
           Flexible(
             flex: 9,
             child: Consumer(
@@ -21,12 +22,17 @@ class TemplateEditor extends StatelessWidget {
                 expands: true,
                 minLines: null,
                 maxLines: null,
+                textAlignVertical: TextAlignVertical.top,
+                onChanged: (value) => ref
+                    .read(templateViewModelProvider.notifier)
+                    .resetErrorText(),
                 controller: ref
                     .watch(templateViewModelProvider.notifier)
                     .templateTextFieldController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Template',
-                  enabledBorder: OutlineInputBorder(
+                  errorText: ref.watch(templateViewModelProvider).errorText,
+                  border: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 1),
                   ),
                 ),

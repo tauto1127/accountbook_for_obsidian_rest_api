@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TemplateState {
-  String get template => throw _privateConstructorUsedError;
+  String? get errorText => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TemplateStateCopyWith<TemplateState> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $TemplateStateCopyWith<$Res> {
           TemplateState value, $Res Function(TemplateState) then) =
       _$TemplateStateCopyWithImpl<$Res, TemplateState>;
   @useResult
-  $Res call({String template});
+  $Res call({String? errorText});
 }
 
 /// @nodoc
@@ -45,13 +45,13 @@ class _$TemplateStateCopyWithImpl<$Res, $Val extends TemplateState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? template = null,
+    Object? errorText = freezed,
   }) {
     return _then(_value.copyWith(
-      template: null == template
-          ? _value.template
-          : template // ignore: cast_nullable_to_non_nullable
-              as String,
+      errorText: freezed == errorText
+          ? _value.errorText
+          : errorText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -64,7 +64,7 @@ abstract class _$$TemplateStateImplCopyWith<$Res>
       __$$TemplateStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String template});
+  $Res call({String? errorText});
 }
 
 /// @nodoc
@@ -78,13 +78,13 @@ class __$$TemplateStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? template = null,
+    Object? errorText = freezed,
   }) {
     return _then(_$TemplateStateImpl(
-      template: null == template
-          ? _value.template
-          : template // ignore: cast_nullable_to_non_nullable
-              as String,
+      errorText: freezed == errorText
+          ? _value.errorText
+          : errorText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -92,14 +92,14 @@ class __$$TemplateStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TemplateStateImpl implements _TemplateState {
-  _$TemplateStateImpl({required this.template});
+  _$TemplateStateImpl({this.errorText});
 
   @override
-  final String template;
+  final String? errorText;
 
   @override
   String toString() {
-    return 'TemplateState(template: $template)';
+    return 'TemplateState(errorText: $errorText)';
   }
 
   @override
@@ -107,12 +107,12 @@ class _$TemplateStateImpl implements _TemplateState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TemplateStateImpl &&
-            (identical(other.template, template) ||
-                other.template == template));
+            (identical(other.errorText, errorText) ||
+                other.errorText == errorText));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, template);
+  int get hashCode => Object.hash(runtimeType, errorText);
 
   @JsonKey(ignore: true)
   @override
@@ -122,11 +122,10 @@ class _$TemplateStateImpl implements _TemplateState {
 }
 
 abstract class _TemplateState implements TemplateState {
-  factory _TemplateState({required final String template}) =
-      _$TemplateStateImpl;
+  factory _TemplateState({final String? errorText}) = _$TemplateStateImpl;
 
   @override
-  String get template;
+  String? get errorText;
   @override
   @JsonKey(ignore: true)
   _$$TemplateStateImplCopyWith<_$TemplateStateImpl> get copyWith =>

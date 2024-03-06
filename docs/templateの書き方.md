@@ -5,8 +5,8 @@
 {{DD}}：日
 {{W}}：何周目か（月のうち）
 
-{{Category}}：カテゴリー
-{{Price}}：値段
-{{PaymentMethods}}：支払い方法
+{{category}}：カテゴリー
+{{price}}：値段
+{{payment_methods}}：支払い方法
 
-{{Other}}：備考欄
+{{other}}：備考欄
