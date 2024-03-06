@@ -25,7 +25,7 @@ class TemplateEditor extends StatelessWidget {
                 controller: ref
                     .watch(templateViewModelProvider.notifier)
                     .templateTextFieldController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Template',
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 1),
@@ -38,13 +38,18 @@ class TemplateEditor extends StatelessWidget {
             fit: FlexFit.tight,
             flex: 1,
             child: SizedBox.expand(
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  fixedSize: const Size(double.infinity, double.infinity),
-                ),
-                child: const Text("apply"),
-              ),
+              child: Consumer(builder:
+                  (BuildContext context, WidgetRef ref, Widget? child) {
+                return TextButton(
+                  onPressed: () {
+                    ref.read(templateViewModelProvider.notifier).saveTemplate();
+                  },
+                  style: TextButton.styleFrom(
+                    fixedSize: const Size(double.infinity, double.infinity),
+                  ),
+                  child: const Text("apply"),
+                );
+              }),
             ),
           ),
         ],
