@@ -23,6 +23,8 @@ mixin _$SettingsState {
   String? get token => throw _privateConstructorUsedError;
   String? get serverAddress => throw _privateConstructorUsedError;
   int? get port => throw _privateConstructorUsedError;
+  List<String>? get category => throw _privateConstructorUsedError;
+  List<String>? get method => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +38,12 @@ abstract class $SettingsStateCopyWith<$Res> {
           SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res, SettingsState>;
   @useResult
-  $Res call({String? token, String? serverAddress, int? port});
+  $Res call(
+      {String? token,
+      String? serverAddress,
+      int? port,
+      List<String>? category,
+      List<String>? method});
 }
 
 /// @nodoc
@@ -55,6 +62,8 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
     Object? token = freezed,
     Object? serverAddress = freezed,
     Object? port = freezed,
+    Object? category = freezed,
+    Object? method = freezed,
   }) {
     return _then(_value.copyWith(
       token: freezed == token
@@ -69,6 +78,14 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
           ? _value.port
           : port // ignore: cast_nullable_to_non_nullable
               as int?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      method: freezed == method
+          ? _value.method
+          : method // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -81,7 +98,12 @@ abstract class _$$SettingsStateImplCopyWith<$Res>
       __$$SettingsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? token, String? serverAddress, int? port});
+  $Res call(
+      {String? token,
+      String? serverAddress,
+      int? port,
+      List<String>? category,
+      List<String>? method});
 }
 
 /// @nodoc
@@ -98,6 +120,8 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
     Object? token = freezed,
     Object? serverAddress = freezed,
     Object? port = freezed,
+    Object? category = freezed,
+    Object? method = freezed,
   }) {
     return _then(_$SettingsStateImpl(
       token: freezed == token
@@ -112,6 +136,14 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
           ? _value.port
           : port // ignore: cast_nullable_to_non_nullable
               as int?,
+      category: freezed == category
+          ? _value._category
+          : category // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      method: freezed == method
+          ? _value._method
+          : method // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -119,7 +151,14 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SettingsStateImpl implements _SettingsState {
-  _$SettingsStateImpl({this.token, this.serverAddress, this.port});
+  _$SettingsStateImpl(
+      {this.token,
+      this.serverAddress,
+      this.port,
+      final List<String>? category,
+      final List<String>? method})
+      : _category = category,
+        _method = method;
 
   factory _$SettingsStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$SettingsStateImplFromJson(json);
@@ -130,10 +169,29 @@ class _$SettingsStateImpl implements _SettingsState {
   final String? serverAddress;
   @override
   final int? port;
+  final List<String>? _category;
+  @override
+  List<String>? get category {
+    final value = _category;
+    if (value == null) return null;
+    if (_category is EqualUnmodifiableListView) return _category;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _method;
+  @override
+  List<String>? get method {
+    final value = _method;
+    if (value == null) return null;
+    if (_method is EqualUnmodifiableListView) return _method;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'SettingsState(token: $token, serverAddress: $serverAddress, port: $port)';
+    return 'SettingsState(token: $token, serverAddress: $serverAddress, port: $port, category: $category, method: $method)';
   }
 
   @override
@@ -144,12 +202,20 @@ class _$SettingsStateImpl implements _SettingsState {
             (identical(other.token, token) || other.token == token) &&
             (identical(other.serverAddress, serverAddress) ||
                 other.serverAddress == serverAddress) &&
-            (identical(other.port, port) || other.port == port));
+            (identical(other.port, port) || other.port == port) &&
+            const DeepCollectionEquality().equals(other._category, _category) &&
+            const DeepCollectionEquality().equals(other._method, _method));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, token, serverAddress, port);
+  int get hashCode => Object.hash(
+      runtimeType,
+      token,
+      serverAddress,
+      port,
+      const DeepCollectionEquality().hash(_category),
+      const DeepCollectionEquality().hash(_method));
 
   @JsonKey(ignore: true)
   @override
@@ -169,7 +235,9 @@ abstract class _SettingsState implements SettingsState {
   factory _SettingsState(
       {final String? token,
       final String? serverAddress,
-      final int? port}) = _$SettingsStateImpl;
+      final int? port,
+      final List<String>? category,
+      final List<String>? method}) = _$SettingsStateImpl;
 
   factory _SettingsState.fromJson(Map<String, dynamic> json) =
       _$SettingsStateImpl.fromJson;
@@ -180,6 +248,10 @@ abstract class _SettingsState implements SettingsState {
   String? get serverAddress;
   @override
   int? get port;
+  @override
+  List<String>? get category;
+  @override
+  List<String>? get method;
   @override
   @JsonKey(ignore: true)
   _$$SettingsStateImplCopyWith<_$SettingsStateImpl> get copyWith =>
