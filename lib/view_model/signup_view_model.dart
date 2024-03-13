@@ -1,3 +1,4 @@
+import 'package:accountbook_for_obsidian_rest_api/const/shared_preferences_field_nae.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/signup_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
@@ -8,10 +9,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 final signupViewModelProvider =
     StateNotifierProvider.autoDispose<SignupViewModel, SignupState>((ref) =>
         SignupViewModel(
-            SignupState(settingsState: ref.watch(settingsViewModelProvider))));
+            SignupState(settingsState: ref.watch(settingsViewModelProvider)),
+            ref));
 
 class SignupViewModel extends StateNotifier<SignupState> {
-  SignupViewModel(SignupState state) : super(state);
+  AutoDisposeStateNotifierProviderRef ref;
+  SignupViewModel(SignupState state, this.ref) : super(state);
 
   //ここのstateが変わっても，再ビルドはされない
   TextEditingController serverAddressController = TextEditingController();
@@ -27,9 +30,13 @@ class SignupViewModel extends StateNotifier<SignupState> {
       throw Exception("token, serverAddress, port is null");
     }
 
-    await prefs.setString('token', state.settingsState.token!);
-    await prefs.setString('server_addres', state.settingsState.serverAddress!);
-    await prefs.setInt('port', state.settingsState.port!);
+    await prefs.setString(
+        SharedPreferencesFieldName.token.name, state.settingsState.token!);
+    await prefs.setString(SharedPreferencesFieldName.server_address.name,
+        state.settingsState.serverAddress!);
+    await prefs.setInt(
+        SharedPreferencesFieldName.port.name, state.settingsState.port!);
+    ref.read(settingsViewModelProvider.notifier).loadSettings();
   }
 
   void checkPortText(String value) {

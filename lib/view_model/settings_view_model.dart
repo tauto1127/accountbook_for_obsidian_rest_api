@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:accountbook_for_obsidian_rest_api/const/shared_preferences_field_nae.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/rest_api/rest_api_status_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
 import 'package:flutter/widgets.dart';
@@ -23,17 +24,38 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
   void loadSettings() async {
     // Load settings from local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    state = state.copyWith(token: prefs.getString('token'));
+    state = state.copyWith(
+        token: prefs.getString(SharedPreferencesFieldName.token.name),
+        port: prefs.getInt(SharedPreferencesFieldName.port.name) ?? defaultPort,
+        serverAddress:
+            prefs.getString(SharedPreferencesFieldName.server_address.name),
+        category: prefs.getStringList(SharedPreferencesFieldName.category.name),
+        method: prefs.getStringList(SharedPreferencesFieldName.method.name));
   }
 
-  void saveSettings() async {
+  void saveServerSettings() async {
     // Save settings to local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', state.token!);
+    if (await checkInvalidServer(state) != RestApiConnectionStatus.success) {
+      throw Exception('有効ではないサーバーアドレスまたはポートまたはトークン');
+    }
+    await prefs.setString(SharedPreferencesFieldName.token.name, state.token!);
+    await prefs.setInt(
+        SharedPreferencesFieldName.port.name, state.port ?? defaultPort);
+    await prefs.setString(
+        SharedPreferencesFieldName.server_address.name, state.serverAddress!);
   }
 
   void setToken(String value) {
     state = state.copyWith(token: value);
+  }
+
+  void setServerAddress(String value) {
+    state = state.copyWith(serverAddress: value);
+  }
+
+  void setPort(int value) {
+    state = state.copyWith(port: value);
   }
 
   Future<RestApiConnectionResult> checkInvalidServer(
