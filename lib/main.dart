@@ -14,7 +14,9 @@ void main() {
                 return Consumer(
                   builder:
                       (BuildContext context, WidgetRef ref, Widget? child) {
-                    if (ref.watch(settingsViewModelProvider).token == null) {
+                    if (ref.watch(settingsViewModelProvider).token == null ||
+                        ref.watch(settingsViewModelProvider).serverAddress ==
+                            null) {
                       return const SignUpWidget();
                     } else {
                       return const Post();
@@ -91,7 +93,7 @@ class MyApp extends StatelessWidget {
             onPressed: () async {
               // Save the token
               ref.read(settingsViewModelProvider.notifier).setToken(value);
-              ref.read(settingsViewModelProvider.notifier).saveSettings();
+              ref.read(settingsViewModelProvider.notifier).saveServerSettings();
             },
             child: const Text('Save token'),
           );
