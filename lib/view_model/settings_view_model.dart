@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:accountbook_for_obsidian_rest_api/const/default_value.dart';
 import 'package:accountbook_for_obsidian_rest_api/const/shared_preferences_field_nae.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/rest_api/rest_api_status_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
@@ -8,9 +9,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
-
-const int defaultPort = 27124;
-const String authorizationHeaderPrefix = "Bearer ";
 
 final settingsViewModelProvider =
     StateNotifierProvider<SettingsViewModel, SettingsState>(
@@ -26,7 +24,8 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     state = state.copyWith(
         token: prefs.getString(SharedPreferencesFieldName.token.name),
-        port: prefs.getInt(SharedPreferencesFieldName.port.name) ?? defaultPort,
+        port: prefs.getInt(SharedPreferencesFieldName.port.name) ??
+            DefaultValue.defaultPort,
         serverAddress:
             prefs.getString(SharedPreferencesFieldName.server_address.name),
         category: prefs.getStringList(SharedPreferencesFieldName.category.name),
@@ -40,8 +39,8 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
       throw Exception('有効ではないサーバーアドレスまたはポートまたはトークン');
     }
     await prefs.setString(SharedPreferencesFieldName.token.name, state.token!);
-    await prefs.setInt(
-        SharedPreferencesFieldName.port.name, state.port ?? defaultPort);
+    await prefs.setInt(SharedPreferencesFieldName.port.name,
+        state.port ?? DefaultValue.defaultPort);
     await prefs.setString(
         SharedPreferencesFieldName.server_address.name, state.serverAddress!);
   }
@@ -73,7 +72,7 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
       }
 
       Response response = await get(uri, headers: {
-        "Authorization": authorizationHeaderPrefix + setting.token!
+        "Authorization": DefaultValue.authorizationHeaderPrefix + setting.token!
       });
       debugPrint(
           "check connection ¥n serverAddress: ${setting.serverAddress}, port: ${setting.port}, token: ${setting.token}");

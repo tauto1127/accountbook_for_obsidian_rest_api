@@ -1,3 +1,4 @@
+import 'package:accountbook_for_obsidian_rest_api/const/default_value.dart';
 import 'package:accountbook_for_obsidian_rest_api/const/shared_preferences_field_nae.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/signup_state.dart';
@@ -51,7 +52,7 @@ class SignupViewModel extends StateNotifier<SignupState> {
     state = state.copyWith(
         settingsState: state.settingsState.copyWith(
             serverAddress: serverAddressController.text,
-            port: int.tryParse(portController.text) ?? defaultPort,
+            port: int.tryParse(portController.text) ?? DefaultValue.defaultPort,
             token: tokenController.text));
   }
 
@@ -64,7 +65,8 @@ class SignupViewModel extends StateNotifier<SignupState> {
         .checkInvalidServer(SettingsState(
             token: tokenController.text,
             serverAddress: serverAddressController.text,
-            port: int.tryParse(portController.text) ?? defaultPort));
+            port:
+                int.tryParse(portController.text) ?? DefaultValue.defaultPort));
 
     state = state.copyWith(
         hintText: result.errorMessage,
