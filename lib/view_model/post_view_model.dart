@@ -28,12 +28,10 @@ class PostViewModel extends StateNotifier<PostState> {
   }
 
   void addPost() async {}
-  void generatePost() {
+  String generatePost() {
     state = state.copyWith(
         other: otherController.text, price: int.parse(priceController.text));
-    String out =
-        ref.read(templateNotifierProvider.notifier).generatePost(state);
-    print(out);
+    return ref.read(templateNotifierProvider.notifier).generatePost(state);
   }
 
   void changeCategory(String? value) => state = state.copyWith(category: value);
