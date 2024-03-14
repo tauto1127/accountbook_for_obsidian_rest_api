@@ -18,9 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PostState {
   DateTime get date => throw _privateConstructorUsedError;
   int get week => throw _privateConstructorUsedError;
-  List<String> get category => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
-  String get method => throw _privateConstructorUsedError;
+  String? get method => throw _privateConstructorUsedError;
   String get other => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -36,9 +36,9 @@ abstract class $PostStateCopyWith<$Res> {
   $Res call(
       {DateTime date,
       int week,
-      List<String> category,
+      String? category,
       int price,
-      String method,
+      String? method,
       String other});
 }
 
@@ -57,9 +57,9 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
   $Res call({
     Object? date = null,
     Object? week = null,
-    Object? category = null,
+    Object? category = freezed,
     Object? price = null,
-    Object? method = null,
+    Object? method = freezed,
     Object? other = null,
   }) {
     return _then(_value.copyWith(
@@ -71,18 +71,18 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as int,
-      category: null == category
+      category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as String?,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      method: null == method
+      method: freezed == method
           ? _value.method
           : method // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       other: null == other
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
@@ -102,9 +102,9 @@ abstract class _$$PostStateImplCopyWith<$Res>
   $Res call(
       {DateTime date,
       int week,
-      List<String> category,
+      String? category,
       int price,
-      String method,
+      String? method,
       String other});
 }
 
@@ -121,9 +121,9 @@ class __$$PostStateImplCopyWithImpl<$Res>
   $Res call({
     Object? date = null,
     Object? week = null,
-    Object? category = null,
+    Object? category = freezed,
     Object? price = null,
-    Object? method = null,
+    Object? method = freezed,
     Object? other = null,
   }) {
     return _then(_$PostStateImpl(
@@ -135,18 +135,18 @@ class __$$PostStateImplCopyWithImpl<$Res>
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as int,
-      category: null == category
-          ? _value._category
+      category: freezed == category
+          ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as String?,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      method: null == method
+      method: freezed == method
           ? _value.method
           : method // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       other: null == other
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
@@ -161,28 +161,21 @@ class _$PostStateImpl implements _PostState {
   _$PostStateImpl(
       {required this.date,
       required this.week,
-      required final List<String> category,
+      this.category,
       required this.price,
-      required this.method,
-      required this.other})
-      : _category = category;
+      this.method,
+      required this.other});
 
   @override
   final DateTime date;
   @override
   final int week;
-  final List<String> _category;
   @override
-  List<String> get category {
-    if (_category is EqualUnmodifiableListView) return _category;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_category);
-  }
-
+  final String? category;
   @override
   final int price;
   @override
-  final String method;
+  final String? method;
   @override
   final String other;
 
@@ -198,15 +191,16 @@ class _$PostStateImpl implements _PostState {
             other is _$PostStateImpl &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.week, week) || other.week == week) &&
-            const DeepCollectionEquality().equals(other._category, _category) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.method, method) || other.method == method) &&
             (identical(other.other, this.other) || other.other == this.other));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, date, week,
-      const DeepCollectionEquality().hash(_category), price, method, other);
+  int get hashCode =>
+      Object.hash(runtimeType, date, week, category, price, method, other);
 
   @JsonKey(ignore: true)
   @override
@@ -219,9 +213,9 @@ abstract class _PostState implements PostState {
   factory _PostState(
       {required final DateTime date,
       required final int week,
-      required final List<String> category,
+      final String? category,
       required final int price,
-      required final String method,
+      final String? method,
       required final String other}) = _$PostStateImpl;
 
   @override
@@ -229,11 +223,11 @@ abstract class _PostState implements PostState {
   @override
   int get week;
   @override
-  List<String> get category;
+  String? get category;
   @override
   int get price;
   @override
-  String get method;
+  String? get method;
   @override
   String get other;
   @override

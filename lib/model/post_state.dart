@@ -7,9 +7,9 @@ class PostState with _$PostState {
   factory PostState({
     required DateTime date,
     required int week,
-    required List<String> category,
+    String? category,
     required int price,
-    required String method,
+    String? method,
     required String other,
   }) = _PostState;
 }

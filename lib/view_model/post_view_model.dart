@@ -9,14 +9,18 @@ class PostViewModel extends StateNotifier<PostState> {
       : super(PostState(
             date: DateTime.now(),
             week: _getWeekNumber(DateTime.now()),
-            category: [],
+            category: null,
             price: 0,
-            method: "クレジットカード",
+            method: null,
             other: "other")) {
     dateController.text = DateTime.now().toString();
+    priceController.text = state.price.toString();
+    otherController.text = state.other;
   }
 
   TextEditingController dateController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController otherController = TextEditingController();
 
   void changeDate(DateTime date) {
     state = state.copyWith(date: date, week: _getWeekNumber(date));
@@ -25,11 +29,15 @@ class PostViewModel extends StateNotifier<PostState> {
 
   void addPost() async {}
   void generatePost() {
+    state = state.copyWith(
+        other: otherController.text, price: int.parse(priceController.text));
     String out =
         ref.read(templateNotifierProvider.notifier).generatePost(state);
     print(out);
-    state.copyWith(other: out);
   }
+
+  void changeCategory(String? value) => state = state.copyWith(category: value);
+  void changeMethod(String? value) => state = state.copyWith(method: value);
 }
 
 final postViewModelProvider =

@@ -51,39 +51,90 @@ class Post extends StatelessWidget {
                   Text('Week: ${ref.watch(postViewModelProvider).week}'),
                 ],
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Category',
-                ),
-                initialValue:
-                    ref.watch(postViewModelProvider).category.toString(),
-              ),
+//              TextFormField(
+//                decoration: InputDecoration(
+//                  labelText: 'Category',
+//                ),
+//                initialValue:
+//                    ref.watch(postViewModelProvider).category.toString(),
+//              ),
+
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Price',
                 ),
-                initialValue: ref.watch(postViewModelProvider).price.toString(),
+                //initialValue: ref.watch(postViewModelProvider).price.toString(),
+                validator: (String? value) {
+                  if (value == null) {
+                    return '数字を入力してください';
+                  }
+                  if (int.tryParse(value) == null) {
+                    return '数字を入力してください';
+                  }
+                  return null;
+                },
+                controller:
+                    ref.read(postViewModelProvider.notifier).priceController,
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Method',
-                ),
-                initialValue:
-                    ref.watch(postViewModelProvider).method.toString(),
-              ),
+              _dropdownPostItem(
+                  "Category",
+                  DropdownButton(
+                    value: ref.watch(postViewModelProvider).category,
+                    items: ref
+                        .watch(settingsViewModelProvider)
+                        .category!
+                        .map((String value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      ref.read(postViewModelProvider.notifier).changeCategory(
+                          value ?? ref.watch(postViewModelProvider).category);
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: () => ref
+                        .read(postViewModelProvider.notifier)
+                        .changeCategory(null),
+                  )),
+              _dropdownPostItem(
+                  "Method",
+                  DropdownButton(
+                      value: ref.watch(postViewModelProvider).method,
+                      items: ref
+                          .watch(settingsViewModelProvider)
+                          .method!
+                          .map((String str) => DropdownMenuItem(
+                                child: Text(str),
+                                value: str,
+                              ))
+                          .toList(),
+                      onChanged: (value) => ref
+                          .read(postViewModelProvider.notifier)
+                          .changeMethod(value)),
+                  IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: () => ref
+                        .read(postViewModelProvider.notifier)
+                        .changeMethod(null),
+                  )),
+
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Other',
                 ),
-                initialValue: ref.watch(postViewModelProvider).other.toString(),
+                controller:
+                    ref.read(postViewModelProvider.notifier).otherController,
               ),
               TextButton(
                 child: Text(
                   "ポスト",
                 ),
                 onPressed: () {
-                  print(ref.watch(settingsViewModelProvider).token);
-                  //ref.read(postViewModelProvider.notifier).generatePost();
+                  ref.read(postViewModelProvider.notifier).generatePost();
                 },
               ),
               Text(ref.watch(postViewModelProvider).other),
@@ -93,6 +144,31 @@ class Post extends StatelessWidget {
           );
         }),
       ),
+    );
+  }
+
+  Widget _dropdownPostItem(
+      String label, DropdownButton dropdownButton, IconButton clearButton) {
+    return Column(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          child: Text(
+            label,
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        Row(
+          children: [
+            dropdownButton,
+            clearButton,
+          ],
+        ),
+      ],
     );
   }
 }
