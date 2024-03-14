@@ -10,13 +10,11 @@ final templateNotifierProvider =
         (ref) => TemplateNotifier("", ref));
 
 class TemplateNotifier extends StateNotifier<String> {
-  TemplateNotifier(String template, this.ref) : super(template) {
-    loadTemplate();
-  }
+  TemplateNotifier(String template, this.ref) : super(template);
 
   final StateNotifierProviderRef ref;
 
-  void loadTemplate() async {
+  Future<void> loadTemplate() async {
     // Load settings from local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     state = prefs.getString('template') ?? defaultTemplate;
@@ -36,6 +34,7 @@ class TemplateNotifier extends StateNotifier<String> {
   }
 
   String generatePost(PostState postState) {
+    if (state.isEmpty) throw Exception("state is null");
     return state
         .replaceAll(r"{{YYYY}}", postState.date.year.toString())
         .replaceAll(r"{{M}}", postState.date.month.toString())
@@ -45,7 +44,7 @@ class TemplateNotifier extends StateNotifier<String> {
         .replaceAll(r"{{W}}", postState.week.toString())
         .replaceAll(r"{{category}}", postState.category.toString())
         .replaceAll(r"{{price}}", postState.price.toString())
-        .replaceAll(r"{{method}}", postState.method)
+        .replaceAll(r"{{method}}", postState.method ?? "")
         .replaceAll(r"{{other}}", postState.other);
   }
 }

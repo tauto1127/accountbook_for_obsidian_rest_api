@@ -15,11 +15,9 @@ final settingsViewModelProvider =
         (ref) => SettingsViewModel(SettingsState()));
 
 class SettingsViewModel extends StateNotifier<SettingsState> {
-  SettingsViewModel(SettingsState state) : super(state) {
-    loadSettings();
-  }
+  SettingsViewModel(SettingsState state) : super(state);
 
-  void loadSettings() async {
+  Future<void> loadSettings() async {
     // Load settings from local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     state = state.copyWith(
@@ -28,8 +26,12 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
             DefaultValue.defaultPort,
         serverAddress:
             prefs.getString(SharedPreferencesFieldName.server_address.name),
-        category: prefs.getStringList(SharedPreferencesFieldName.category.name),
-        method: prefs.getStringList(SharedPreferencesFieldName.method.name));
+        category:
+            prefs.getStringList(SharedPreferencesFieldName.category.name) ??
+                DefaultValue.defaultCategory,
+        method: prefs.getStringList(SharedPreferencesFieldName.method.name) ??
+            DefaultValue.defaultMethod);
+    print("settings loaded: $state");
   }
 
   void saveServerSettings() async {

@@ -1,15 +1,20 @@
 import 'package:accountbook_for_obsidian_rest_api/view/post.dart';
 import 'package:accountbook_for_obsidian_rest_api/view/signup.dart';
+import 'package:accountbook_for_obsidian_rest_api/view/splash.dart';
 import 'package:accountbook_for_obsidian_rest_api/view/template_editor.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
+import 'package:accountbook_for_obsidian_rest_api/view_model/template_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
+void main() async {
   runApp(
     ProviderScope(
       child: MaterialApp(routes: <String, WidgetBuilder>{
-        '/': (BuildContext context) => Builder(
+        '/': (BuildContext context) {
+          return const Splash();
+        },
+        '/home': (BuildContext context) => Builder(
               builder: (BuildContext context) {
                 return Consumer(
                   builder:
@@ -25,7 +30,6 @@ void main() {
                 );
               },
             ),
-        'home': (context) => const Post(),
         'template_editor': (context) => const TemplateEditor(),
       }),
     ),
