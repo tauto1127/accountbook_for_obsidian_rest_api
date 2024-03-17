@@ -37,7 +37,7 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
   void saveServerSettings() async {
     // Save settings to local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (await ObsidianRepository.checkInvalidServer(state) !=
+    if ((await ObsidianRepository.checkInvalidServer(state)).status !=
         RestApiConnectionStatus.success) {
       throw Exception('有効ではないサーバーアドレスまたはポートまたはトークン');
     }
