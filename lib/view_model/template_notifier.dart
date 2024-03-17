@@ -42,6 +42,7 @@ class TemplateNotifier extends StateNotifier<String> {
         .replaceAll(r"{{D}}", postState.date.day.toString())
         .replaceAll(r"{{DD}}", postState.date.day.toString().padLeft(2, '0'))
         .replaceAll(r"{{W}}", postState.week.toString())
+        .replaceAll(r"{{place}}", postState.place)
         .replaceAll(r"{{category}}", postState.category ?? "")
         .replaceAll(r"{{price}}", postState.price.toString())
         .replaceAll(r"{{method}}", postState.method ?? "")

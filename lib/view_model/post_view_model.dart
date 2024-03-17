@@ -13,12 +13,15 @@ class PostViewModel extends StateNotifier<PostState> {
             category: null,
             price: 0,
             method: null,
-            other: "other")) {
+            other: "",
+            place: '')) {
+    placeController.text = state.place;
     dateController.text = DateTime.now().toString();
     priceController.text = state.price.toString();
     otherController.text = state.other;
   }
 
+  TextEditingController placeController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController otherController = TextEditingController();
@@ -29,6 +32,7 @@ class PostViewModel extends StateNotifier<PostState> {
   }
 
   void addPost(String body, BuildContext context) async {
+    syncState();
     ObsidianRepository.addPost(body, state, context);
   }
 
@@ -36,6 +40,13 @@ class PostViewModel extends StateNotifier<PostState> {
     state = state.copyWith(
         other: otherController.text, price: int.parse(priceController.text));
     return ref.read(templateNotifierProvider.notifier).generatePost(state);
+  }
+
+  void syncState() {
+    state = state.copyWith(
+        place: placeController.text,
+        other: otherController.text,
+        price: int.parse(priceController.text));
   }
 
   void changeCategory(String? value) => state = state.copyWith(category: value);

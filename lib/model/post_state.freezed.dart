@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PostState {
+  String get place => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   int get week => throw _privateConstructorUsedError;
   String? get category => throw _privateConstructorUsedError;
@@ -34,7 +35,8 @@ abstract class $PostStateCopyWith<$Res> {
       _$PostStateCopyWithImpl<$Res, PostState>;
   @useResult
   $Res call(
-      {DateTime date,
+      {String place,
+      DateTime date,
       int week,
       String? category,
       int price,
@@ -55,6 +57,7 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? place = null,
     Object? date = null,
     Object? week = null,
     Object? category = freezed,
@@ -63,6 +66,10 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
     Object? other = null,
   }) {
     return _then(_value.copyWith(
+      place: null == place
+          ? _value.place
+          : place // ignore: cast_nullable_to_non_nullable
+              as String,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -100,7 +107,8 @@ abstract class _$$PostStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {DateTime date,
+      {String place,
+      DateTime date,
       int week,
       String? category,
       int price,
@@ -119,6 +127,7 @@ class __$$PostStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? place = null,
     Object? date = null,
     Object? week = null,
     Object? category = freezed,
@@ -127,6 +136,10 @@ class __$$PostStateImplCopyWithImpl<$Res>
     Object? other = null,
   }) {
     return _then(_$PostStateImpl(
+      place: null == place
+          ? _value.place
+          : place // ignore: cast_nullable_to_non_nullable
+              as String,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -159,13 +172,16 @@ class __$$PostStateImplCopyWithImpl<$Res>
 
 class _$PostStateImpl implements _PostState {
   _$PostStateImpl(
-      {required this.date,
+      {required this.place,
+      required this.date,
       required this.week,
       this.category,
       required this.price,
       this.method,
       required this.other});
 
+  @override
+  final String place;
   @override
   final DateTime date;
   @override
@@ -181,7 +197,7 @@ class _$PostStateImpl implements _PostState {
 
   @override
   String toString() {
-    return 'PostState(date: $date, week: $week, category: $category, price: $price, method: $method, other: $other)';
+    return 'PostState(place: $place, date: $date, week: $week, category: $category, price: $price, method: $method, other: $other)';
   }
 
   @override
@@ -189,6 +205,7 @@ class _$PostStateImpl implements _PostState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PostStateImpl &&
+            (identical(other.place, place) || other.place == place) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.week, week) || other.week == week) &&
             (identical(other.category, category) ||
@@ -199,8 +216,8 @@ class _$PostStateImpl implements _PostState {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, date, week, category, price, method, other);
+  int get hashCode => Object.hash(
+      runtimeType, place, date, week, category, price, method, other);
 
   @JsonKey(ignore: true)
   @override
@@ -211,13 +228,16 @@ class _$PostStateImpl implements _PostState {
 
 abstract class _PostState implements PostState {
   factory _PostState(
-      {required final DateTime date,
+      {required final String place,
+      required final DateTime date,
       required final int week,
       final String? category,
       required final int price,
       final String? method,
       required final String other}) = _$PostStateImpl;
 
+  @override
+  String get place;
   @override
   DateTime get date;
   @override

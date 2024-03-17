@@ -29,6 +29,15 @@ class Post extends StatelessWidget {
           return Form(
             child: Column(
               children: [
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Place',
+                  ),
+                  controller:
+                      ref.read(postViewModelProvider.notifier).placeController,
+                  validator: (value) =>
+                      value == null || value.isEmpty ? '場所を入力してください' : null,
+                ),
                 Row(
                   children: [
                     Flexible(

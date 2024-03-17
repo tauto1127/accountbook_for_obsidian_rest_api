@@ -5,6 +5,7 @@ part 'post_state.freezed.dart';
 @freezed
 class PostState with _$PostState {
   factory PostState({
+    required String place,
     required DateTime date,
     required int week,
     String? category,

@@ -64,13 +64,13 @@ class ObsidianRepository {
 
   static Future<RestApiConnectionResult> addPost(
       String body, PostState postState, BuildContext context) async {
-    //TODO 店名も渡す
+    String fileName =
+        '${postState.place}_${postState.date.year}年${postState.date.month}月${postState.date.day}日.md';
     SettingsState settings =
         ProviderScope.containerOf(context).read(settingsViewModelProvider);
     debugPrint(
         'token: ${settings.token}, serverAddress: ${settings.serverAddress}, port: ${settings.port}');
-    Uri uri = Uri.parse(
-        '${_getUri(settings).toString()}/vault/${postState.date.toString()}${postState.price}.md');
+    Uri uri = Uri.parse('${_getUri(settings).toString()}/vault/$fileName');
 
     Response res = await post(headers: {
       "Authorization": DefaultValue.authorizationHeaderPrefix + settings.token!,
