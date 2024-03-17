@@ -15,7 +15,13 @@ class Post extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () => Navigator.of(context).pushNamed('template_editor'),
-          )),
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.computer),
+              onPressed: () {},
+            ),
+          ]),
       body: SingleChildScrollView(
         child: Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {

@@ -60,10 +60,8 @@ class SignupViewModel extends StateNotifier<SignupState> {
   void checkConnection() async {
     state = state.copyWith(isChecking: true);
 
-    ProviderContainer container = ProviderContainer();
-    RestApiConnectionResult result = await container
-        .read(settingsViewModelProvider.notifier)
-        .checkInvalidServer(SettingsState(
+    RestApiConnectionResult result =
+        await ObsidianRepository.checkInvalidServer(SettingsState(
             token: tokenController.text,
             serverAddress: serverAddressController.text,
             port:

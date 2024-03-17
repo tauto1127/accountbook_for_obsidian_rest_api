@@ -104,7 +104,7 @@ class SignUpWidget extends StatelessWidget {
                         ref
                             .read(signupViewModelProvider.notifier)
                             .saveSettings();
-                        Navigator.of(context).pushNamed('home');
+                        Navigator.of(context).pushNamed('/');
                       });
                 } else {
                   return const SizedBox.shrink();

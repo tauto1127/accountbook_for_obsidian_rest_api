@@ -22,23 +22,26 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
     // Load settings from local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     state = state.copyWith(
-        token: prefs.getString(SharedPreferencesFieldName.token.name),
-        port: prefs.getInt(SharedPreferencesFieldName.port.name) ??
-            DefaultValue.defaultPort,
-        serverAddress:
-            prefs.getString(SharedPreferencesFieldName.server_address.name),
-        category:
-            prefs.getStringList(SharedPreferencesFieldName.category.name) ??
-                DefaultValue.defaultCategory,
-        method: prefs.getStringList(SharedPreferencesFieldName.method.name) ??
-            DefaultValue.defaultMethod);
+      token: prefs.getString(SharedPreferencesFieldName.token.name),
+      port: prefs.getInt(SharedPreferencesFieldName.port.name) ??
+          DefaultValue.defaultPort,
+      serverAddress:
+          prefs.getString(SharedPreferencesFieldName.server_address.name),
+      category: prefs.getStringList(SharedPreferencesFieldName.category.name) ??
+          DefaultValue.defaultCategory,
+      method: prefs.getStringList(SharedPreferencesFieldName.method.name) ??
+          DefaultValue.defaultMethod,
+      rootPath: prefs.getString(SharedPreferencesFieldName.root_path.name) ??
+          DefaultValue.defaultRootPath,
+    );
     print("settings loaded: $state");
   }
 
   void saveServerSettings() async {
     // Save settings to local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (await checkInvalidServer(state) != RestApiConnectionStatus.success) {
+    if (await ObsidianRepository.checkInvalidServer(state) !=
+        RestApiConnectionStatus.success) {
       throw Exception('有効ではないサーバーアドレスまたはポートまたはトークン');
     }
     await prefs.setString(SharedPreferencesFieldName.token.name, state.token!);
@@ -46,6 +49,8 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
         state.port ?? DefaultValue.defaultPort);
     await prefs.setString(
         SharedPreferencesFieldName.server_address.name, state.serverAddress!);
+    await prefs.setString(SharedPreferencesFieldName.root_path.name,
+        state.rootPath ?? DefaultValue.defaultRootPath);
   }
 
   void setToken(String value) {
@@ -59,6 +64,4 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
   void setPort(int value) {
     state = state.copyWith(port: value);
   }
-
-  checkInvalidServer(SettingsState settingsState) {}
 }

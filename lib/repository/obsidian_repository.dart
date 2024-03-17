@@ -4,29 +4,30 @@ import 'dart:io';
 import 'package:accountbook_for_obsidian_rest_api/const/default_value.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/rest_api/rest_api_status_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
+import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 
 class ObsidianRepository {
-//  static Future<void> AddNote(String text) {}
   static Future<RestApiConnectionResult> checkInvalidServer(
       SettingsState settingState) async {
     // 接続のチェックを行うロジックを実装する
     try {
-      Uri uri = Uri.parse("${settingState.serverAddress}:${settingState.port}");
-      debugPrint("$settingState.token");
+      Uri uri = _getUri(settingState);
+      //debugPrint("$settingState.token");
+      Response response = await get(uri, headers: {
+        "Authorization":
+            DefaultValue.authorizationHeaderPrefix + settingState.token!
+      });
+
+      debugPrint(
+          "check connection ¥n serverAddress: ${settingState.serverAddress}, port: ${settingState.port}, token: ${settingState.token}");
 
       if (settingState.token == null) {
         return RestApiConnectionResult(
             RestApiConnectionStatus.invalidToken, 'Invalid token');
       }
-
-      Response response = await get(uri, headers: {
-        "Authorization":
-            DefaultValue.authorizationHeaderPrefix + settingState.token!
-      });
-      debugPrint(
-          "check connection ¥n serverAddress: ${settingState.serverAddress}, port: ${settingState.port}, token: ${settingState.token}");
 
       if (response.statusCode != 200) {
         return RestApiConnectionResult(RestApiConnectionStatus.connectionError,
@@ -59,6 +60,13 @@ class ObsidianRepository {
       }
     }
   }
+
+  //static Future<RestApiConnectionResult> addPost(String body) {
+  //  SettingsState settings =
+  //      ProviderContainer().read(settingsViewModelProvider);
+  //}
+  static Uri _getUri(SettingsState setting) =>
+      Uri.parse("${setting.serverAddress}:${setting.port}");
 }
 
 class RestApiConnectionResult {
