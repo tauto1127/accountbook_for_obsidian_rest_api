@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Setting extends StatefulWidget {
+  const Setting({super.key});
+
   @override
   State<Setting> createState() => _SettingState();
 }
@@ -13,6 +14,6 @@ class _SettingState extends State<Setting> {
         appBar: AppBar(
           title: const Text('Settings'),
         ),
-        body: Text("setign"));
+        body: const Text("setign"));
   }
 }

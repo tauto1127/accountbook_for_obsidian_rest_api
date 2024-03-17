@@ -1,15 +1,10 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:accountbook_for_obsidian_rest_api/const/default_value.dart';
 import 'package:accountbook_for_obsidian_rest_api/const/shared_preferences_field_nae.dart';
-import 'package:accountbook_for_obsidian_rest_api/model/rest_api/rest_api_status_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/repository/obsidian_repository.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart';
 
 final settingsViewModelProvider =
     StateNotifierProvider<SettingsViewModel, SettingsState>(
@@ -34,7 +29,9 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
       rootPath: prefs.getString(SharedPreferencesFieldName.root_path.name) ??
           DefaultValue.defaultRootPath,
     );
-    print("settings loaded: $state");
+    if (kDebugMode) {
+      print("settings loaded: $state");
+    }
   }
 
   void saveServerSettings() async {

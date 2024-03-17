@@ -249,12 +249,6 @@ class _$SettingsStateImpl implements _SettingsState {
       this,
     );
   }
-
-  @override
-  Uri getUri() {
-    // TODO: implement getUri
-    throw UnimplementedError();
-  }
 }
 
 abstract class _SettingsState implements SettingsState {

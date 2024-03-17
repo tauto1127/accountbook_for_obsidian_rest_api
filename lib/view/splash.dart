@@ -17,9 +17,11 @@ class Splash extends ConsumerWidget {
   }
 
   void _initializeSettings(WidgetRef ref, BuildContext context) async {
-    await new Future.delayed(new Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     await ref.read(settingsViewModelProvider.notifier).loadSettings();
     await ref.read(templateNotifierProvider.notifier).loadTemplate();
+    //TODO FutureBuilderでうまく回避できそう？
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pushReplacementNamed('/home');
   }
 }
