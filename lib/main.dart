@@ -31,7 +31,7 @@ void main() async {
               },
             ),
         'template_editor': (context) => const TemplateEditor(),
-        'settings': (context) => Setting(),
+        'settings': (context) => const Setting(),
       }),
     ),
   );
