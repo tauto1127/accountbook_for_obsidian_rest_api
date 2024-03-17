@@ -1,27 +1,36 @@
+import 'package:accountbook_for_obsidian_rest_api/view/post.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/template_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Splash extends ConsumerWidget {
+class Splash extends StatelessWidget {
   const Splash({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    _initializeSettings(ref, context);
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+  Widget build(BuildContext context) {
+    ProviderContainer container = ProviderScope.containerOf(context);
+    return Scaffold(
+        body: FutureBuilder(
+      future: _initializeSettings(container),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return const Center(child: CircularProgressIndicator());
+          case ConnectionState.done:
+            WidgetsBinding.instance.addPostFrameCallback(
+                (timeStamp) => Navigator.of(context).pushNamed('/home'));
+            return const SizedBox.shrink();
+          default:
+            return const Center(child: CircularProgressIndicator());
+        }
+      },
+    ));
   }
 
-  void _initializeSettings(WidgetRef ref, BuildContext context) async {
-    await Future.delayed(const Duration(seconds: 3));
-    await ref.read(settingsViewModelProvider.notifier).loadSettings();
-    await ref.read(templateNotifierProvider.notifier).loadTemplate();
-    //TODO FutureBuilderでうまく回避できそう？
-    // ignore: use_build_context_synchronously
-    Navigator.of(context).pushReplacementNamed('/home');
+  Future<void> _initializeSettings(ProviderContainer container) async {
+    await Future.delayed(const Duration(seconds: 1));
+    await container.read(settingsViewModelProvider.notifier).loadSettings();
+    await container.read(templateNotifierProvider.notifier).loadTemplate();
   }
 }
