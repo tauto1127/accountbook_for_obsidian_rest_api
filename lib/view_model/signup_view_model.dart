@@ -22,6 +22,7 @@ class SignupViewModel extends StateNotifier<SignupState> {
   TextEditingController serverAddressController = TextEditingController();
   TextEditingController portController = TextEditingController();
   TextEditingController tokenController = TextEditingController();
+  TextEditingController rootPathController = TextEditingController();
 
   void saveSettings() async {
     // Save settings to local storage
@@ -38,6 +39,8 @@ class SignupViewModel extends StateNotifier<SignupState> {
         state.settingsState.serverAddress!);
     await prefs.setInt(
         SharedPreferencesFieldName.port.name, state.settingsState.port!);
+    await prefs.setString(SharedPreferencesFieldName.root_path.name,
+        state.settingsState.rootPath ?? DefaultValue.defaultRootPath);
     ref.read(settingsViewModelProvider.notifier).loadSettings();
   }
 

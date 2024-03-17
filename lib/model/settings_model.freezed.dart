@@ -25,6 +25,7 @@ mixin _$SettingsState {
   int? get port => throw _privateConstructorUsedError;
   List<String>? get category => throw _privateConstructorUsedError;
   List<String>? get method => throw _privateConstructorUsedError;
+  String? get rootPath => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $SettingsStateCopyWith<$Res> {
       String? serverAddress,
       int? port,
       List<String>? category,
-      List<String>? method});
+      List<String>? method,
+      String? rootPath});
 }
 
 /// @nodoc
@@ -64,6 +66,7 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
     Object? port = freezed,
     Object? category = freezed,
     Object? method = freezed,
+    Object? rootPath = freezed,
   }) {
     return _then(_value.copyWith(
       token: freezed == token
@@ -86,6 +89,10 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
           ? _value.method
           : method // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      rootPath: freezed == rootPath
+          ? _value.rootPath
+          : rootPath // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -103,7 +110,8 @@ abstract class _$$SettingsStateImplCopyWith<$Res>
       String? serverAddress,
       int? port,
       List<String>? category,
-      List<String>? method});
+      List<String>? method,
+      String? rootPath});
 }
 
 /// @nodoc
@@ -122,6 +130,7 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
     Object? port = freezed,
     Object? category = freezed,
     Object? method = freezed,
+    Object? rootPath = freezed,
   }) {
     return _then(_$SettingsStateImpl(
       token: freezed == token
@@ -144,6 +153,10 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
           ? _value._method
           : method // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      rootPath: freezed == rootPath
+          ? _value.rootPath
+          : rootPath // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -156,7 +169,8 @@ class _$SettingsStateImpl implements _SettingsState {
       this.serverAddress,
       this.port,
       final List<String>? category,
-      final List<String>? method})
+      final List<String>? method,
+      this.rootPath})
       : _category = category,
         _method = method;
 
@@ -190,8 +204,11 @@ class _$SettingsStateImpl implements _SettingsState {
   }
 
   @override
+  final String? rootPath;
+
+  @override
   String toString() {
-    return 'SettingsState(token: $token, serverAddress: $serverAddress, port: $port, category: $category, method: $method)';
+    return 'SettingsState(token: $token, serverAddress: $serverAddress, port: $port, category: $category, method: $method, rootPath: $rootPath)';
   }
 
   @override
@@ -204,7 +221,9 @@ class _$SettingsStateImpl implements _SettingsState {
                 other.serverAddress == serverAddress) &&
             (identical(other.port, port) || other.port == port) &&
             const DeepCollectionEquality().equals(other._category, _category) &&
-            const DeepCollectionEquality().equals(other._method, _method));
+            const DeepCollectionEquality().equals(other._method, _method) &&
+            (identical(other.rootPath, rootPath) ||
+                other.rootPath == rootPath));
   }
 
   @JsonKey(ignore: true)
@@ -215,7 +234,8 @@ class _$SettingsStateImpl implements _SettingsState {
       serverAddress,
       port,
       const DeepCollectionEquality().hash(_category),
-      const DeepCollectionEquality().hash(_method));
+      const DeepCollectionEquality().hash(_method),
+      rootPath);
 
   @JsonKey(ignore: true)
   @override
@@ -229,6 +249,12 @@ class _$SettingsStateImpl implements _SettingsState {
       this,
     );
   }
+
+  @override
+  Uri getUri() {
+    // TODO: implement getUri
+    throw UnimplementedError();
+  }
 }
 
 abstract class _SettingsState implements SettingsState {
@@ -237,7 +263,8 @@ abstract class _SettingsState implements SettingsState {
       final String? serverAddress,
       final int? port,
       final List<String>? category,
-      final List<String>? method}) = _$SettingsStateImpl;
+      final List<String>? method,
+      final String? rootPath}) = _$SettingsStateImpl;
 
   factory _SettingsState.fromJson(Map<String, dynamic> json) =
       _$SettingsStateImpl.fromJson;
@@ -252,6 +279,8 @@ abstract class _SettingsState implements SettingsState {
   List<String>? get category;
   @override
   List<String>? get method;
+  @override
+  String? get rootPath;
   @override
   @JsonKey(ignore: true)
   _$$SettingsStateImplCopyWith<_$SettingsStateImpl> get copyWith =>

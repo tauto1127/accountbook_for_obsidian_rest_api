@@ -19,7 +19,9 @@ class Post extends StatelessWidget {
           actions: [
             IconButton(
               icon: Icon(Icons.computer),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed('signup');
+              },
             ),
           ]),
       body: SingleChildScrollView(
@@ -154,7 +156,12 @@ class Post extends StatelessWidget {
                                 actions: [
                                   TextButton(
                                     child: Text("OK"),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      ref
+                                          .read(postViewModelProvider.notifier)
+                                          .addPost(generated, context);
+                                      Navigator.pop(context);
+                                    },
                                   ),
                                   TextButton(
                                     child: Text("キャンセル"),

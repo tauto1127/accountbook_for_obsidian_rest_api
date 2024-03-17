@@ -2,9 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:accountbook_for_obsidian_rest_api/const/default_value.dart';
+import 'package:accountbook_for_obsidian_rest_api/model/post_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/rest_api/rest_api_status_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
+import 'package:accountbook_for_obsidian_rest_api/model/template_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
+import 'package:accountbook_for_obsidian_rest_api/view_model/template_notifier.dart';
+import 'package:accountbook_for_obsidian_rest_api/view_model/template_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
@@ -61,10 +65,33 @@ class ObsidianRepository {
     }
   }
 
-  //static Future<RestApiConnectionResult> addPost(String body) {
-  //  SettingsState settings =
-  //      ProviderContainer().read(settingsViewModelProvider);
-  //}
+  static Future<RestApiConnectionResult> addPost(
+      String body, PostState postState, BuildContext context) async {
+    //TODO 店名も渡す
+    SettingsState settings =
+        ProviderScope.containerOf(context).read(settingsViewModelProvider);
+    debugPrint(
+        'token: ${settings.token}, serverAddress: ${settings.serverAddress}, port: ${settings.port}');
+    Uri uri = Uri.parse(
+        '${_getUri(settings).toString()}/vault/${postState.date.toString()}${postState.price}.md');
+
+    Response res = await post(headers: {
+      "Authorization": DefaultValue.authorizationHeaderPrefix + settings.token!,
+      "Content-Type": "text/markdown"
+    }, body: body, uri);
+    switch (res.statusCode) {
+      case 200:
+        return RestApiConnectionResult(
+            RestApiConnectionStatus.success, "succeed");
+      case 401:
+        return RestApiConnectionResult(
+            RestApiConnectionStatus.invalidToken, "Invalid token");
+      default:
+        return RestApiConnectionResult(
+            RestApiConnectionStatus.error, "Unknown error");
+    }
+  }
+
   static Uri _getUri(SettingsState setting) =>
       Uri.parse("${setting.serverAddress}:${setting.port}");
 }

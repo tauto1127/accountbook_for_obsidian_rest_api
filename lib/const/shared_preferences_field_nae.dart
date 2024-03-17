@@ -4,4 +4,5 @@ enum SharedPreferencesFieldName {
   server_address,
   category,
   method,
+  root_path,
 }

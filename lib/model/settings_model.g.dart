@@ -16,6 +16,7 @@ _$SettingsStateImpl _$$SettingsStateImplFromJson(Map<String, dynamic> json) =>
           .toList(),
       method:
           (json['method'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      rootPath: json['rootPath'] as String?,
     );
 
 Map<String, dynamic> _$$SettingsStateImplToJson(_$SettingsStateImpl instance) =>
@@ -25,4 +26,5 @@ Map<String, dynamic> _$$SettingsStateImplToJson(_$SettingsStateImpl instance) =>
       'port': instance.port,
       'category': instance.category,
       'method': instance.method,
+      'rootPath': instance.rootPath,
     };

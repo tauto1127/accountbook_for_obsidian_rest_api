@@ -75,6 +75,21 @@ class SignUpWidget extends StatelessWidget {
                 ),
               );
             }),
+            Consumer(
+              builder: (context, ref, child) {
+                return TextField(
+                  controller: ref
+                      .watch(signupViewModelProvider.notifier)
+                      .rootPathController,
+                  decoration: const InputDecoration(
+                    labelText: 'RootPath',
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 1),
+                    ),
+                  ),
+                );
+              },
+            ),
             const SizedBox(
               height: 50,
             ),

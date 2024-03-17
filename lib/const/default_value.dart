@@ -14,4 +14,5 @@ class DefaultValue {
     "[[クレジットカード]]",
     "[[その他]]",
   ];
+  static const String defaultRootPath = "";
 }

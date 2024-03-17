@@ -1,4 +1,5 @@
 import 'package:accountbook_for_obsidian_rest_api/view/post.dart';
+import 'package:accountbook_for_obsidian_rest_api/view/setting.dart';
 import 'package:accountbook_for_obsidian_rest_api/view/signup.dart';
 import 'package:accountbook_for_obsidian_rest_api/view/splash.dart';
 import 'package:accountbook_for_obsidian_rest_api/view/template_editor.dart';
@@ -31,6 +32,7 @@ void main() async {
               },
             ),
         'template_editor': (context) => const TemplateEditor(),
+        'settings': (context) => Setting(),
       }),
     ),
   );

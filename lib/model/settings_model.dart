@@ -11,6 +11,7 @@ class SettingsState with _$SettingsState {
     int? port,
     List<String>? category,
     List<String>? method,
+    String? rootPath,
   }) = _SettingsState;
 
   factory SettingsState.fromJson(Map<String, dynamic> json) =>
