@@ -5,14 +5,14 @@ import 'package:accountbook_for_obsidian_rest_api/const/default_value.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/post_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/rest_api/rest_api_status_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
-import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
+import 'package:accountbook_for_obsidian_rest_api/view_model/settings_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 
 class ObsidianRepository {
   static Future<RestApiConnectionResult> checkInvalidServer(
-      SettingsState settingState) async {
+      SettingsModel settingState) async {
     // 接続のチェックを行うロジックを実装する
     try {
       Uri uri = _getUri(settingState);
@@ -66,8 +66,8 @@ class ObsidianRepository {
       String body, PostState postState, BuildContext context) async {
     String fileName =
         '${postState.place}_${postState.date.year}年${postState.date.month}月${postState.date.day}日.md';
-    SettingsState settings =
-        ProviderScope.containerOf(context).read(settingsViewModelProvider);
+    SettingsModel settings =
+        ProviderScope.containerOf(context).read(settingsNotifierProvider);
     debugPrint(
         'token: ${settings.token}, serverAddress: ${settings.serverAddress}, port: ${settings.port}');
     Uri uri = Uri.parse('${_getUri(settings).toString()}/vault/$fileName');
@@ -89,7 +89,7 @@ class ObsidianRepository {
     }
   }
 
-  static Uri _getUri(SettingsState setting) =>
+  static Uri _getUri(SettingsModel setting) =>
       Uri.parse("${setting.serverAddress}:${setting.port}");
 }
 
@@ -97,7 +97,7 @@ class RestApiConnectionResult {
   final RestApiConnectionStatus status;
   final String errorMessage;
 
-  RestApiConnectionResult(this.status, this.errorMessage);
+  RestApiConnectionResult(this.status, this.errorMessage, );
 }
 
 enum RestApiConnectionStatus {

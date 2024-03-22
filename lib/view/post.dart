@@ -1,5 +1,5 @@
 import 'package:accountbook_for_obsidian_rest_api/view_model/post_view_model.dart';
-import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
+import 'package:accountbook_for_obsidian_rest_api/view_model/settings_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +19,7 @@ class Post extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.computer),
               onPressed: () {
-                Navigator.of(context).pushNamed('signup');
+                Navigator.of(context).pushNamed('settings');
               },
             ),
           ]),
@@ -89,7 +89,7 @@ class Post extends StatelessWidget {
                     DropdownButton(
                       value: ref.watch(postViewModelProvider).category,
                       items: ref
-                          .watch(settingsViewModelProvider)
+                          .watch(settingsNotifierProvider)
                           .category!
                           .map((String value) {
                         return DropdownMenuItem(
@@ -113,7 +113,7 @@ class Post extends StatelessWidget {
                     DropdownButton(
                         value: ref.watch(postViewModelProvider).method,
                         items: ref
-                            .watch(settingsViewModelProvider)
+                            .watch(settingsNotifierProvider)
                             .method!
                             .map((String str) => DropdownMenuItem(
                                   value: str,
@@ -176,7 +176,7 @@ class Post extends StatelessWidget {
                 }),
                 Text(ref.watch(postViewModelProvider).other),
                 Text(
-                    "port:${ref.watch(settingsViewModelProvider).port.toString()} address:${ref.watch(settingsViewModelProvider).serverAddress ?? ''}"),
+                    "port:${ref.watch(settingsNotifierProvider).port.toString()} address:${ref.watch(settingsNotifierProvider).serverAddress ?? ''}"),
               ],
             ),
           );

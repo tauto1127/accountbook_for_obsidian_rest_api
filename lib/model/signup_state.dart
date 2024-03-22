@@ -7,7 +7,7 @@ part 'signup_state.g.dart';
 @freezed
 class SignupState with _$SignupState {
   factory SignupState({
-    required SettingsState settingsState,
+    required SettingsModel settingsState,
     String? portHintText,
     String? hintText,
     @Default(false) bool isChecking,

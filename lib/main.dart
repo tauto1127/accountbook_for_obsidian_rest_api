@@ -3,7 +3,7 @@ import 'package:accountbook_for_obsidian_rest_api/view/setting.dart';
 import 'package:accountbook_for_obsidian_rest_api/view/signup.dart';
 import 'package:accountbook_for_obsidian_rest_api/view/splash.dart';
 import 'package:accountbook_for_obsidian_rest_api/view/template_editor.dart';
-import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
+import 'package:accountbook_for_obsidian_rest_api/view_model/settings_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,8 +19,8 @@ void main() async {
                 return Consumer(
                   builder:
                       (BuildContext context, WidgetRef ref, Widget? child) {
-                    if (ref.watch(settingsViewModelProvider).token == null ||
-                        ref.watch(settingsViewModelProvider).serverAddress ==
+                    if (ref.watch(settingsNotifierProvider).token == null ||
+                        ref.watch(settingsNotifierProvider).serverAddress ==
                             null) {
                       return const SignUpWidget();
                     } else {
@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
           return Column(
             children: [
               changeSettingWidget(),
-              Text(ref.watch(settingsViewModelProvider).token ?? 'null'),
+              Text(ref.watch(settingsNotifierProvider).token ?? 'null'),
               const Text("aiueo"),
               TextButton(
                 child: const Text("推して"),
@@ -97,8 +97,8 @@ class MyApp extends StatelessWidget {
           return ElevatedButton(
             onPressed: () async {
               // Save the token
-              ref.read(settingsViewModelProvider.notifier).setToken(value);
-              ref.read(settingsViewModelProvider.notifier).saveServerSettings();
+              ref.read(settingsNotifierProvider.notifier).setToken(value);
+              ref.read(settingsNotifierProvider.notifier).saveServerSettings();
             },
             child: const Text('Save token'),
           );

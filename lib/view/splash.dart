@@ -1,4 +1,4 @@
-import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
+import 'package:accountbook_for_obsidian_rest_api/view_model/settings_notifier.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/template_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +29,7 @@ class Splash extends StatelessWidget {
 
   Future<void> _initializeSettings(ProviderContainer container) async {
     await Future.delayed(const Duration(seconds: 1));
-    await container.read(settingsViewModelProvider.notifier).loadSettings();
+    await container.read(settingsNotifierProvider.notifier).loadSettings();
     await container.read(templateNotifierProvider.notifier).loadTemplate();
   }
 }

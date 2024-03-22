@@ -20,7 +20,7 @@ SignupState _$SignupStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SignupState {
-  SettingsState get settingsState => throw _privateConstructorUsedError;
+  SettingsModel get settingsState => throw _privateConstructorUsedError;
   String? get portHintText => throw _privateConstructorUsedError;
   String? get hintText => throw _privateConstructorUsedError;
   bool get isChecking => throw _privateConstructorUsedError;
@@ -39,13 +39,13 @@ abstract class $SignupStateCopyWith<$Res> {
       _$SignupStateCopyWithImpl<$Res, SignupState>;
   @useResult
   $Res call(
-      {SettingsState settingsState,
+      {SettingsModel settingsState,
       String? portHintText,
       String? hintText,
       bool isChecking,
       bool isSuccessful});
 
-  $SettingsStateCopyWith<$Res> get settingsState;
+  $SettingsModelCopyWith<$Res> get settingsState;
 }
 
 /// @nodoc
@@ -71,7 +71,7 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
       settingsState: null == settingsState
           ? _value.settingsState
           : settingsState // ignore: cast_nullable_to_non_nullable
-              as SettingsState,
+              as SettingsModel,
       portHintText: freezed == portHintText
           ? _value.portHintText
           : portHintText // ignore: cast_nullable_to_non_nullable
@@ -93,8 +93,8 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
 
   @override
   @pragma('vm:prefer-inline')
-  $SettingsStateCopyWith<$Res> get settingsState {
-    return $SettingsStateCopyWith<$Res>(_value.settingsState, (value) {
+  $SettingsModelCopyWith<$Res> get settingsState {
+    return $SettingsModelCopyWith<$Res>(_value.settingsState, (value) {
       return _then(_value.copyWith(settingsState: value) as $Val);
     });
   }
@@ -109,14 +109,14 @@ abstract class _$$SignupStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {SettingsState settingsState,
+      {SettingsModel settingsState,
       String? portHintText,
       String? hintText,
       bool isChecking,
       bool isSuccessful});
 
   @override
-  $SettingsStateCopyWith<$Res> get settingsState;
+  $SettingsModelCopyWith<$Res> get settingsState;
 }
 
 /// @nodoc
@@ -140,7 +140,7 @@ class __$$SignupStateImplCopyWithImpl<$Res>
       settingsState: null == settingsState
           ? _value.settingsState
           : settingsState // ignore: cast_nullable_to_non_nullable
-              as SettingsState,
+              as SettingsModel,
       portHintText: freezed == portHintText
           ? _value.portHintText
           : portHintText // ignore: cast_nullable_to_non_nullable
@@ -175,7 +175,7 @@ class _$SignupStateImpl implements _SignupState {
       _$$SignupStateImplFromJson(json);
 
   @override
-  final SettingsState settingsState;
+  final SettingsModel settingsState;
   @override
   final String? portHintText;
   @override
@@ -230,7 +230,7 @@ class _$SignupStateImpl implements _SignupState {
 
 abstract class _SignupState implements SignupState {
   factory _SignupState(
-      {required final SettingsState settingsState,
+      {required final SettingsModel settingsState,
       final String? portHintText,
       final String? hintText,
       final bool isChecking,
@@ -240,7 +240,7 @@ abstract class _SignupState implements SignupState {
       _$SignupStateImpl.fromJson;
 
   @override
-  SettingsState get settingsState;
+  SettingsModel get settingsState;
   @override
   String? get portHintText;
   @override

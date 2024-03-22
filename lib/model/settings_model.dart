@@ -4,8 +4,8 @@ part 'settings_model.freezed.dart';
 part 'settings_model.g.dart';
 
 @freezed
-class SettingsState with _$SettingsState {
-  factory SettingsState({
+class SettingsModel with _$SettingsModel {
+  factory SettingsModel({
     String? token,
     String? serverAddress,
     int? port,
@@ -14,6 +14,6 @@ class SettingsState with _$SettingsState {
     String? rootPath,
   }) = _SettingsState;
 
-  factory SettingsState.fromJson(Map<String, dynamic> json) =>
-      _$SettingsStateFromJson(json);
+  factory SettingsModel.fromJson(Map<String, dynamic> json) =>
+      _$SettingsModelFromJson(json);
 }

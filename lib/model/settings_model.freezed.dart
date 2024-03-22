@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-SettingsState _$SettingsStateFromJson(Map<String, dynamic> json) {
+SettingsModel _$SettingsModelFromJson(Map<String, dynamic> json) {
   return _SettingsState.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SettingsState {
+mixin _$SettingsModel {
   String? get token => throw _privateConstructorUsedError;
   String? get serverAddress => throw _privateConstructorUsedError;
   int? get port => throw _privateConstructorUsedError;
@@ -29,15 +29,15 @@ mixin _$SettingsState {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SettingsStateCopyWith<SettingsState> get copyWith =>
+  $SettingsModelCopyWith<SettingsModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SettingsStateCopyWith<$Res> {
-  factory $SettingsStateCopyWith(
-          SettingsState value, $Res Function(SettingsState) then) =
-      _$SettingsStateCopyWithImpl<$Res, SettingsState>;
+abstract class $SettingsModelCopyWith<$Res> {
+  factory $SettingsModelCopyWith(
+          SettingsModel value, $Res Function(SettingsModel) then) =
+      _$SettingsModelCopyWithImpl<$Res, SettingsModel>;
   @useResult
   $Res call(
       {String? token,
@@ -49,9 +49,9 @@ abstract class $SettingsStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
-    implements $SettingsStateCopyWith<$Res> {
-  _$SettingsStateCopyWithImpl(this._value, this._then);
+class _$SettingsModelCopyWithImpl<$Res, $Val extends SettingsModel>
+    implements $SettingsModelCopyWith<$Res> {
+  _$SettingsModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -99,7 +99,7 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
 
 /// @nodoc
 abstract class _$$SettingsStateImplCopyWith<$Res>
-    implements $SettingsStateCopyWith<$Res> {
+    implements $SettingsModelCopyWith<$Res> {
   factory _$$SettingsStateImplCopyWith(
           _$SettingsStateImpl value, $Res Function(_$SettingsStateImpl) then) =
       __$$SettingsStateImplCopyWithImpl<$Res>;
@@ -116,7 +116,7 @@ abstract class _$$SettingsStateImplCopyWith<$Res>
 
 /// @nodoc
 class __$$SettingsStateImplCopyWithImpl<$Res>
-    extends _$SettingsStateCopyWithImpl<$Res, _$SettingsStateImpl>
+    extends _$SettingsModelCopyWithImpl<$Res, _$SettingsStateImpl>
     implements _$$SettingsStateImplCopyWith<$Res> {
   __$$SettingsStateImplCopyWithImpl(
       _$SettingsStateImpl _value, $Res Function(_$SettingsStateImpl) _then)
@@ -208,7 +208,7 @@ class _$SettingsStateImpl implements _SettingsState {
 
   @override
   String toString() {
-    return 'SettingsState(token: $token, serverAddress: $serverAddress, port: $port, category: $category, method: $method, rootPath: $rootPath)';
+    return 'SettingsModel(token: $token, serverAddress: $serverAddress, port: $port, category: $category, method: $method, rootPath: $rootPath)';
   }
 
   @override
@@ -251,7 +251,7 @@ class _$SettingsStateImpl implements _SettingsState {
   }
 }
 
-abstract class _SettingsState implements SettingsState {
+abstract class _SettingsState implements SettingsModel {
   factory _SettingsState(
       {final String? token,
       final String? serverAddress,

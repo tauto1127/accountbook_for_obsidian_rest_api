@@ -9,7 +9,7 @@ part of 'signup_state.dart';
 _$SignupStateImpl _$$SignupStateImplFromJson(Map<String, dynamic> json) =>
     _$SignupStateImpl(
       settingsState:
-          SettingsState.fromJson(json['settingsState'] as Map<String, dynamic>),
+          SettingsModel.fromJson(json['settingsState'] as Map<String, dynamic>),
       portHintText: json['portHintText'] as String?,
       hintText: json['hintText'] as String?,
       isChecking: json['isChecking'] as bool? ?? false,

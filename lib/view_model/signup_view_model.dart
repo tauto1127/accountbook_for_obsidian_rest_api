@@ -3,7 +3,7 @@ import 'package:accountbook_for_obsidian_rest_api/const/shared_preferences_field
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/signup_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/repository/obsidian_repository.dart';
-import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
+import 'package:accountbook_for_obsidian_rest_api/view_model/settings_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 final signupViewModelProvider =
     StateNotifierProvider.autoDispose<SignupViewModel, SignupState>((ref) =>
         SignupViewModel(
-            SignupState(settingsState: ref.watch(settingsViewModelProvider)),
+            SignupState(settingsState: ref.watch(settingsNotifierProvider)),
             ref));
 
 class SignupViewModel extends StateNotifier<SignupState> {
@@ -41,7 +41,7 @@ class SignupViewModel extends StateNotifier<SignupState> {
         SharedPreferencesFieldName.port.name, state.settingsState.port!);
     await prefs.setString(SharedPreferencesFieldName.root_path.name,
         state.settingsState.rootPath ?? DefaultValue.defaultRootPath);
-    ref.read(settingsViewModelProvider.notifier).loadSettings();
+    ref.read(settingsNotifierProvider.notifier).loadSettings();
   }
 
   void checkPortText(String value) {
@@ -64,7 +64,7 @@ class SignupViewModel extends StateNotifier<SignupState> {
     state = state.copyWith(isChecking: true);
 
     RestApiConnectionResult result =
-        await ObsidianRepository.checkInvalidServer(SettingsState(
+        await ObsidianRepository.checkInvalidServer(SettingsModel(
             token: tokenController.text,
             serverAddress: serverAddressController.text,
             port:
