@@ -1,26 +1,29 @@
+import 'package:accountbook_for_obsidian_rest_api/const/default_value.dart';
+import 'package:accountbook_for_obsidian_rest_api/const/shared_preferences_field_nae.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/post_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/state/post_state.dart';
-import 'package:accountbook_for_obsidian_rest_api/view_model/template_view_model.dart';
+import 'package:accountbook_for_obsidian_rest_api/model/template_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const defaultTemplate = "default";
 
-final templateNotifierProvider = StateNotifierProvider<TemplateNotifier, String>((ref) => TemplateNotifier(""));
+final templateNotifierProvider =
+    StateNotifierProvider<TemplateNotifier, TemplateModel>((ref) => TemplateNotifier(TemplateModel(bodyTemplate: "", titleTemplate: "")));
 
-class TemplateNotifier extends StateNotifier<String> {
-  TemplateNotifier(String template) : super(template);
+class TemplateNotifier extends StateNotifier<TemplateModel> {
+  TemplateNotifier(TemplateModel template) : super(template);
 
-  Future<String> loadTemplate() async {
+  Future<TemplateModel> loadTemplate() async {
     // Load settings from local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    state = prefs.getString('template') ?? defaultTemplate;
+    state = TemplateModel(bodyTemplate: prefs.getString(SharedPreferencesFieldName.body_template.name) ?? DefaultValue.defaultBodyTemplate, titleTemplate: prefs.getString(SharedPreferencesFieldName.title_template.name) ?? DefaultValue.defaultTitleTemplate);
     return state;
   }
 
-  void saveTemplate(String str) async {
+  void saveTemplate(TemplateModel str) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (await prefs.setString('template', str)) {
+    if (await prefs.setString(SharedPreferencesFieldName.body_template.name, str.bodyTemplate) && await prefs.setString(SharedPreferencesFieldName.title_template.name, str.titleTemplate)) {
       state = str;
     } else {
       throw Exception('Failed to save template');
@@ -28,12 +31,14 @@ class TemplateNotifier extends StateNotifier<String> {
   }
 
   PostModel generatePost(PostState postState) {
-    String fileName = '${postState.place}_${postState.date.year}年${postState.date.month}月${postState.date.day}日.md';
-
-    if (state.isEmpty) throw Exception("state is null");
+    if (state.bodyTemplate.isEmpty || state.titleTemplate.isEmpty) throw Exception("state is null");
     return PostModel(
-        body: state
-            .replaceAll(r"{{YYYY}}", postState.date.year.toString())
+        body: replaceWords(state.bodyTemplate, postState),
+        title: replaceWords(state.titleTemplate, postState));
+  }
+  
+  String replaceWords(String str, PostState postState)
+    => str.replaceAll(r"{{YYYY}}", postState.date.year.toString())
             .replaceAll(r"{{M}}", postState.date.month.toString())
             .replaceAll(r'{{MM}}', postState.date.month.toString().padLeft(2, '0'))
             .replaceAll(r"{{D}}", postState.date.day.toString())
@@ -43,7 +48,5 @@ class TemplateNotifier extends StateNotifier<String> {
             .replaceAll(r"{{category}}", postState.category ?? "")
             .replaceAll(r"{{price}}", postState.price.toString())
             .replaceAll(r"{{method}}", postState.method ?? "")
-            .replaceAll(r"{{other}}", postState.other),
-        title: fileName);
-  }
+            .replaceAll(r"{{other}}", postState.other);
 }

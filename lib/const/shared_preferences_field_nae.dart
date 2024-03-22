@@ -7,4 +7,6 @@ enum SharedPreferencesFieldName {
   category,
   method,
   root_path,
+  body_template,
+  title_template,
 }

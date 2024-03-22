@@ -25,6 +25,25 @@ class TemplateEditor extends StatelessWidget {
         children: [
           const SizedBox(height: 10),
           Flexible(
+            child: Consumer(
+              builder: (context, ref, child) {
+                return TextField(
+                  maxLines: 1,
+                  onChanged: (value) => ref.read(templateViewModelProvider.notifier).resetErrorText(),
+                  controller: ref.watch(templateViewModelProvider.notifier).titleEditingController,
+                  decoration: InputDecoration(
+                    labelText: 'Title',
+                    errorText: ref.watch(templateViewModelProvider).errorText,
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 1),
+                    ),
+                  )
+                );
+              }
+            ),
+          ),
+          const SizedBox(height: 10),
+          Flexible(
             flex: 9,
             child: Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) {
               return TextField(

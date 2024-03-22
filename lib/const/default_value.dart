@@ -15,4 +15,6 @@ class DefaultValue {
     "[[その他]]",
   ];
   static const String defaultRootPath = "";
+  static const String defaultBodyTemplate = "{{place}}\n{{date}}\n{{week}}\n{{category}}\n{{price}}\n{{method}}\n{{other";
+  static const String defaultTitleTemplate = "{{place}}_YYYYMMDD";
 }
