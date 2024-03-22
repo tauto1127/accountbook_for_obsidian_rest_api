@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:accountbook_for_obsidian_rest_api/const/default_value.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/post_model.dart';
-import 'package:accountbook_for_obsidian_rest_api/model/post_state.dart';
+import 'package:accountbook_for_obsidian_rest_api/model/state/post_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/rest_api/rest_api_status_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/notifier/settings_notifier.dart';

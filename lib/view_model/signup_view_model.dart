@@ -1,7 +1,7 @@
 import 'package:accountbook_for_obsidian_rest_api/const/default_value.dart';
 import 'package:accountbook_for_obsidian_rest_api/const/shared_preferences_field_nae.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
-import 'package:accountbook_for_obsidian_rest_api/model/signup_state.dart';
+import 'package:accountbook_for_obsidian_rest_api/model/state/signup_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/repository/obsidian_repository.dart';
 import 'package:accountbook_for_obsidian_rest_api/notifier/settings_notifier.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
 import 'package:accountbook_for_obsidian_rest_api/model/post_model.dart';
-import 'package:accountbook_for_obsidian_rest_api/model/post_state.dart';
+import 'package:accountbook_for_obsidian_rest_api/model/state/post_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/template_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';

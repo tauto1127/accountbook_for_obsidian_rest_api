@@ -1,5 +1,5 @@
 import 'package:accountbook_for_obsidian_rest_api/model/post_model.dart';
-import 'package:accountbook_for_obsidian_rest_api/model/post_state.dart';
+import 'package:accountbook_for_obsidian_rest_api/model/state/post_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/repository/obsidian_repository.dart';
 import 'package:accountbook_for_obsidian_rest_api/notifier/template_notifier.dart';
 import 'package:flutter/material.dart';
