@@ -3,7 +3,7 @@ import 'package:accountbook_for_obsidian_rest_api/model/server_settings_model.da
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/repository/obsidian_repository.dart';
-import 'package:accountbook_for_obsidian_rest_api/view_model/settings_notifier.dart';
+import 'package:accountbook_for_obsidian_rest_api/notifier/settings_notifier.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

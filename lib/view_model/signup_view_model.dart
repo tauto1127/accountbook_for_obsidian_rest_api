@@ -3,7 +3,7 @@ import 'package:accountbook_for_obsidian_rest_api/const/shared_preferences_field
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/signup_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/repository/obsidian_repository.dart';
-import 'package:accountbook_for_obsidian_rest_api/view_model/settings_notifier.dart';
+import 'package:accountbook_for_obsidian_rest_api/notifier/settings_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';

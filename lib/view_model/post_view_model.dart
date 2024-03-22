@@ -1,6 +1,7 @@
+import 'package:accountbook_for_obsidian_rest_api/model/post_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/post_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/repository/obsidian_repository.dart';
-import 'package:accountbook_for_obsidian_rest_api/view_model/template_notifier.dart';
+import 'package:accountbook_for_obsidian_rest_api/notifier/template_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,12 +32,12 @@ class PostViewModel extends StateNotifier<PostState> {
     dateController.text = date.toString();
   }
 
-  void addPost(String body, BuildContext context) async {
+  void addPost(PostModel post, BuildContext context) async {
     syncState();
-    ObsidianRepository.addPost(body, state, context);
+    ObsidianRepository.addPost(post, state, context);
   }
 
-  String generatePost() {
+  PostModel generatePost() {
     state = state.copyWith(
         other: otherController.text, price: int.parse(priceController.text));
     return ref.read(templateNotifierProvider.notifier).generatePost(state);

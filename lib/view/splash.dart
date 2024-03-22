@@ -1,5 +1,5 @@
-import 'package:accountbook_for_obsidian_rest_api/view_model/settings_notifier.dart';
-import 'package:accountbook_for_obsidian_rest_api/view_model/template_notifier.dart';
+import 'package:accountbook_for_obsidian_rest_api/notifier/settings_notifier.dart';
+import 'package:accountbook_for_obsidian_rest_api/notifier/template_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

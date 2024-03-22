@@ -1,3 +1,4 @@
+import 'package:accountbook_for_obsidian_rest_api/model/post_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/post_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/template_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,19 +27,23 @@ class TemplateNotifier extends StateNotifier<String> {
     }
   }
 
-  String generatePost(PostState postState) {
+  PostModel generatePost(PostState postState) {
+    String fileName = '${postState.place}_${postState.date.year}年${postState.date.month}月${postState.date.day}日.md';
+
     if (state.isEmpty) throw Exception("state is null");
-    return state
-        .replaceAll(r"{{YYYY}}", postState.date.year.toString())
-        .replaceAll(r"{{M}}", postState.date.month.toString())
-        .replaceAll(r'{{MM}}', postState.date.month.toString().padLeft(2, '0'))
-        .replaceAll(r"{{D}}", postState.date.day.toString())
-        .replaceAll(r"{{DD}}", postState.date.day.toString().padLeft(2, '0'))
-        .replaceAll(r"{{W}}", postState.week.toString())
-        .replaceAll(r"{{place}}", postState.place)
-        .replaceAll(r"{{category}}", postState.category ?? "")
-        .replaceAll(r"{{price}}", postState.price.toString())
-        .replaceAll(r"{{method}}", postState.method ?? "")
-        .replaceAll(r"{{other}}", postState.other);
+    return PostModel(
+        body: state
+            .replaceAll(r"{{YYYY}}", postState.date.year.toString())
+            .replaceAll(r"{{M}}", postState.date.month.toString())
+            .replaceAll(r'{{MM}}', postState.date.month.toString().padLeft(2, '0'))
+            .replaceAll(r"{{D}}", postState.date.day.toString())
+            .replaceAll(r"{{DD}}", postState.date.day.toString().padLeft(2, '0'))
+            .replaceAll(r"{{W}}", postState.week.toString())
+            .replaceAll(r"{{place}}", postState.place)
+            .replaceAll(r"{{category}}", postState.category ?? "")
+            .replaceAll(r"{{price}}", postState.price.toString())
+            .replaceAll(r"{{method}}", postState.method ?? "")
+            .replaceAll(r"{{other}}", postState.other),
+        title: fileName);
   }
 }

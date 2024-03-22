@@ -1,5 +1,6 @@
+import 'package:accountbook_for_obsidian_rest_api/model/post_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/post_view_model.dart';
-import 'package:accountbook_for_obsidian_rest_api/view_model/settings_notifier.dart';
+import 'package:accountbook_for_obsidian_rest_api/notifier/settings_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,20 +17,18 @@ class Post extends StatelessWidget {
             onPressed: () => Navigator.of(context).pushNamed('template_editor'),
           ),
           actions: [
-            Consumer(
-              builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                return IconButton(
+            Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) {
+              return IconButton(
                   icon: const Icon(Icons.computer),
-                  onPressed: () 
-                    /// whenCompleteがないとsetting画面が残ったまんまになる
-                    => Navigator.of(context).pushNamed('settings').whenComplete(() => ref.read(postViewModelProvider))
-                );
-              }
-            ),
+                  onPressed: ()
+
+                      /// whenCompleteがないとsetting画面が残ったまんまになる
+                      =>
+                      Navigator.of(context).pushNamed('settings').whenComplete(() => ref.read(postViewModelProvider)));
+            }),
           ]),
       body: SingleChildScrollView(
-        child: Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+        child: Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) {
           return Form(
             child: Column(
               children: [
@@ -37,10 +36,8 @@ class Post extends StatelessWidget {
                   decoration: const InputDecoration(
                     labelText: 'Place',
                   ),
-                  controller:
-                      ref.read(postViewModelProvider.notifier).placeController,
-                  validator: (value) =>
-                      value == null || value.isEmpty ? '場所を入力してください' : null,
+                  controller: ref.read(postViewModelProvider.notifier).placeController,
+                  validator: (value) => value == null || value.isEmpty ? '場所を入力してください' : null,
                 ),
                 Row(
                   children: [
@@ -50,9 +47,7 @@ class Post extends StatelessWidget {
                           decoration: const InputDecoration(
                             labelText: 'Date',
                           ),
-                          controller: ref
-                              .watch(postViewModelProvider.notifier)
-                              .dateController,
+                          controller: ref.watch(postViewModelProvider.notifier).dateController,
                           readOnly: true,
                           onTap: () async {
                             DateTime? picked = await showDatePicker(
@@ -61,9 +56,7 @@ class Post extends StatelessWidget {
                               lastDate: DateTime(2100),
                             );
                             if (picked != null) {
-                              ref
-                                  .read(postViewModelProvider.notifier)
-                                  .changeDate(picked);
+                              ref.read(postViewModelProvider.notifier).changeDate(picked);
                             }
                           },
                         );
@@ -85,32 +78,25 @@ class Post extends StatelessWidget {
                     }
                     return null;
                   },
-                  controller:
-                      ref.read(postViewModelProvider.notifier).priceController,
+                  controller: ref.read(postViewModelProvider.notifier).priceController,
                 ),
                 _dropdownPostItem(
                     "Category",
                     DropdownButton(
                       value: ref.watch(postViewModelProvider).category,
-                      items: ref
-                          .watch(settingsNotifierProvider)
-                          .category!
-                          .map((String value) {
+                      items: ref.watch(settingsNotifierProvider).category!.map((String value) {
                         return DropdownMenuItem(
                           value: value,
                           child: Text(value),
                         );
                       }).toList(),
                       onChanged: (value) {
-                        ref.read(postViewModelProvider.notifier).changeCategory(
-                            value ?? ref.watch(postViewModelProvider).category);
+                        ref.read(postViewModelProvider.notifier).changeCategory(value ?? ref.watch(postViewModelProvider).category);
                       },
                     ),
                     IconButton(
                       icon: const Icon(Icons.clear),
-                      onPressed: () => ref
-                          .read(postViewModelProvider.notifier)
-                          .changeCategory(null),
+                      onPressed: () => ref.read(postViewModelProvider.notifier).changeCategory(null),
                     )),
                 _dropdownPostItem(
                     "Method",
@@ -124,21 +110,16 @@ class Post extends StatelessWidget {
                                   child: Text(str),
                                 ))
                             .toList(),
-                        onChanged: (value) => ref
-                            .read(postViewModelProvider.notifier)
-                            .changeMethod(value)),
+                        onChanged: (value) => ref.read(postViewModelProvider.notifier).changeMethod(value)),
                     IconButton(
                       icon: const Icon(Icons.clear),
-                      onPressed: () => ref
-                          .read(postViewModelProvider.notifier)
-                          .changeMethod(null),
+                      onPressed: () => ref.read(postViewModelProvider.notifier).changeMethod(null),
                     )),
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'Other',
                   ),
-                  controller:
-                      ref.read(postViewModelProvider.notifier).otherController,
+                  controller: ref.read(postViewModelProvider.notifier).otherController,
                 ),
                 Builder(builder: (context) {
                   return TextButton(
@@ -147,23 +128,19 @@ class Post extends StatelessWidget {
                     ),
                     onPressed: () {
                       if (Form.of(context).validate()) {
-                        String generated = ref
-                            .read(postViewModelProvider.notifier)
-                            .generatePost();
+                        PostModel generated = ref.read(postViewModelProvider.notifier).generatePost();
 
                         showDialog(
                             context: context,
                             builder: (_) {
                               return AlertDialog(
                                 title: const Text("ポスト"),
-                                content: Text(generated),
+                                content: Text('title: ${generated.title}\n ${generated.body}'),
                                 actions: [
                                   TextButton(
                                     child: const Text("OK"),
                                     onPressed: () {
-                                      ref
-                                          .read(postViewModelProvider.notifier)
-                                          .addPost(generated, context);
+                                      ref.read(postViewModelProvider.notifier).addPost(generated, context);
                                       Navigator.pop(context);
                                     },
                                   ),
@@ -189,8 +166,7 @@ class Post extends StatelessWidget {
     );
   }
 
-  Widget _dropdownPostItem(
-      String label, DropdownButton dropdownButton, IconButton clearButton) {
+  Widget _dropdownPostItem(String label, DropdownButton dropdownButton, IconButton clearButton) {
     return Column(
       children: [
         SizedBox(
