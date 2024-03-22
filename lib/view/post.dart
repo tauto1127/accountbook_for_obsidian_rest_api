@@ -16,11 +16,15 @@ class Post extends StatelessWidget {
             onPressed: () => Navigator.of(context).pushNamed('template_editor'),
           ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.computer),
-              onPressed: () {
-                Navigator.of(context).pushNamed('settings');
-              },
+            Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                return IconButton(
+                  icon: const Icon(Icons.computer),
+                  onPressed: () 
+                    /// whenCompleteがないとsetting画面が残ったまんまになる
+                    => Navigator.of(context).pushNamed('settings').whenComplete(() => ref.read(postViewModelProvider))
+                );
+              }
             ),
           ]),
       body: SingleChildScrollView(

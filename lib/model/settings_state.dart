@@ -9,6 +9,8 @@ class SettingsState with _$SettingsState {
   factory SettingsState({
     required ServerSettingsModel setting,
     @Default(false)bool isLoading,
+    @Default(false)bool isOk,
+    @Default("")String errorMessage,
   }) = _SettingsState;
   
 }

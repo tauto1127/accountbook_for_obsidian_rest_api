@@ -1,3 +1,4 @@
+import 'package:accountbook_for_obsidian_rest_api/view_model/post_view_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,9 @@ class Setting extends StatelessWidget {
           title: const Text('Settings'),
         ),
         body: Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          if (ref.watch(settingsViewModelProvider).isOk == true) {
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) => Navigator.of(context).pop());
+          }
           return Form(
             child: Column(children: <Widget>[
               TextFormField(
@@ -52,12 +56,20 @@ class Setting extends StatelessWidget {
                   labelText: 'Root Path',
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  
-                },
-                child: const Text('Save'),
-              ),
+              if (ref.watch(settingsViewModelProvider).isLoading)
+                const CircularProgressIndicator()
+              else
+                Builder(builder: (context) {
+                  return TextButton(
+                    onPressed: () {
+                      if (Form.of(context).validate()) {
+                        ref.read(settingsViewModelProvider.notifier).saveSettings();
+                      }
+                    },
+                    child: const Text('Ok'),
+                  );
+                }),
+              Text(ref.watch(settingsViewModelProvider).errorMessage, style: const TextStyle(color: Colors.red)),
             ]),
           );
         }));

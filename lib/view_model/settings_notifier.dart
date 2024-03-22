@@ -1,5 +1,6 @@
 import 'package:accountbook_for_obsidian_rest_api/const/default_value.dart';
 import 'package:accountbook_for_obsidian_rest_api/const/shared_preferences_field_nae.dart';
+import 'package:accountbook_for_obsidian_rest_api/model/server_settings_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/settings_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/repository/obsidian_repository.dart';
 import 'package:flutter/foundation.dart';
@@ -51,12 +52,9 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
     state = state.copyWith(port: value);
   }
 
-  Future<RestApiConnectionResult> saveServerSetting(SettingsModel setting) async {
-    if (setting.serverAddress == null || setting.port == null || setting.token == null) {
-      return RestApiConnectionResult(RestApiConnectionStatus.error, "serverAddress, port, token is null");
-    }
-    if (Uri.tryParse(setting.serverAddress!) == null) return RestApiConnectionResult(RestApiConnectionStatus.invalidUrl, "Invalid URL");
-    RestApiConnectionResult result = await ObsidianRepository.checkInvalidServer(setting);
+  Future<RestApiConnectionResult> saveServerSetting(ServerSettingsModel setting) async {
+    if (Uri.tryParse(setting.serverAddress) == null) return RestApiConnectionResult(RestApiConnectionStatus.invalidUrl, "Invalid URL");
+    RestApiConnectionResult result = await ObsidianRepository.checkInvalidServer(SettingsModel(port: setting.port, serverAddress: setting.serverAddress, token: setting.token));
     if (result.status == RestApiConnectionStatus.success) {
       state = state.copyWith(serverAddress: setting.serverAddress, port: setting.port, token: setting.token);
       saveServerSettings();

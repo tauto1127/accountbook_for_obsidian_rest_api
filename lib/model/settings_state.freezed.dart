@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SettingsState {
   ServerSettingsModel get setting => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isOk => throw _privateConstructorUsedError;
+  String get errorMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
@@ -30,7 +32,11 @@ abstract class $SettingsStateCopyWith<$Res> {
           SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res, SettingsState>;
   @useResult
-  $Res call({ServerSettingsModel setting, bool isLoading});
+  $Res call(
+      {ServerSettingsModel setting,
+      bool isLoading,
+      bool isOk,
+      String errorMessage});
 
   $ServerSettingsModelCopyWith<$Res> get setting;
 }
@@ -50,6 +56,8 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   $Res call({
     Object? setting = null,
     Object? isLoading = null,
+    Object? isOk = null,
+    Object? errorMessage = null,
   }) {
     return _then(_value.copyWith(
       setting: null == setting
@@ -60,6 +68,14 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isOk: null == isOk
+          ? _value.isOk
+          : isOk // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -80,7 +96,11 @@ abstract class _$$SettingsStateImplCopyWith<$Res>
       __$$SettingsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ServerSettingsModel setting, bool isLoading});
+  $Res call(
+      {ServerSettingsModel setting,
+      bool isLoading,
+      bool isOk,
+      String errorMessage});
 
   @override
   $ServerSettingsModelCopyWith<$Res> get setting;
@@ -99,6 +119,8 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
   $Res call({
     Object? setting = null,
     Object? isLoading = null,
+    Object? isOk = null,
+    Object? errorMessage = null,
   }) {
     return _then(_$SettingsStateImpl(
       setting: null == setting
@@ -109,6 +131,14 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isOk: null == isOk
+          ? _value.isOk
+          : isOk // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -116,17 +146,27 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SettingsStateImpl implements _SettingsState {
-  _$SettingsStateImpl({required this.setting, this.isLoading = false});
+  _$SettingsStateImpl(
+      {required this.setting,
+      this.isLoading = false,
+      this.isOk = false,
+      this.errorMessage = ""});
 
   @override
   final ServerSettingsModel setting;
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  @JsonKey()
+  final bool isOk;
+  @override
+  @JsonKey()
+  final String errorMessage;
 
   @override
   String toString() {
-    return 'SettingsState(setting: $setting, isLoading: $isLoading)';
+    return 'SettingsState(setting: $setting, isLoading: $isLoading, isOk: $isOk, errorMessage: $errorMessage)';
   }
 
   @override
@@ -136,11 +176,15 @@ class _$SettingsStateImpl implements _SettingsState {
             other is _$SettingsStateImpl &&
             (identical(other.setting, setting) || other.setting == setting) &&
             (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+                other.isLoading == isLoading) &&
+            (identical(other.isOk, isOk) || other.isOk == isOk) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, setting, isLoading);
+  int get hashCode =>
+      Object.hash(runtimeType, setting, isLoading, isOk, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -152,12 +196,18 @@ class _$SettingsStateImpl implements _SettingsState {
 abstract class _SettingsState implements SettingsState {
   factory _SettingsState(
       {required final ServerSettingsModel setting,
-      final bool isLoading}) = _$SettingsStateImpl;
+      final bool isLoading,
+      final bool isOk,
+      final String errorMessage}) = _$SettingsStateImpl;
 
   @override
   ServerSettingsModel get setting;
   @override
   bool get isLoading;
+  @override
+  bool get isOk;
+  @override
+  String get errorMessage;
   @override
   @JsonKey(ignore: true)
   _$$SettingsStateImplCopyWith<_$SettingsStateImpl> get copyWith =>
