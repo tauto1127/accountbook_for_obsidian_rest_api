@@ -18,7 +18,7 @@ class Splash extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           case ConnectionState.done:
             WidgetsBinding.instance.addPostFrameCallback(
-                (timeStamp) => Navigator.of(context).pushNamed('/home'));
+                (timeStamp) => Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false));
             return const SizedBox.shrink();
           default:
             return const Center(child: CircularProgressIndicator());
