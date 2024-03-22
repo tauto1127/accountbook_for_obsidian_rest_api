@@ -5,23 +5,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const defaultTemplate = "default";
 
-final templateNotifierProvider =
-    StateNotifierProvider<TemplateNotifier, String>(
-        (ref) => TemplateNotifier("", ref));
+final templateNotifierProvider = StateNotifierProvider<TemplateNotifier, String>((ref) => TemplateNotifier(""));
 
 class TemplateNotifier extends StateNotifier<String> {
-  TemplateNotifier(String template, this.ref) : super(template);
+  TemplateNotifier(String template) : super(template);
 
-  final StateNotifierProviderRef ref;
-
-  Future<void> loadTemplate() async {
+  Future<String> loadTemplate() async {
     // Load settings from local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     state = prefs.getString('template') ?? defaultTemplate;
-    ref
-        .read(templateViewModelProvider.notifier)
-        .templateTextFieldController
-        .text = state;
+    return state;
   }
 
   void saveTemplate(String str) async {
