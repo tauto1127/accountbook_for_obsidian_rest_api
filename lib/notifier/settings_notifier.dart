@@ -54,7 +54,8 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
 
   Future<RestApiConnectionResult> saveServerSetting(ServerSettingsModel setting) async {
     if (Uri.tryParse(setting.serverAddress) == null) return RestApiConnectionResult(RestApiConnectionStatus.invalidUrl, "Invalid URL");
-    RestApiConnectionResult result = await ObsidianRepository.checkInvalidServer(SettingsModel(port: setting.port, serverAddress: setting.serverAddress, token: setting.token));
+    RestApiConnectionResult result = await ObsidianRepository.checkInvalidServer(
+        SettingsModel(port: setting.port, serverAddress: setting.serverAddress, token: setting.token));
     if (result.status == RestApiConnectionStatus.success) {
       state = state.copyWith(serverAddress: setting.serverAddress, port: setting.port, token: setting.token);
       saveServerSettings();

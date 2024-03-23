@@ -17,13 +17,16 @@ class TemplateNotifier extends StateNotifier<TemplateModel> {
   Future<TemplateModel> loadTemplate() async {
     // Load settings from local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    state = TemplateModel(bodyTemplate: prefs.getString(SharedPreferencesFieldName.body_template.name) ?? DefaultValue.defaultBodyTemplate, titleTemplate: prefs.getString(SharedPreferencesFieldName.title_template.name) ?? DefaultValue.defaultTitleTemplate);
+    state = TemplateModel(
+        bodyTemplate: prefs.getString(SharedPreferencesFieldName.body_template.name) ?? DefaultValue.defaultBodyTemplate,
+        titleTemplate: prefs.getString(SharedPreferencesFieldName.title_template.name) ?? DefaultValue.defaultTitleTemplate);
     return state;
   }
 
   void saveTemplate(TemplateModel str) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (await prefs.setString(SharedPreferencesFieldName.body_template.name, str.bodyTemplate) && await prefs.setString(SharedPreferencesFieldName.title_template.name, str.titleTemplate)) {
+    if (await prefs.setString(SharedPreferencesFieldName.body_template.name, str.bodyTemplate) &&
+        await prefs.setString(SharedPreferencesFieldName.title_template.name, str.titleTemplate)) {
       state = str;
     } else {
       throw Exception('Failed to save template');
@@ -32,21 +35,19 @@ class TemplateNotifier extends StateNotifier<TemplateModel> {
 
   PostModel generatePost(PostState postState) {
     if (state.bodyTemplate.isEmpty || state.titleTemplate.isEmpty) throw Exception("state is null");
-    return PostModel(
-        body: replaceWords(state.bodyTemplate, postState),
-        title: replaceWords(state.titleTemplate, postState));
+    return PostModel(body: replaceWords(state.bodyTemplate, postState), title: replaceWords(state.titleTemplate, postState));
   }
-  
-  String replaceWords(String str, PostState postState)
-    => str.replaceAll(r"{{YYYY}}", postState.date.year.toString())
-            .replaceAll(r"{{M}}", postState.date.month.toString())
-            .replaceAll(r'{{MM}}', postState.date.month.toString().padLeft(2, '0'))
-            .replaceAll(r"{{D}}", postState.date.day.toString())
-            .replaceAll(r"{{DD}}", postState.date.day.toString().padLeft(2, '0'))
-            .replaceAll(r"{{W}}", postState.week.toString())
-            .replaceAll(r"{{place}}", postState.place)
-            .replaceAll(r"{{category}}", postState.category ?? "")
-            .replaceAll(r"{{price}}", postState.price.toString())
-            .replaceAll(r"{{method}}", postState.method ?? "")
-            .replaceAll(r"{{other}}", postState.other);
+
+  String replaceWords(String str, PostState postState) => str
+      .replaceAll(r"{{YYYY}}", postState.date.year.toString())
+      .replaceAll(r"{{M}}", postState.date.month.toString())
+      .replaceAll(r'{{MM}}', postState.date.month.toString().padLeft(2, '0'))
+      .replaceAll(r"{{D}}", postState.date.day.toString())
+      .replaceAll(r"{{DD}}", postState.date.day.toString().padLeft(2, '0'))
+      .replaceAll(r"{{W}}", postState.week.toString())
+      .replaceAll(r"{{place}}", postState.place)
+      .replaceAll(r"{{category}}", postState.category ?? "")
+      .replaceAll(r"{{price}}", postState.price.toString())
+      .replaceAll(r"{{method}}", postState.method ?? "")
+      .replaceAll(r"{{other}}", postState.other);
 }

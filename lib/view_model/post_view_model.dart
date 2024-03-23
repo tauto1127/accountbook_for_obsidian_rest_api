@@ -9,13 +9,7 @@ class PostViewModel extends StateNotifier<PostState> {
   final StateNotifierProviderRef ref;
   PostViewModel(this.ref)
       : super(PostState(
-            date: DateTime.now(),
-            week: _getWeekNumber(DateTime.now()),
-            category: null,
-            price: 0,
-            method: null,
-            other: "",
-            place: '')) {
+            date: DateTime.now(), week: _getWeekNumber(DateTime.now()), category: null, price: 0, method: null, other: "", place: '')) {
     placeController.text = state.place;
     dateController.text = DateTime.now().toString();
     priceController.text = state.price.toString();
@@ -38,25 +32,19 @@ class PostViewModel extends StateNotifier<PostState> {
   }
 
   PostModel generatePost() {
-    state = state.copyWith(
-        other: otherController.text, price: int.parse(priceController.text));
+    state = state.copyWith(other: otherController.text, price: int.parse(priceController.text));
     return ref.read(templateNotifierProvider.notifier).generatePost(state);
   }
 
   void syncState() {
-    state = state.copyWith(
-        place: placeController.text,
-        other: otherController.text,
-        price: int.parse(priceController.text));
+    state = state.copyWith(place: placeController.text, other: otherController.text, price: int.parse(priceController.text));
   }
 
   void changeCategory(String? value) => state = state.copyWith(category: value);
   void changeMethod(String? value) => state = state.copyWith(method: value);
 }
 
-final postViewModelProvider =
-    StateNotifierProvider.autoDispose<PostViewModel, PostState>(
-        (ref) => PostViewModel(ref));
+final postViewModelProvider = StateNotifierProvider.autoDispose<PostViewModel, PostState>((ref) => PostViewModel(ref));
 
 int _getWeekNumber(DateTime date) {
   int weekNumber = (date.day / 7).ceil();

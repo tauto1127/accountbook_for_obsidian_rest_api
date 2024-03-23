@@ -10,6 +10,5 @@ class RestApiVersionModel with _$RestApiVersionModel {
     required String self,
   }) = _RestApiVersionModel;
 
-  factory RestApiVersionModel.fromJson(Map<String, dynamic> json) =>
-      _$RestApiVersionModelFromJson(json);
+  factory RestApiVersionModel.fromJson(Map<String, dynamic> json) => _$RestApiVersionModelFromJson(json);
 }

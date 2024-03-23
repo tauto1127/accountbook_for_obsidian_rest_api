@@ -14,6 +14,5 @@ class SettingsModel with _$SettingsModel {
     String? rootPath,
   }) = _SettingsState;
 
-  factory SettingsModel.fromJson(Map<String, dynamic> json) =>
-      _$SettingsModelFromJson(json);
+  factory SettingsModel.fromJson(Map<String, dynamic> json) => _$SettingsModelFromJson(json);
 }

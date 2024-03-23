@@ -19,17 +19,13 @@ class SignUpWidget extends StatelessWidget {
               children: [
                 Flexible(
                   flex: 3,
-                  child: Consumer(builder:
-                      (BuildContext context, WidgetRef ref, Widget? child) {
+                  child: Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) {
                     return TextField(
-                        controller: ref
-                            .watch(signupViewModelProvider.notifier)
-                            .serverAddressController,
+                        controller: ref.watch(signupViewModelProvider.notifier).serverAddressController,
                         decoration: const InputDecoration(
                           labelText: 'ServerAddress',
                           enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.black, width: 1),
+                            borderSide: BorderSide(color: Colors.black, width: 1),
                           ),
                         ),
                         onChanged: (String str) {
@@ -39,34 +35,25 @@ class SignUpWidget extends StatelessWidget {
                 ),
                 Flexible(
                     flex: 1,
-                    child: Consumer(builder:
-                        (BuildContext context, WidgetRef ref, Widget? child) {
+                    child: Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) {
                       return TextField(
-                        controller: ref
-                            .watch(signupViewModelProvider.notifier)
-                            .portController,
+                        controller: ref.watch(signupViewModelProvider.notifier).portController,
                         decoration: InputDecoration(
                           labelText: 'Port',
                           enabledBorder: const OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.black, width: 1),
+                            borderSide: BorderSide(color: Colors.black, width: 1),
                           ),
-                          errorText:
-                              ref.watch(signupViewModelProvider).portHintText,
+                          errorText: ref.watch(signupViewModelProvider).portHintText,
                         ),
-                        onChanged: (String str) => ref
-                            .read(signupViewModelProvider.notifier)
-                            .checkPortText(str),
+                        onChanged: (String str) => ref.read(signupViewModelProvider.notifier).checkPortText(str),
                       );
                     })),
               ],
             ),
             const SizedBox(height: 10),
-            Consumer(
-                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+            Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) {
               return TextField(
-                controller:
-                    ref.watch(signupViewModelProvider.notifier).tokenController,
+                controller: ref.watch(signupViewModelProvider.notifier).tokenController,
                 decoration: const InputDecoration(
                   labelText: 'Token',
                   enabledBorder: OutlineInputBorder(
@@ -78,9 +65,7 @@ class SignUpWidget extends StatelessWidget {
             Consumer(
               builder: (context, ref, child) {
                 return TextField(
-                  controller: ref
-                      .watch(signupViewModelProvider.notifier)
-                      .rootPathController,
+                  controller: ref.watch(signupViewModelProvider.notifier).rootPathController,
                   decoration: const InputDecoration(
                     labelText: 'RootPath',
                     enabledBorder: OutlineInputBorder(
@@ -93,12 +78,9 @@ class SignUpWidget extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            Consumer(
-                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+            Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) {
               return TextButton(
-                child: ref.watch(signupViewModelProvider).isChecking
-                    ? const CircularProgressIndicator()
-                    : const Text('Check Connection'),
+                child: ref.watch(signupViewModelProvider).isChecking ? const CircularProgressIndicator() : const Text('Check Connection'),
                 onPressed: () {
                   ref.read(signupViewModelProvider.notifier).checkConnection();
                 },
@@ -116,9 +98,7 @@ class SignUpWidget extends StatelessWidget {
                   return TextButton(
                       child: const Text("次に進む"),
                       onPressed: () {
-                        ref
-                            .read(signupViewModelProvider.notifier)
-                            .saveSettings();
+                        ref.read(signupViewModelProvider.notifier).saveSettings();
                         Navigator.of(context).pushNamed('/');
                       });
                 } else {

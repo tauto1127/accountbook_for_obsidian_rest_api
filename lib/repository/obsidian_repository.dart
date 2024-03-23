@@ -17,7 +17,8 @@ class ObsidianRepository {
     try {
       Uri uri = _getUri(settingState);
       //debugPrint("$settingState.token");
-      http.Response response = await http.get(uri, headers: {"Authorization": DefaultValue.authorizationHeaderPrefix + settingState.token!});
+      http.Response response =
+          await http.get(uri, headers: {"Authorization": DefaultValue.authorizationHeaderPrefix + settingState.token!});
 
       debugPrint(
           "check connection ¥n serverAddress: ${settingState.serverAddress}, port: ${settingState.port}, token: ${settingState.token}");

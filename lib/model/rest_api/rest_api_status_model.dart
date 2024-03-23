@@ -13,6 +13,5 @@ class RestApiStatusModel with _$RestApiStatusModel {
     required bool authenticated,
   }) = _RestApiStatusModel;
 
-  factory RestApiStatusModel.fromJson(Map<String, dynamic> json) =>
-      _$RestApiStatusModelFromJson(json);
+  factory RestApiStatusModel.fromJson(Map<String, dynamic> json) => _$RestApiStatusModelFromJson(json);
 }

@@ -8,11 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final signupViewModelProvider =
-    StateNotifierProvider.autoDispose<SignupViewModel, SignupState>((ref) =>
-        SignupViewModel(
-            SignupState(settingsState: ref.watch(settingsNotifierProvider)),
-            ref));
+final signupViewModelProvider = StateNotifierProvider.autoDispose<SignupViewModel, SignupState>(
+    (ref) => SignupViewModel(SignupState(settingsState: ref.watch(settingsNotifierProvider)), ref));
 
 class SignupViewModel extends StateNotifier<SignupState> {
   AutoDisposeStateNotifierProviderRef ref;
@@ -27,20 +24,14 @@ class SignupViewModel extends StateNotifier<SignupState> {
   void saveSettings() async {
     // Save settings to local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (state.settingsState.token == null ||
-        state.settingsState.serverAddress == null ||
-        state.settingsState.port == null) {
+    if (state.settingsState.token == null || state.settingsState.serverAddress == null || state.settingsState.port == null) {
       throw Exception("token, serverAddress, port is null");
     }
 
-    await prefs.setString(
-        SharedPreferencesFieldName.token.name, state.settingsState.token!);
-    await prefs.setString(SharedPreferencesFieldName.server_address.name,
-        state.settingsState.serverAddress!);
-    await prefs.setInt(
-        SharedPreferencesFieldName.port.name, state.settingsState.port!);
-    await prefs.setString(SharedPreferencesFieldName.root_path.name,
-        state.settingsState.rootPath ?? DefaultValue.defaultRootPath);
+    await prefs.setString(SharedPreferencesFieldName.token.name, state.settingsState.token!);
+    await prefs.setString(SharedPreferencesFieldName.server_address.name, state.settingsState.serverAddress!);
+    await prefs.setInt(SharedPreferencesFieldName.port.name, state.settingsState.port!);
+    await prefs.setString(SharedPreferencesFieldName.root_path.name, state.settingsState.rootPath ?? DefaultValue.defaultRootPath);
     ref.read(settingsNotifierProvider.notifier).loadSettings();
   }
 
@@ -63,17 +54,13 @@ class SignupViewModel extends StateNotifier<SignupState> {
   void checkConnection() async {
     state = state.copyWith(isChecking: true);
 
-    RestApiConnectionResult result =
-        await ObsidianRepository.checkInvalidServer(SettingsModel(
-            token: tokenController.text,
-            serverAddress: serverAddressController.text,
-            port:
-                int.tryParse(portController.text) ?? DefaultValue.defaultPort));
+    RestApiConnectionResult result = await ObsidianRepository.checkInvalidServer(SettingsModel(
+        token: tokenController.text,
+        serverAddress: serverAddressController.text,
+        port: int.tryParse(portController.text) ?? DefaultValue.defaultPort));
 
-    state = state.copyWith(
-        hintText: result.errorMessage,
-        isChecking: false,
-        isSuccessful: result.status == RestApiConnectionStatus.success);
+    state =
+        state.copyWith(hintText: result.errorMessage, isChecking: false, isSuccessful: result.status == RestApiConnectionStatus.success);
     if (state.isSuccessful) {
       _writeTextFieldToState();
     }

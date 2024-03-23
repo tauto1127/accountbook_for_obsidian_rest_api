@@ -14,6 +14,5 @@ class SignupState with _$SignupState {
     @Default(false) bool isSuccessful,
   }) = _SignupState;
 
-  factory SignupState.fromJson(Map<String, dynamic> json) =>
-      _$SignupStateFromJson(json);
+  factory SignupState.fromJson(Map<String, dynamic> json) => _$SignupStateFromJson(json);
 }

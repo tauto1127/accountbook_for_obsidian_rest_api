@@ -17,11 +17,8 @@ void main() async {
         '/home': (BuildContext context) => Builder(
               builder: (BuildContext context) {
                 return Consumer(
-                  builder:
-                      (BuildContext context, WidgetRef ref, Widget? child) {
-                    if (ref.watch(settingsNotifierProvider).token == null ||
-                        ref.watch(settingsNotifierProvider).serverAddress ==
-                            null) {
+                  builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                    if (ref.watch(settingsNotifierProvider).token == null || ref.watch(settingsNotifierProvider).serverAddress == null) {
                       return const SignUpWidget();
                     } else {
                       return const Post();
@@ -65,8 +62,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: Scaffold(
-        body: Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+        body: Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) {
           return Column(
             children: [
               changeSettingWidget(),
