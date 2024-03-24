@@ -23,6 +23,14 @@ mixin _$PostState {
   int get price => throw _privateConstructorUsedError;
   String? get method => throw _privateConstructorUsedError;
   String get other => throw _privateConstructorUsedError;
+  bool get isEditingCategory => throw _privateConstructorUsedError;
+  bool get isEditingMethod => throw _privateConstructorUsedError;
+  double get methodFormOffsetTop => throw _privateConstructorUsedError;
+  double get otherFormOffsetTop => throw _privateConstructorUsedError;
+  bool get isFocusOnCategory => throw _privateConstructorUsedError;
+  bool get isFocusOnMethod => throw _privateConstructorUsedError;
+  String get categoryQuery => throw _privateConstructorUsedError;
+  String get methodQuery => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PostStateCopyWith<PostState> get copyWith =>
@@ -41,7 +49,15 @@ abstract class $PostStateCopyWith<$Res> {
       String? category,
       int price,
       String? method,
-      String other});
+      String other,
+      bool isEditingCategory,
+      bool isEditingMethod,
+      double methodFormOffsetTop,
+      double otherFormOffsetTop,
+      bool isFocusOnCategory,
+      bool isFocusOnMethod,
+      String categoryQuery,
+      String methodQuery});
 }
 
 /// @nodoc
@@ -64,6 +80,14 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
     Object? price = null,
     Object? method = freezed,
     Object? other = null,
+    Object? isEditingCategory = null,
+    Object? isEditingMethod = null,
+    Object? methodFormOffsetTop = null,
+    Object? otherFormOffsetTop = null,
+    Object? isFocusOnCategory = null,
+    Object? isFocusOnMethod = null,
+    Object? categoryQuery = null,
+    Object? methodQuery = null,
   }) {
     return _then(_value.copyWith(
       place: null == place
@@ -94,6 +118,38 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
               as String,
+      isEditingCategory: null == isEditingCategory
+          ? _value.isEditingCategory
+          : isEditingCategory // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEditingMethod: null == isEditingMethod
+          ? _value.isEditingMethod
+          : isEditingMethod // ignore: cast_nullable_to_non_nullable
+              as bool,
+      methodFormOffsetTop: null == methodFormOffsetTop
+          ? _value.methodFormOffsetTop
+          : methodFormOffsetTop // ignore: cast_nullable_to_non_nullable
+              as double,
+      otherFormOffsetTop: null == otherFormOffsetTop
+          ? _value.otherFormOffsetTop
+          : otherFormOffsetTop // ignore: cast_nullable_to_non_nullable
+              as double,
+      isFocusOnCategory: null == isFocusOnCategory
+          ? _value.isFocusOnCategory
+          : isFocusOnCategory // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFocusOnMethod: null == isFocusOnMethod
+          ? _value.isFocusOnMethod
+          : isFocusOnMethod // ignore: cast_nullable_to_non_nullable
+              as bool,
+      categoryQuery: null == categoryQuery
+          ? _value.categoryQuery
+          : categoryQuery // ignore: cast_nullable_to_non_nullable
+              as String,
+      methodQuery: null == methodQuery
+          ? _value.methodQuery
+          : methodQuery // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -113,7 +169,15 @@ abstract class _$$PostStateImplCopyWith<$Res>
       String? category,
       int price,
       String? method,
-      String other});
+      String other,
+      bool isEditingCategory,
+      bool isEditingMethod,
+      double methodFormOffsetTop,
+      double otherFormOffsetTop,
+      bool isFocusOnCategory,
+      bool isFocusOnMethod,
+      String categoryQuery,
+      String methodQuery});
 }
 
 /// @nodoc
@@ -134,6 +198,14 @@ class __$$PostStateImplCopyWithImpl<$Res>
     Object? price = null,
     Object? method = freezed,
     Object? other = null,
+    Object? isEditingCategory = null,
+    Object? isEditingMethod = null,
+    Object? methodFormOffsetTop = null,
+    Object? otherFormOffsetTop = null,
+    Object? isFocusOnCategory = null,
+    Object? isFocusOnMethod = null,
+    Object? categoryQuery = null,
+    Object? methodQuery = null,
   }) {
     return _then(_$PostStateImpl(
       place: null == place
@@ -164,6 +236,38 @@ class __$$PostStateImplCopyWithImpl<$Res>
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
               as String,
+      isEditingCategory: null == isEditingCategory
+          ? _value.isEditingCategory
+          : isEditingCategory // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEditingMethod: null == isEditingMethod
+          ? _value.isEditingMethod
+          : isEditingMethod // ignore: cast_nullable_to_non_nullable
+              as bool,
+      methodFormOffsetTop: null == methodFormOffsetTop
+          ? _value.methodFormOffsetTop
+          : methodFormOffsetTop // ignore: cast_nullable_to_non_nullable
+              as double,
+      otherFormOffsetTop: null == otherFormOffsetTop
+          ? _value.otherFormOffsetTop
+          : otherFormOffsetTop // ignore: cast_nullable_to_non_nullable
+              as double,
+      isFocusOnCategory: null == isFocusOnCategory
+          ? _value.isFocusOnCategory
+          : isFocusOnCategory // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFocusOnMethod: null == isFocusOnMethod
+          ? _value.isFocusOnMethod
+          : isFocusOnMethod // ignore: cast_nullable_to_non_nullable
+              as bool,
+      categoryQuery: null == categoryQuery
+          ? _value.categoryQuery
+          : categoryQuery // ignore: cast_nullable_to_non_nullable
+              as String,
+      methodQuery: null == methodQuery
+          ? _value.methodQuery
+          : methodQuery // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -178,7 +282,15 @@ class _$PostStateImpl implements _PostState {
       this.category,
       required this.price,
       this.method,
-      required this.other});
+      required this.other,
+      this.isEditingCategory = false,
+      this.isEditingMethod = false,
+      this.methodFormOffsetTop = 0,
+      this.otherFormOffsetTop = 0,
+      this.isFocusOnCategory = false,
+      this.isFocusOnMethod = false,
+      this.categoryQuery = "",
+      this.methodQuery = ""});
 
   @override
   final String place;
@@ -194,10 +306,34 @@ class _$PostStateImpl implements _PostState {
   final String? method;
   @override
   final String other;
+  @override
+  @JsonKey()
+  final bool isEditingCategory;
+  @override
+  @JsonKey()
+  final bool isEditingMethod;
+  @override
+  @JsonKey()
+  final double methodFormOffsetTop;
+  @override
+  @JsonKey()
+  final double otherFormOffsetTop;
+  @override
+  @JsonKey()
+  final bool isFocusOnCategory;
+  @override
+  @JsonKey()
+  final bool isFocusOnMethod;
+  @override
+  @JsonKey()
+  final String categoryQuery;
+  @override
+  @JsonKey()
+  final String methodQuery;
 
   @override
   String toString() {
-    return 'PostState(place: $place, date: $date, week: $week, category: $category, price: $price, method: $method, other: $other)';
+    return 'PostState(place: $place, date: $date, week: $week, category: $category, price: $price, method: $method, other: $other, isEditingCategory: $isEditingCategory, isEditingMethod: $isEditingMethod, methodFormOffsetTop: $methodFormOffsetTop, otherFormOffsetTop: $otherFormOffsetTop, isFocusOnCategory: $isFocusOnCategory, isFocusOnMethod: $isFocusOnMethod, categoryQuery: $categoryQuery, methodQuery: $methodQuery)';
   }
 
   @override
@@ -212,12 +348,43 @@ class _$PostStateImpl implements _PostState {
                 other.category == category) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.method, method) || other.method == method) &&
-            (identical(other.other, this.other) || other.other == this.other));
+            (identical(other.other, this.other) || other.other == this.other) &&
+            (identical(other.isEditingCategory, isEditingCategory) ||
+                other.isEditingCategory == isEditingCategory) &&
+            (identical(other.isEditingMethod, isEditingMethod) ||
+                other.isEditingMethod == isEditingMethod) &&
+            (identical(other.methodFormOffsetTop, methodFormOffsetTop) ||
+                other.methodFormOffsetTop == methodFormOffsetTop) &&
+            (identical(other.otherFormOffsetTop, otherFormOffsetTop) ||
+                other.otherFormOffsetTop == otherFormOffsetTop) &&
+            (identical(other.isFocusOnCategory, isFocusOnCategory) ||
+                other.isFocusOnCategory == isFocusOnCategory) &&
+            (identical(other.isFocusOnMethod, isFocusOnMethod) ||
+                other.isFocusOnMethod == isFocusOnMethod) &&
+            (identical(other.categoryQuery, categoryQuery) ||
+                other.categoryQuery == categoryQuery) &&
+            (identical(other.methodQuery, methodQuery) ||
+                other.methodQuery == methodQuery));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, place, date, week, category, price, method, other);
+      runtimeType,
+      place,
+      date,
+      week,
+      category,
+      price,
+      method,
+      other,
+      isEditingCategory,
+      isEditingMethod,
+      methodFormOffsetTop,
+      otherFormOffsetTop,
+      isFocusOnCategory,
+      isFocusOnMethod,
+      categoryQuery,
+      methodQuery);
 
   @JsonKey(ignore: true)
   @override
@@ -234,7 +401,15 @@ abstract class _PostState implements PostState {
       final String? category,
       required final int price,
       final String? method,
-      required final String other}) = _$PostStateImpl;
+      required final String other,
+      final bool isEditingCategory,
+      final bool isEditingMethod,
+      final double methodFormOffsetTop,
+      final double otherFormOffsetTop,
+      final bool isFocusOnCategory,
+      final bool isFocusOnMethod,
+      final String categoryQuery,
+      final String methodQuery}) = _$PostStateImpl;
 
   @override
   String get place;
@@ -250,6 +425,22 @@ abstract class _PostState implements PostState {
   String? get method;
   @override
   String get other;
+  @override
+  bool get isEditingCategory;
+  @override
+  bool get isEditingMethod;
+  @override
+  double get methodFormOffsetTop;
+  @override
+  double get otherFormOffsetTop;
+  @override
+  bool get isFocusOnCategory;
+  @override
+  bool get isFocusOnMethod;
+  @override
+  String get categoryQuery;
+  @override
+  String get methodQuery;
   @override
   @JsonKey(ignore: true)
   _$$PostStateImplCopyWith<_$PostStateImpl> get copyWith =>

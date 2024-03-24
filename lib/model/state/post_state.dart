@@ -12,5 +12,13 @@ class PostState with _$PostState {
     required int price,
     String? method,
     required String other,
+    @Default(false) bool isEditingCategory,
+    @Default(false) bool isEditingMethod,
+    @Default(0) double methodFormOffsetTop,
+    @Default(0) double otherFormOffsetTop,
+    @Default(false) bool isFocusOnCategory,
+    @Default(false) bool isFocusOnMethod,
+    @Default("") String categoryQuery,
+    @Default("") String methodQuery,
   }) = _PostState;
 }

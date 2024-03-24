@@ -19,6 +19,8 @@ class PostViewModel extends StateNotifier<PostState> {
   TextEditingController placeController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController methodController = TextEditingController();
   TextEditingController otherController = TextEditingController();
 
   void changeDate(DateTime date) {
@@ -40,8 +42,17 @@ class PostViewModel extends StateNotifier<PostState> {
     state = state.copyWith(place: placeController.text, other: otherController.text, price: int.parse(priceController.text));
   }
 
+  void setIsEditingCategory(bool value) => state = state.copyWith(isEditingCategory: value);
+  void setIsEditingMethod(bool value) => state = state.copyWith(isEditingMethod: value);
+
   void changeCategory(String? value) => state = state.copyWith(category: value);
   void changeMethod(String? value) => state = state.copyWith(method: value);
+
+  void setMethodFormOffsetTop(double value) => state = state.copyWith(methodFormOffsetTop: value);
+  void setOtherFormOffsetTop(double value) => state = state.copyWith(otherFormOffsetTop: value);
+
+  void setCategoryQuery(String value) => state = state.copyWith(categoryQuery: value);
+  void setMethodQuery(String value) => state = state.copyWith(methodQuery: value);
 }
 
 final postViewModelProvider = StateNotifierProvider.autoDispose<PostViewModel, PostState>((ref) => PostViewModel(ref));
