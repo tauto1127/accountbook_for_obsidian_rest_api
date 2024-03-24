@@ -186,19 +186,18 @@ class Post extends StatelessWidget {
         Consumer(builder: (context, ref, child) {
           return Padding(
             padding: EdgeInsets.only(top: ref.watch(postViewModelProvider).methodFormOffsetTop),
-            child: Container(
-              alignment: Alignment.topCenter,
+            child: SizedBox(
               height: 100,
-              child: (ref.watch(postViewModelProvider).isEditingCategory) ? null : const Text('検索候補'),
+              child: (ref.watch(postViewModelProvider).isEditingCategory) ? const Text('検索候補') : null,
             ),
           );
         }),
         Consumer(builder: (context, ref, child) {
           return Padding(
               padding: EdgeInsets.only(top: ref.watch(postViewModelProvider).otherFormOffsetTop),
-              child: Container(
-                color: Colors.deepOrange,
+              child: SizedBox(
                 height: 100,
+                child: (ref.watch(postViewModelProvider).isEditingMethod) ? const Text('検索候補') : null,
               ));
         }),
       ],
