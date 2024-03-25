@@ -20,5 +20,7 @@ class PostState with _$PostState {
     @Default(false) bool isFocusOnMethod,
     @Default("") String categoryQuery,
     @Default("") String methodQuery,
+    required List<String> categoryList,
+    required List<String> methodList,
   }) = _PostState;
 }

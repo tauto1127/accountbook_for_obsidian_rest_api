@@ -31,6 +31,8 @@ mixin _$PostState {
   bool get isFocusOnMethod => throw _privateConstructorUsedError;
   String get categoryQuery => throw _privateConstructorUsedError;
   String get methodQuery => throw _privateConstructorUsedError;
+  List<String> get categoryList => throw _privateConstructorUsedError;
+  List<String> get methodList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PostStateCopyWith<PostState> get copyWith =>
@@ -57,7 +59,9 @@ abstract class $PostStateCopyWith<$Res> {
       bool isFocusOnCategory,
       bool isFocusOnMethod,
       String categoryQuery,
-      String methodQuery});
+      String methodQuery,
+      List<String> categoryList,
+      List<String> methodList});
 }
 
 /// @nodoc
@@ -88,6 +92,8 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
     Object? isFocusOnMethod = null,
     Object? categoryQuery = null,
     Object? methodQuery = null,
+    Object? categoryList = null,
+    Object? methodList = null,
   }) {
     return _then(_value.copyWith(
       place: null == place
@@ -150,6 +156,14 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
           ? _value.methodQuery
           : methodQuery // ignore: cast_nullable_to_non_nullable
               as String,
+      categoryList: null == categoryList
+          ? _value.categoryList
+          : categoryList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      methodList: null == methodList
+          ? _value.methodList
+          : methodList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -177,7 +191,9 @@ abstract class _$$PostStateImplCopyWith<$Res>
       bool isFocusOnCategory,
       bool isFocusOnMethod,
       String categoryQuery,
-      String methodQuery});
+      String methodQuery,
+      List<String> categoryList,
+      List<String> methodList});
 }
 
 /// @nodoc
@@ -206,6 +222,8 @@ class __$$PostStateImplCopyWithImpl<$Res>
     Object? isFocusOnMethod = null,
     Object? categoryQuery = null,
     Object? methodQuery = null,
+    Object? categoryList = null,
+    Object? methodList = null,
   }) {
     return _then(_$PostStateImpl(
       place: null == place
@@ -268,6 +286,14 @@ class __$$PostStateImplCopyWithImpl<$Res>
           ? _value.methodQuery
           : methodQuery // ignore: cast_nullable_to_non_nullable
               as String,
+      categoryList: null == categoryList
+          ? _value._categoryList
+          : categoryList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      methodList: null == methodList
+          ? _value._methodList
+          : methodList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -290,7 +316,11 @@ class _$PostStateImpl implements _PostState {
       this.isFocusOnCategory = false,
       this.isFocusOnMethod = false,
       this.categoryQuery = "",
-      this.methodQuery = ""});
+      this.methodQuery = "",
+      final List<String> categoryList = const [],
+      final List<String> methodList = const []})
+      : _categoryList = categoryList,
+        _methodList = methodList;
 
   @override
   final String place;
@@ -330,10 +360,27 @@ class _$PostStateImpl implements _PostState {
   @override
   @JsonKey()
   final String methodQuery;
+  final List<String> _categoryList;
+  @override
+  @JsonKey()
+  List<String> get categoryList {
+    if (_categoryList is EqualUnmodifiableListView) return _categoryList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_categoryList);
+  }
+
+  final List<String> _methodList;
+  @override
+  @JsonKey()
+  List<String> get methodList {
+    if (_methodList is EqualUnmodifiableListView) return _methodList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_methodList);
+  }
 
   @override
   String toString() {
-    return 'PostState(place: $place, date: $date, week: $week, category: $category, price: $price, method: $method, other: $other, isEditingCategory: $isEditingCategory, isEditingMethod: $isEditingMethod, methodFormOffsetTop: $methodFormOffsetTop, otherFormOffsetTop: $otherFormOffsetTop, isFocusOnCategory: $isFocusOnCategory, isFocusOnMethod: $isFocusOnMethod, categoryQuery: $categoryQuery, methodQuery: $methodQuery)';
+    return 'PostState(place: $place, date: $date, week: $week, category: $category, price: $price, method: $method, other: $other, isEditingCategory: $isEditingCategory, isEditingMethod: $isEditingMethod, methodFormOffsetTop: $methodFormOffsetTop, otherFormOffsetTop: $otherFormOffsetTop, isFocusOnCategory: $isFocusOnCategory, isFocusOnMethod: $isFocusOnMethod, categoryQuery: $categoryQuery, methodQuery: $methodQuery, categoryList: $categoryList, methodList: $methodList)';
   }
 
   @override
@@ -364,7 +411,11 @@ class _$PostStateImpl implements _PostState {
             (identical(other.categoryQuery, categoryQuery) ||
                 other.categoryQuery == categoryQuery) &&
             (identical(other.methodQuery, methodQuery) ||
-                other.methodQuery == methodQuery));
+                other.methodQuery == methodQuery) &&
+            const DeepCollectionEquality()
+                .equals(other._categoryList, _categoryList) &&
+            const DeepCollectionEquality()
+                .equals(other._methodList, _methodList));
   }
 
   @override
@@ -384,7 +435,9 @@ class _$PostStateImpl implements _PostState {
       isFocusOnCategory,
       isFocusOnMethod,
       categoryQuery,
-      methodQuery);
+      methodQuery,
+      const DeepCollectionEquality().hash(_categoryList),
+      const DeepCollectionEquality().hash(_methodList));
 
   @JsonKey(ignore: true)
   @override
@@ -409,7 +462,9 @@ abstract class _PostState implements PostState {
       final bool isFocusOnCategory,
       final bool isFocusOnMethod,
       final String categoryQuery,
-      final String methodQuery}) = _$PostStateImpl;
+      final String methodQuery,
+      final List<String> categoryList,
+      final List<String> methodList}) = _$PostStateImpl;
 
   @override
   String get place;
@@ -441,6 +496,10 @@ abstract class _PostState implements PostState {
   String get categoryQuery;
   @override
   String get methodQuery;
+  @override
+  List<String> get categoryList;
+  @override
+  List<String> get methodList;
   @override
   @JsonKey(ignore: true)
   _$$PostStateImplCopyWith<_$PostStateImpl> get copyWith =>

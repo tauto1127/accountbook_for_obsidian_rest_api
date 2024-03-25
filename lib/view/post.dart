@@ -184,11 +184,40 @@ class Post extends StatelessWidget {
         ),
         //検索候補
         Consumer(builder: (context, ref, child) {
+          List<String> categoryList = ref.watch(postViewModelProvider).categoryList;
           return Padding(
             padding: EdgeInsets.only(top: ref.watch(postViewModelProvider).methodFormOffsetTop),
-            child: SizedBox(
-              height: 100,
-              child: (ref.watch(postViewModelProvider).isEditingCategory) ? const Text('検索候補') : null,
+            child: Container(
+              child: (ref.watch(postViewModelProvider).isEditingCategory)
+                  ? Container(
+                      color: Theme.of(context).colorScheme.background,
+                      child: ListView.builder(
+                          itemCount: categoryList.length + 1,
+                          itemBuilder: (
+                            BuildContext context,
+                            int index,
+                          ) {
+                            if (index == 0) {
+                              if (categoryList.where((element) => element == ref.watch(postViewModelProvider).categoryQuery).isEmpty) {
+                                return TextButton(
+                                  onPressed: () {
+                                    ref.read(postViewModelProvider.notifier).changeCategory(null);
+                                  },
+                                  child: const Text('すべて'),
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            }
+                            return TextButton(
+                              onPressed: () {
+                                ref.read(postViewModelProvider.notifier).changeCategory(ref.watch(postViewModelProvider).categoryQuery);
+                              },
+                              child: Text(categoryList[--index]),
+                            );
+                          }),
+                    )
+                  : null,
             ),
           );
         }),

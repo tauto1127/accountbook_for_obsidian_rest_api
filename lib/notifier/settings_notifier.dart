@@ -63,4 +63,14 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
     }
     return result;
   }
+
+  List<String> searchCategory(String query) {
+    if (query.isEmpty) return state.category!;
+    return state.category!.where((element) => element.contains(query)).toList();
+  }
+
+  List<String> searchMethod(String query) {
+    if (query.isEmpty) return state.method!;
+    return state.method!.where((element) => element.contains(query)).toList();
+  }
 }
