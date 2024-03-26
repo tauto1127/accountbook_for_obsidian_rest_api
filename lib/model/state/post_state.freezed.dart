@@ -317,8 +317,8 @@ class _$PostStateImpl implements _PostState {
       this.isFocusOnMethod = false,
       this.categoryQuery = "",
       this.methodQuery = "",
-      final List<String> categoryList = const [],
-      final List<String> methodList = const []})
+      required final List<String> categoryList,
+      required final List<String> methodList})
       : _categoryList = categoryList,
         _methodList = methodList;
 
@@ -362,7 +362,6 @@ class _$PostStateImpl implements _PostState {
   final String methodQuery;
   final List<String> _categoryList;
   @override
-  @JsonKey()
   List<String> get categoryList {
     if (_categoryList is EqualUnmodifiableListView) return _categoryList;
     // ignore: implicit_dynamic_type
@@ -371,7 +370,6 @@ class _$PostStateImpl implements _PostState {
 
   final List<String> _methodList;
   @override
-  @JsonKey()
   List<String> get methodList {
     if (_methodList is EqualUnmodifiableListView) return _methodList;
     // ignore: implicit_dynamic_type
@@ -463,8 +461,8 @@ abstract class _PostState implements PostState {
       final bool isFocusOnMethod,
       final String categoryQuery,
       final String methodQuery,
-      final List<String> categoryList,
-      final List<String> methodList}) = _$PostStateImpl;
+      required final List<String> categoryList,
+      required final List<String> methodList}) = _$PostStateImpl;
 
   @override
   String get place;

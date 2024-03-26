@@ -188,6 +188,7 @@ class Post extends StatelessWidget {
           }),
         ),
         //検索候補
+        //TODO カテゴリー選択した時にフォームに反映するようにする
         Consumer(builder: (context, ref, child) {
           List<String> categoryList = ref.watch(postViewModelProvider).categoryList;
           return Padding(
