@@ -33,6 +33,8 @@ class PostViewModel extends StateNotifier<PostState> {
   TextEditingController methodController = TextEditingController();
   TextEditingController otherController = TextEditingController();
 
+  ScrollController scrollController = ScrollController(keepScrollOffset: false);
+
   void changeDate(DateTime date) {
     state = state.copyWith(date: date, week: _getWeekNumber(date));
     dateController.text = date.toString();
@@ -67,6 +69,20 @@ class PostViewModel extends StateNotifier<PostState> {
 
   void setMethodQuery(String value) =>
       state = state.copyWith(methodQuery: value, methodList: ref.read(settingsNotifierProvider.notifier).searchMethod(value));
+
+  void addToCategoryList(String value) {
+    ref.read(settingsNotifierProvider.notifier).addToCategories(value);
+    state = state.copyWith(categoryList: ref.read(settingsNotifierProvider).category!);
+  }
+
+  void addToMethodList(String value) {
+    ref.read(settingsNotifierProvider.notifier).addToMethods(value);
+    state = state.copyWith(methodList: ref.read(settingsNotifierProvider).method!);
+  }
+
+  void changeScroll(double value) {
+    scrollController.jumpTo(value);
+  }
 }
 
 final postViewModelProvider = StateNotifierProvider.autoDispose<PostViewModel, PostState>((ref) => PostViewModel(ref));

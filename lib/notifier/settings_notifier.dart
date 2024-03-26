@@ -28,6 +28,16 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
     }
   }
 
+  void _setCategory() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(SharedPreferencesFieldName.category.name, state.category!);
+  }
+
+  void _setMethod() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(SharedPreferencesFieldName.method.name, state.method!);
+  }
+
   void saveServerSettings() async {
     // Save settings to local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -72,5 +82,15 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
   List<String> searchMethod(String query) {
     if (query.isEmpty) return state.method!;
     return state.method!.where((element) => element.contains(query)).toList();
+  }
+
+  void addToCategories(String str) {
+    state = state.copyWith(category: [...state.category!, str]);
+    _setCategory();
+  }
+
+  void addToMethods(String str) {
+    state = state.copyWith(method: [...state.method!, str]);
+    _setMethod();
   }
 }
