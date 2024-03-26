@@ -53,7 +53,8 @@ class ObsidianRepository {
   static Future<RestApiConnectionResult> addPost(PostModel post, PostState postState, BuildContext context) async {
     SettingsModel settings = ProviderScope.containerOf(context).read(settingsNotifierProvider);
     debugPrint('token: ${settings.token}, serverAddress: ${settings.serverAddress}, port: ${settings.port}');
-    Uri uri = Uri.parse('${_getUri(settings).toString()}/vault/${post.title}');
+    //TODO rootPathのさまざまな条件のハンドリング
+    Uri uri = Uri.parse('${_getUri(settings).toString()}/vault${settings.rootPath}/${post.title}');
 
     http.Response res = await http.post(
         headers: {"Authorization": DefaultValue.authorizationHeaderPrefix + settings.token!, "Content-Type": "text/markdown"},
