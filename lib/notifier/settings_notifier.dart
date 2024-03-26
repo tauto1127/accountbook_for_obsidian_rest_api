@@ -67,7 +67,7 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
     RestApiConnectionResult result = await ObsidianRepository.checkInvalidServer(
         SettingsModel(port: setting.port, serverAddress: setting.serverAddress, token: setting.token));
     if (result.status == RestApiConnectionStatus.success) {
-      state = state.copyWith(serverAddress: setting.serverAddress, port: setting.port, token: setting.token);
+      state = state.copyWith(serverAddress: setting.serverAddress, port: setting.port, token: setting.token, rootPath: setting.rootPath);
       saveServerSettings();
       return result;
     }
