@@ -54,12 +54,15 @@ class ObsidianRepository {
     SettingsModel settings = ProviderScope.containerOf(context).read(settingsNotifierProvider);
     debugPrint('token: ${settings.token}, serverAddress: ${settings.serverAddress}, port: ${settings.port}');
     //TODO rootPathのさまざまな条件のハンドリング
-    Uri uri = Uri.parse('${_getUri(settings).toString()}/vault${settings.rootPath}/${post.title}');
+    //TODO タイトルに.mdがない時
+    Uri uri = Uri.parse('${_getUri(settings).toString()}/vault${settings.rootPath}/${post.title}.md');
 
     http.Response res = await http.post(
         headers: {"Authorization": DefaultValue.authorizationHeaderPrefix + settings.token!, "Content-Type": "text/markdown"},
         body: post.body,
         uri);
+    debugPrint('putted ${uri.toString()}');
+    debugPrint(res.statusCode.toString());
     switch (res.statusCode) {
       case 200:
         return RestApiConnectionResult(RestApiConnectionStatus.success, "succeed");
