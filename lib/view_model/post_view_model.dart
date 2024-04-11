@@ -47,6 +47,17 @@ class PostViewModel extends StateNotifier<PostState> {
 
   PostModel generatePost() {
     state = state.copyWith(other: otherController.text, price: int.parse(priceController.text));
+    state = PostState(
+        categoryList: categoryController.text.split(', '),
+        methodList: methodController.text.split(', '),
+        date: DateTime.parse(dateController.text),
+        week: _getWeekNumber(DateTime.parse(dateController.text)),
+        place: placeController.text,
+        price: int.parse(priceController.text),
+        other: otherController.text,
+        category: categoryController.text,
+        method: methodController.text);
+    debugPrint('generatePost: ${state.toString()}');
     return ref.read(templateNotifierProvider.notifier).generatePost(state);
   }
 
@@ -57,11 +68,19 @@ class PostViewModel extends StateNotifier<PostState> {
   void setIsEditingCategory(bool value) => state = state.copyWith(isEditingCategory: value);
   void setIsEditingMethod(bool value) => state = state.copyWith(isEditingMethod: value);
 
-  void changeCategory(String? value) => state = state.copyWith(category: value);
+  void changeCategory(String? value) {
+    if (categoryController.text.isEmpty) {
+      categoryController.text = value!;
+    } else {
+      categoryController.text = "${categoryController.text}, ${value!}";
+    }
+  }
+
   void changeMethod(String? value) => state = state.copyWith(method: value);
 
   void setMethodFormOffsetTop(double value) => state = state.copyWith(methodFormOffsetTop: value);
   void setOtherFormOffsetTop(double value) => state = state.copyWith(otherFormOffsetTop: value);
+  void setPlaceFormOffsetTop(double value) => state = state.copyWith(placeFormOffsetTop: value);
 
   void setCategoryQuery(String value) {
     state = state.copyWith(categoryQuery: value, categoryList: ref.read(settingsNotifierProvider.notifier).searchCategory(value));
@@ -78,6 +97,11 @@ class PostViewModel extends StateNotifier<PostState> {
   void addToMethodList(String value) {
     ref.read(settingsNotifierProvider.notifier).addToMethods(value);
     state = state.copyWith(methodList: ref.read(settingsNotifierProvider).method!);
+  }
+
+  void deleteCategoryList(String value) {
+    ref.read(settingsNotifierProvider.notifier).deleteCategories(value);
+    state = state.copyWith(categoryList: ref.read(settingsNotifierProvider).category!);
   }
 
   void changeScroll(double value) {
