@@ -3,7 +3,6 @@ import 'package:accountbook_for_obsidian_rest_api/model/state/post_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/notifier/settings_notifier.dart';
 import 'package:accountbook_for_obsidian_rest_api/repository/obsidian_repository.dart';
 import 'package:accountbook_for_obsidian_rest_api/notifier/template_notifier.dart';
-import 'package:accountbook_for_obsidian_rest_api/view_model/settings_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -40,23 +39,27 @@ class PostViewModel extends StateNotifier<PostState> {
     dateController.text = date.toString();
   }
 
+  void _textEditingControllerToState() {
+    state = state.copyWith(
+        place: placeController.text,
+        other: otherController.text,
+        price: int.parse(priceController.text),
+        category: categoryController.text,
+        method: methodController.text,
+        categoryList: categoryController.text.split(', '),
+        methodList: methodController.text.split(', '),
+        //#TODO parseが失敗した時
+        date: DateTime.parse(dateController.text),
+        week: _getWeekNumber(DateTime.parse(dateController.text)));
+  }
+
   void addPost(PostModel post, BuildContext context) async {
     syncState();
     ObsidianRepository.addPost(post, state, context);
   }
 
   PostModel generatePost() {
-    state = state.copyWith(other: otherController.text, price: int.parse(priceController.text));
-    state = PostState(
-        categoryList: categoryController.text.split(', '),
-        methodList: methodController.text.split(', '),
-        date: DateTime.parse(dateController.text),
-        week: _getWeekNumber(DateTime.parse(dateController.text)),
-        place: placeController.text,
-        price: int.parse(priceController.text),
-        other: otherController.text,
-        category: categoryController.text,
-        method: methodController.text);
+    _textEditingControllerToState();
     debugPrint('generatePost: ${state.toString()}');
     return ref.read(templateNotifierProvider.notifier).generatePost(state);
   }
