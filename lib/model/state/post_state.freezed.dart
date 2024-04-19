@@ -27,8 +27,7 @@ mixin _$PostState {
   bool get isEditingMethod => throw _privateConstructorUsedError;
   double get methodFormOffsetTop => throw _privateConstructorUsedError;
   double get otherFormOffsetTop => throw _privateConstructorUsedError;
-  bool get isFocusOnCategory => throw _privateConstructorUsedError;
-  bool get isFocusOnMethod => throw _privateConstructorUsedError;
+  double get placeFormOffsetTop => throw _privateConstructorUsedError;
   String get categoryQuery => throw _privateConstructorUsedError;
   String get methodQuery => throw _privateConstructorUsedError;
   List<String> get categoryList => throw _privateConstructorUsedError;
@@ -56,8 +55,7 @@ abstract class $PostStateCopyWith<$Res> {
       bool isEditingMethod,
       double methodFormOffsetTop,
       double otherFormOffsetTop,
-      bool isFocusOnCategory,
-      bool isFocusOnMethod,
+      double placeFormOffsetTop,
       String categoryQuery,
       String methodQuery,
       List<String> categoryList,
@@ -88,8 +86,7 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
     Object? isEditingMethod = null,
     Object? methodFormOffsetTop = null,
     Object? otherFormOffsetTop = null,
-    Object? isFocusOnCategory = null,
-    Object? isFocusOnMethod = null,
+    Object? placeFormOffsetTop = null,
     Object? categoryQuery = null,
     Object? methodQuery = null,
     Object? categoryList = null,
@@ -140,14 +137,10 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
           ? _value.otherFormOffsetTop
           : otherFormOffsetTop // ignore: cast_nullable_to_non_nullable
               as double,
-      isFocusOnCategory: null == isFocusOnCategory
-          ? _value.isFocusOnCategory
-          : isFocusOnCategory // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isFocusOnMethod: null == isFocusOnMethod
-          ? _value.isFocusOnMethod
-          : isFocusOnMethod // ignore: cast_nullable_to_non_nullable
-              as bool,
+      placeFormOffsetTop: null == placeFormOffsetTop
+          ? _value.placeFormOffsetTop
+          : placeFormOffsetTop // ignore: cast_nullable_to_non_nullable
+              as double,
       categoryQuery: null == categoryQuery
           ? _value.categoryQuery
           : categoryQuery // ignore: cast_nullable_to_non_nullable
@@ -188,8 +181,7 @@ abstract class _$$PostStateImplCopyWith<$Res>
       bool isEditingMethod,
       double methodFormOffsetTop,
       double otherFormOffsetTop,
-      bool isFocusOnCategory,
-      bool isFocusOnMethod,
+      double placeFormOffsetTop,
       String categoryQuery,
       String methodQuery,
       List<String> categoryList,
@@ -218,8 +210,7 @@ class __$$PostStateImplCopyWithImpl<$Res>
     Object? isEditingMethod = null,
     Object? methodFormOffsetTop = null,
     Object? otherFormOffsetTop = null,
-    Object? isFocusOnCategory = null,
-    Object? isFocusOnMethod = null,
+    Object? placeFormOffsetTop = null,
     Object? categoryQuery = null,
     Object? methodQuery = null,
     Object? categoryList = null,
@@ -270,14 +261,10 @@ class __$$PostStateImplCopyWithImpl<$Res>
           ? _value.otherFormOffsetTop
           : otherFormOffsetTop // ignore: cast_nullable_to_non_nullable
               as double,
-      isFocusOnCategory: null == isFocusOnCategory
-          ? _value.isFocusOnCategory
-          : isFocusOnCategory // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isFocusOnMethod: null == isFocusOnMethod
-          ? _value.isFocusOnMethod
-          : isFocusOnMethod // ignore: cast_nullable_to_non_nullable
-              as bool,
+      placeFormOffsetTop: null == placeFormOffsetTop
+          ? _value.placeFormOffsetTop
+          : placeFormOffsetTop // ignore: cast_nullable_to_non_nullable
+              as double,
       categoryQuery: null == categoryQuery
           ? _value.categoryQuery
           : categoryQuery // ignore: cast_nullable_to_non_nullable
@@ -313,8 +300,7 @@ class _$PostStateImpl implements _PostState {
       this.isEditingMethod = false,
       this.methodFormOffsetTop = 0,
       this.otherFormOffsetTop = 0,
-      this.isFocusOnCategory = false,
-      this.isFocusOnMethod = false,
+      this.placeFormOffsetTop = 0,
       this.categoryQuery = "",
       this.methodQuery = "",
       required final List<String> categoryList,
@@ -350,10 +336,7 @@ class _$PostStateImpl implements _PostState {
   final double otherFormOffsetTop;
   @override
   @JsonKey()
-  final bool isFocusOnCategory;
-  @override
-  @JsonKey()
-  final bool isFocusOnMethod;
+  final double placeFormOffsetTop;
   @override
   @JsonKey()
   final String categoryQuery;
@@ -378,7 +361,7 @@ class _$PostStateImpl implements _PostState {
 
   @override
   String toString() {
-    return 'PostState(place: $place, date: $date, week: $week, category: $category, price: $price, method: $method, other: $other, isEditingCategory: $isEditingCategory, isEditingMethod: $isEditingMethod, methodFormOffsetTop: $methodFormOffsetTop, otherFormOffsetTop: $otherFormOffsetTop, isFocusOnCategory: $isFocusOnCategory, isFocusOnMethod: $isFocusOnMethod, categoryQuery: $categoryQuery, methodQuery: $methodQuery, categoryList: $categoryList, methodList: $methodList)';
+    return 'PostState(place: $place, date: $date, week: $week, category: $category, price: $price, method: $method, other: $other, isEditingCategory: $isEditingCategory, isEditingMethod: $isEditingMethod, methodFormOffsetTop: $methodFormOffsetTop, otherFormOffsetTop: $otherFormOffsetTop, placeFormOffsetTop: $placeFormOffsetTop, categoryQuery: $categoryQuery, methodQuery: $methodQuery, categoryList: $categoryList, methodList: $methodList)';
   }
 
   @override
@@ -402,10 +385,8 @@ class _$PostStateImpl implements _PostState {
                 other.methodFormOffsetTop == methodFormOffsetTop) &&
             (identical(other.otherFormOffsetTop, otherFormOffsetTop) ||
                 other.otherFormOffsetTop == otherFormOffsetTop) &&
-            (identical(other.isFocusOnCategory, isFocusOnCategory) ||
-                other.isFocusOnCategory == isFocusOnCategory) &&
-            (identical(other.isFocusOnMethod, isFocusOnMethod) ||
-                other.isFocusOnMethod == isFocusOnMethod) &&
+            (identical(other.placeFormOffsetTop, placeFormOffsetTop) ||
+                other.placeFormOffsetTop == placeFormOffsetTop) &&
             (identical(other.categoryQuery, categoryQuery) ||
                 other.categoryQuery == categoryQuery) &&
             (identical(other.methodQuery, methodQuery) ||
@@ -430,8 +411,7 @@ class _$PostStateImpl implements _PostState {
       isEditingMethod,
       methodFormOffsetTop,
       otherFormOffsetTop,
-      isFocusOnCategory,
-      isFocusOnMethod,
+      placeFormOffsetTop,
       categoryQuery,
       methodQuery,
       const DeepCollectionEquality().hash(_categoryList),
@@ -457,8 +437,7 @@ abstract class _PostState implements PostState {
       final bool isEditingMethod,
       final double methodFormOffsetTop,
       final double otherFormOffsetTop,
-      final bool isFocusOnCategory,
-      final bool isFocusOnMethod,
+      final double placeFormOffsetTop,
       final String categoryQuery,
       final String methodQuery,
       required final List<String> categoryList,
@@ -487,9 +466,7 @@ abstract class _PostState implements PostState {
   @override
   double get otherFormOffsetTop;
   @override
-  bool get isFocusOnCategory;
-  @override
-  bool get isFocusOnMethod;
+  double get placeFormOffsetTop;
   @override
   String get categoryQuery;
   @override

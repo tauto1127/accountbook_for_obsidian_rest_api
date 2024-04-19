@@ -8,6 +8,7 @@ class PostState with _$PostState {
     required String place,
     required DateTime date,
     required int week,
+    //#TODO categoryとmethodをrequiredにする
     String? category,
     required int price,
     String? method,
@@ -16,8 +17,7 @@ class PostState with _$PostState {
     @Default(false) bool isEditingMethod,
     @Default(0) double methodFormOffsetTop,
     @Default(0) double otherFormOffsetTop,
-    @Default(false) bool isFocusOnCategory,
-    @Default(false) bool isFocusOnMethod,
+    @Default(0) double placeFormOffsetTop,
     @Default("") String categoryQuery,
     @Default("") String methodQuery,
     required List<String> categoryList,

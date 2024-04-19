@@ -89,6 +89,11 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
     _setCategory();
   }
 
+  void deleteCategories(String str) {
+    state = state.copyWith(category: state.category!.where((element) => element != str).toList());
+    _setCategory();
+  }
+
   void addToMethods(String str) {
     state = state.copyWith(method: [...state.method!, str]);
     _setMethod();
