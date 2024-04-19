@@ -3,6 +3,7 @@ import 'package:accountbook_for_obsidian_rest_api/const/shared_preferences_field
 import 'package:accountbook_for_obsidian_rest_api/model/post_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/state/post_state.dart';
 import 'package:accountbook_for_obsidian_rest_api/model/template_model.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +17,7 @@ class TemplateNotifier extends StateNotifier<TemplateModel> {
 
   Future<TemplateModel> loadTemplate() async {
     // Load settings from local storage
+    debugPrint("loadTemplate");
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     state = TemplateModel(
         bodyTemplate: prefs.getString(SharedPreferencesFieldName.body_template.name) ?? DefaultValue.defaultBodyTemplate,
@@ -27,7 +29,9 @@ class TemplateNotifier extends StateNotifier<TemplateModel> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (await prefs.setString(SharedPreferencesFieldName.body_template.name, str.bodyTemplate) &&
         await prefs.setString(SharedPreferencesFieldName.title_template.name, str.titleTemplate)) {
-      state = str;
+      debugPrint('saveTemplate: $str');
+      state = TemplateModel(bodyTemplate: str.bodyTemplate, titleTemplate: str.titleTemplate);
+      debugPrint('${state.bodyTemplate} ${state.titleTemplate}');
     } else {
       throw Exception('Failed to save template');
     }
@@ -50,6 +54,8 @@ class TemplateNotifier extends StateNotifier<TemplateModel> {
         .replaceAll(r"{{category}}", postState.category.toString())
         .replaceAll(r"{{price}}", postState.price.toString())
         .replaceAll(r"{{method}}", postState.method ?? "")
-        .replaceAll(r"{{other}}", postState.other);
+        .replaceAll(r"{{other}}", postState.other)
+        .replaceAll(r"{{date}}", postState.date.toString())
+        .replaceAll(r"{{week}}", postState.week.toString());
   }
 }

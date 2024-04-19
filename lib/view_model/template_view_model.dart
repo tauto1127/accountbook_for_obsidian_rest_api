@@ -12,7 +12,9 @@ final templateViewModelProvider = StateNotifierProvider.autoDispose<TemplateView
 class TemplateViewModel extends StateNotifier<TemplateState> {
   final TextEditingController templateTextFieldController;
   final TextEditingController titleEditingController;
-  TemplateViewModel(TemplateState state, this.templateTextFieldController, this.titleEditingController) : super(state);
+  TemplateViewModel(TemplateState state, this.templateTextFieldController, this.titleEditingController) : super(state) {
+    debugPrint("templateViewModel Intialize ${templateTextFieldController.text}");
+  }
 
   void resetErrorText() async {
     if (state.errorText != null) {
