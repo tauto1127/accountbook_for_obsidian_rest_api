@@ -17,7 +17,6 @@ class VersionLabel extends StatelessWidget {
             var yaml = loadYaml(snapshot.data!);
             version = yaml["version"];
           }
-          print(version);
           return Text("Version: $version");
         });
   }
