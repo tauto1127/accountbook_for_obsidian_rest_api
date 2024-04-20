@@ -1,9 +1,9 @@
 import 'package:accountbook_for_obsidian_rest_api/model/post_model.dart';
+import 'package:accountbook_for_obsidian_rest_api/view/version_label.dart';
 import 'package:accountbook_for_obsidian_rest_api/view_model/post_view_model.dart';
 import 'package:accountbook_for_obsidian_rest_api/notifier/settings_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
 
 class Post extends StatelessWidget {
   const Post({Key? key}) : super(key: key);
@@ -125,6 +125,7 @@ class Post extends StatelessWidget {
                       },
                       controller: ref.read(postViewModelProvider.notifier).priceController,
                     ),
+                    VersionLabel(),
                   ]);
                 }
                 if (ref.watch(postViewModelProvider).isEditingCategory || !(ref.watch(postViewModelProvider).isEditingMethod)) {
@@ -277,7 +278,7 @@ class Post extends StatelessWidget {
             child: const Text("スクロール"),
             onPressed: () => ref.read(postViewModelProvider.notifier).changeScroll(1000),
           );
-        })
+        }),
       ],
     );
   }
