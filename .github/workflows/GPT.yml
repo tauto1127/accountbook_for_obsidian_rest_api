@@ -6,11 +6,12 @@ permissions:
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, labeled]
 
 jobs:
   test:
-    #if: ${{ contains(github.event.*.labels.*.name, 'review') }} # Optional; to run only when a label is attached
+    #レビューが欲しかったらラベルに「review」をつける
+    if: ${{ contains(github.event.*.labels.*.name, 'review') }} # Optional; to run only when a label is attached
     #if: ${{ github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'review') }}
     runs-on: ubuntu-latest
     steps:
@@ -21,7 +22,7 @@ jobs:
           # Optional
           LANGUAGE: Japanese
           OPENAI_API_ENDPOINT: https://api.openai.com/v1
-          #MODEL: gpt-3.5-turbo # https://platform.openai.com/docs/models
+          MODEL: gpt-4 # https://platform.openai.com/docs/models
           #PROMPT: # example: Please check if there are any confusions or irregularities in the following code diff:
           top_p: 1 # https://platform.openai.com/docs/api-reference/chat/create#chat/create-top_p
           temperature: 1 # https://platform.openai.com/docs/api-reference/chat/create#chat/create-temperature
