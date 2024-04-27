@@ -55,7 +55,7 @@ class PostViewModel extends StateNotifier<PostState> {
 
   void addPost(PostModel post, BuildContext context) async {
     syncState();
-    ObsidianRepository.addPost(post, state, context);
+    ref.read(obsidianRepositoryProvider).addPost(post, state, context);
   }
 
   PostModel generatePost() {

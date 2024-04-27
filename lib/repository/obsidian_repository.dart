@@ -11,8 +11,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-class ObsidianRepository {
-  static Future<RestApiConnectionResult> checkInvalidServer(SettingsModel settingState) async {
+final obsidianRepositoryProvider = Provider<ObsidianRepositoryInterface>((ref) => ObsidianRepository());
+
+abstract class ObsidianRepositoryInterface {
+  Future<RestApiConnectionResult> checkInvalidServer(SettingsModel settingState);
+  Future<RestApiConnectionResult> addPost(PostModel post, PostState postState, BuildContext context);
+}
+
+class ObsidianRepository implements ObsidianRepositoryInterface {
+  @override
+  Future<RestApiConnectionResult> checkInvalidServer(SettingsModel settingState) async {
     // 接続のチェックを行うロジックを実装する
     try {
       Uri uri = _getUri(settingState);
@@ -50,7 +58,8 @@ class ObsidianRepository {
     }
   }
 
-  static Future<RestApiConnectionResult> addPost(PostModel post, PostState postState, BuildContext context) async {
+  @override
+  Future<RestApiConnectionResult> addPost(PostModel post, PostState postState, BuildContext context) async {
     SettingsModel settings = ProviderScope.containerOf(context).read(settingsNotifierProvider);
     debugPrint('token: ${settings.token}, serverAddress: ${settings.serverAddress}, port: ${settings.port}');
     //TODO rootPathのさまざまな条件のハンドリング
@@ -73,7 +82,7 @@ class ObsidianRepository {
     }
   }
 
-  static Uri _getUri(SettingsModel setting) => Uri.parse("${setting.serverAddress}:${setting.port}");
+  Uri _getUri(SettingsModel setting) => Uri.parse("${setting.serverAddress}:${setting.port}");
 }
 
 class RestApiConnectionResult {

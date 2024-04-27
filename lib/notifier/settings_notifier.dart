@@ -7,10 +7,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final settingsNotifierProvider = StateNotifierProvider<SettingsNotifier, SettingsModel>((ref) => SettingsNotifier(SettingsModel()));
+final settingsNotifierProvider = StateNotifierProvider<SettingsNotifier, SettingsModel>((ref) => SettingsNotifier(SettingsModel(), ref));
 
 class SettingsNotifier extends StateNotifier<SettingsModel> {
-  SettingsNotifier(SettingsModel state) : super(state);
+  final StateNotifierProviderRef ref;
+  SettingsNotifier(SettingsModel state, this.ref) : super(state);
 
   Future<void> loadSettings() async {
     // Load settings from local storage
@@ -41,7 +42,7 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
   void saveServerSettings() async {
     // Save settings to local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if ((await ObsidianRepository.checkInvalidServer(state)).status != RestApiConnectionStatus.success) {
+    if ((await ref.read(obsidianRepositoryProvider).checkInvalidServer(state)).status != RestApiConnectionStatus.success) {
       throw Exception('有効ではないサーバーアドレスまたはポートまたはトークン');
     }
     await prefs.setString(SharedPreferencesFieldName.token.name, state.token!);
@@ -64,8 +65,9 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
 
   Future<RestApiConnectionResult> saveServerSetting(ServerSettingsModel setting) async {
     if (Uri.tryParse(setting.serverAddress) == null) return RestApiConnectionResult(RestApiConnectionStatus.invalidUrl, "Invalid URL");
-    RestApiConnectionResult result = await ObsidianRepository.checkInvalidServer(
-        SettingsModel(port: setting.port, serverAddress: setting.serverAddress, token: setting.token));
+    RestApiConnectionResult result = await ref
+        .read(obsidianRepositoryProvider)
+        .checkInvalidServer(SettingsModel(port: setting.port, serverAddress: setting.serverAddress, token: setting.token));
     if (result.status == RestApiConnectionStatus.success) {
       state = state.copyWith(serverAddress: setting.serverAddress, port: setting.port, token: setting.token, rootPath: setting.rootPath);
       saveServerSettings();
