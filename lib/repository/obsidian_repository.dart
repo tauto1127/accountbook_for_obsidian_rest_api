@@ -90,7 +90,7 @@ class ObsidianRepository implements ObsidianRepositoryInterface {
       case 401:
         return RestApiConnectionResult(RestApiConnectionStatus.invalidToken, "Invalid token");
       default:
-        return RestApiConnectionResult(RestApiConnectionStatus.error, "Unknown error");
+        return RestApiConnectionResult(RestApiConnectionStatus.error, "Unknown error, ${res.body}");
     }
   }
 

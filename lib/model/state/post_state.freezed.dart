@@ -20,9 +20,9 @@ mixin _$PostState {
   DateTime get date => throw _privateConstructorUsedError;
   int get week =>
       throw _privateConstructorUsedError; //#TODO categoryとmethodをrequiredにする
-  String? get category => throw _privateConstructorUsedError;
+  String get category => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
-  String? get method => throw _privateConstructorUsedError;
+  String get method => throw _privateConstructorUsedError;
   String get other => throw _privateConstructorUsedError;
   bool get isEditingCategory => throw _privateConstructorUsedError;
   bool get isEditingMethod => throw _privateConstructorUsedError;
@@ -49,9 +49,9 @@ abstract class $PostStateCopyWith<$Res> {
       {String place,
       DateTime date,
       int week,
-      String? category,
+      String category,
       int price,
-      String? method,
+      String method,
       String other,
       bool isEditingCategory,
       bool isEditingMethod,
@@ -81,9 +81,9 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
     Object? place = null,
     Object? date = null,
     Object? week = null,
-    Object? category = freezed,
+    Object? category = null,
     Object? price = null,
-    Object? method = freezed,
+    Object? method = null,
     Object? other = null,
     Object? isEditingCategory = null,
     Object? isEditingMethod = null,
@@ -109,18 +109,18 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as int,
-      category: freezed == category
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      method: freezed == method
+      method: null == method
           ? _value.method
           : method // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       other: null == other
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
@@ -181,9 +181,9 @@ abstract class _$$PostStateImplCopyWith<$Res>
       {String place,
       DateTime date,
       int week,
-      String? category,
+      String category,
       int price,
-      String? method,
+      String method,
       String other,
       bool isEditingCategory,
       bool isEditingMethod,
@@ -211,9 +211,9 @@ class __$$PostStateImplCopyWithImpl<$Res>
     Object? place = null,
     Object? date = null,
     Object? week = null,
-    Object? category = freezed,
+    Object? category = null,
     Object? price = null,
-    Object? method = freezed,
+    Object? method = null,
     Object? other = null,
     Object? isEditingCategory = null,
     Object? isEditingMethod = null,
@@ -239,18 +239,18 @@ class __$$PostStateImplCopyWithImpl<$Res>
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as int,
-      category: freezed == category
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      method: freezed == method
+      method: null == method
           ? _value.method
           : method // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       other: null == other
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
@@ -306,9 +306,9 @@ class _$PostStateImpl implements _PostState {
       {required this.place,
       required this.date,
       required this.week,
-      this.category,
+      this.category = "",
       required this.price,
-      this.method,
+      this.method = "",
       required this.other,
       this.isEditingCategory = false,
       this.isEditingMethod = false,
@@ -331,11 +331,13 @@ class _$PostStateImpl implements _PostState {
   final int week;
 //#TODO categoryとmethodをrequiredにする
   @override
-  final String? category;
+  @JsonKey()
+  final String category;
   @override
   final int price;
   @override
-  final String? method;
+  @JsonKey()
+  final String method;
   @override
   final String other;
   @override
@@ -452,9 +454,9 @@ abstract class _PostState implements PostState {
       {required final String place,
       required final DateTime date,
       required final int week,
-      final String? category,
+      final String category,
       required final int price,
-      final String? method,
+      final String method,
       required final String other,
       final bool isEditingCategory,
       final bool isEditingMethod,
@@ -474,11 +476,11 @@ abstract class _PostState implements PostState {
   @override
   int get week;
   @override //#TODO categoryとmethodをrequiredにする
-  String? get category;
+  String get category;
   @override
   int get price;
   @override
-  String? get method;
+  String get method;
   @override
   String get other;
   @override

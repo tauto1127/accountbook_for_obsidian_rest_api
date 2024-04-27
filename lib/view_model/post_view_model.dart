@@ -12,9 +12,9 @@ class PostViewModel extends StateNotifier<PostState> {
       : super(PostState(
             date: DateTime.now(),
             week: _getWeekNumber(DateTime.now()),
-            category: null,
+            category: '',
             price: 0,
-            method: null,
+            method: '',
             other: "",
             place: '',
             categoryList: ref.read(settingsNotifierProvider).category!,
@@ -43,6 +43,7 @@ class PostViewModel extends StateNotifier<PostState> {
     state = state.copyWith(
         place: placeController.text,
         other: otherController.text,
+        //#TODO parseが失敗した時
         price: int.parse(priceController.text),
         category: categoryController.text,
         method: methodController.text,
@@ -75,9 +76,9 @@ class PostViewModel extends StateNotifier<PostState> {
         place: '',
         date: DateTime.now(),
         week: _getWeekNumber(DateTime.now()),
-        category: null,
+        category: '',
         price: 0,
-        method: null,
+        method: '',
         other: '',
         categoryList: ref.read(settingsNotifierProvider).category!,
         methodList: ref.read(settingsNotifierProvider).method!,
@@ -105,7 +106,7 @@ class PostViewModel extends StateNotifier<PostState> {
     }
   }
 
-  void changeMethod(String? value) => state = state.copyWith(method: value);
+  void changeMethod(String? value) => state = state.copyWith(method: value!);
 
   void setMethodFormOffsetTop(double value) => state = state.copyWith(methodFormOffsetTop: value);
   void setOtherFormOffsetTop(double value) => state = state.copyWith(otherFormOffsetTop: value);
