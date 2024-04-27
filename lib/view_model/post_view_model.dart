@@ -53,9 +53,35 @@ class PostViewModel extends StateNotifier<PostState> {
         week: _getWeekNumber(DateTime.parse(dateController.text)));
   }
 
-  void addPost(PostModel post, BuildContext context) async {
+  Future<void> addPost(PostModel post, BuildContext context) async {
     syncState();
-    ref.read(obsidianRepositoryProvider).addPost(post, state, context);
+    final result = await ref.read(obsidianRepositoryProvider).addPost(post, state, context);
+    debugPrint('addPost: ${result.status.toString()}');
+    if (result.status == RestApiConnectionStatus.success) {
+      clear();
+    } else {
+      state = state.copyWith(errorText: result.errorMessage);
+    }
+  }
+
+  void clear() {
+    placeController.clear();
+    dateController.text = DateTime.now().toString();
+    priceController.text = '0';
+    categoryController.text = '';
+    methodController.text = '';
+    otherController.text = '';
+    state = state.copyWith(
+        place: '',
+        date: DateTime.now(),
+        week: _getWeekNumber(DateTime.now()),
+        category: null,
+        price: 0,
+        method: null,
+        other: '',
+        categoryList: ref.read(settingsNotifierProvider).category!,
+        methodList: ref.read(settingsNotifierProvider).method!,
+        errorText: '');
   }
 
   PostModel generatePost() {
@@ -110,6 +136,8 @@ class PostViewModel extends StateNotifier<PostState> {
   void changeScroll(double value) {
     scrollController.jumpTo(value);
   }
+
+  void setErrorText(String value) => state = state.copyWith(errorText: value);
 }
 
 final postViewModelProvider = StateNotifierProvider.autoDispose<PostViewModel, PostState>((ref) => PostViewModel(ref));

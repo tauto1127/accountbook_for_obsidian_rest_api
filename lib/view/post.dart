@@ -197,6 +197,7 @@ class Post extends StatelessWidget {
                       );
                     }),
                     Text(ref.watch(postViewModelProvider).other),
+                    Text(ref.watch(postViewModelProvider).errorText, style: const TextStyle(color: Colors.red)),
                     Text(
                         "port:${ref.watch(settingsNotifierProvider).port.toString()} address:${ref.watch(settingsNotifierProvider).serverAddress ?? ''}"),
                     // if (ref.watch(postViewModelProvider).isFocusOnCategory || ref.watch(postViewModelProvider).isFocusOnMethod)

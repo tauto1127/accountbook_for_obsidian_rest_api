@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-final obsidianRepositoryProvider = Provider<ObsidianRepositoryInterface>((ref) => ObsidianTestRepository());
+final obsidianRepositoryProvider = Provider<ObsidianRepositoryInterface>((ref) => ObsidianRepository());
 
 abstract class ObsidianRepositoryInterface {
   Future<RestApiConnectionResult> checkInvalidServer(SettingsModel settingState);
@@ -21,12 +21,13 @@ abstract class ObsidianRepositoryInterface {
 class ObsidianTestRepository implements ObsidianRepositoryInterface {
   @override
   Future<RestApiConnectionResult> checkInvalidServer(SettingsModel settingState) async {
-    return RestApiConnectionResult(RestApiConnectionStatus.success, 'succeed');
+    return RestApiConnectionResult(RestApiConnectionStatus.connectionError, 'connection error');
   }
 
   @override
   Future<RestApiConnectionResult> addPost(PostModel post, PostState postState, BuildContext context) async {
-    return RestApiConnectionResult(RestApiConnectionStatus.success, 'succeed');
+    debugPrint("テスト用リポジトリ：${post.title}を追加しました");
+    return RestApiConnectionResult(RestApiConnectionStatus.certificateError, 'certificate error');
   }
 }
 
@@ -50,7 +51,7 @@ class ObsidianRepository implements ObsidianRepositoryInterface {
       }
       RestApiStatusModel status = RestApiStatusModel.fromJson(jsonDecode(response.body));
       if (status.authenticated) {
-        return RestApiConnectionResult(RestApiConnectionStatus.success, 'succeed');
+        return RestApiConnectionResult(RestApiConnectionStatus.success, '');
       }
       if (status.status != "OK") {
         return RestApiConnectionResult(RestApiConnectionStatus.statusNotOk, 'Status is not OK');
@@ -85,7 +86,7 @@ class ObsidianRepository implements ObsidianRepositoryInterface {
     debugPrint(res.statusCode.toString());
     switch (res.statusCode) {
       case 200:
-        return RestApiConnectionResult(RestApiConnectionStatus.success, "succeed");
+        return RestApiConnectionResult(RestApiConnectionStatus.success, "");
       case 401:
         return RestApiConnectionResult(RestApiConnectionStatus.invalidToken, "Invalid token");
       default:

@@ -18,7 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PostState {
   String get place => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
-  int get week => throw _privateConstructorUsedError;
+  int get week =>
+      throw _privateConstructorUsedError; //#TODO categoryとmethodをrequiredにする
   String? get category => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
   String? get method => throw _privateConstructorUsedError;
@@ -32,6 +33,7 @@ mixin _$PostState {
   String get methodQuery => throw _privateConstructorUsedError;
   List<String> get categoryList => throw _privateConstructorUsedError;
   List<String> get methodList => throw _privateConstructorUsedError;
+  String get errorText => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PostStateCopyWith<PostState> get copyWith =>
@@ -59,7 +61,8 @@ abstract class $PostStateCopyWith<$Res> {
       String categoryQuery,
       String methodQuery,
       List<String> categoryList,
-      List<String> methodList});
+      List<String> methodList,
+      String errorText});
 }
 
 /// @nodoc
@@ -91,6 +94,7 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
     Object? methodQuery = null,
     Object? categoryList = null,
     Object? methodList = null,
+    Object? errorText = null,
   }) {
     return _then(_value.copyWith(
       place: null == place
@@ -157,6 +161,10 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
           ? _value.methodList
           : methodList // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      errorText: null == errorText
+          ? _value.errorText
+          : errorText // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -185,7 +193,8 @@ abstract class _$$PostStateImplCopyWith<$Res>
       String categoryQuery,
       String methodQuery,
       List<String> categoryList,
-      List<String> methodList});
+      List<String> methodList,
+      String errorText});
 }
 
 /// @nodoc
@@ -215,6 +224,7 @@ class __$$PostStateImplCopyWithImpl<$Res>
     Object? methodQuery = null,
     Object? categoryList = null,
     Object? methodList = null,
+    Object? errorText = null,
   }) {
     return _then(_$PostStateImpl(
       place: null == place
@@ -281,6 +291,10 @@ class __$$PostStateImplCopyWithImpl<$Res>
           ? _value._methodList
           : methodList // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      errorText: null == errorText
+          ? _value.errorText
+          : errorText // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -304,7 +318,8 @@ class _$PostStateImpl implements _PostState {
       this.categoryQuery = "",
       this.methodQuery = "",
       required final List<String> categoryList,
-      required final List<String> methodList})
+      required final List<String> methodList,
+      this.errorText = ""})
       : _categoryList = categoryList,
         _methodList = methodList;
 
@@ -314,6 +329,7 @@ class _$PostStateImpl implements _PostState {
   final DateTime date;
   @override
   final int week;
+//#TODO categoryとmethodをrequiredにする
   @override
   final String? category;
   @override
@@ -360,8 +376,12 @@ class _$PostStateImpl implements _PostState {
   }
 
   @override
+  @JsonKey()
+  final String errorText;
+
+  @override
   String toString() {
-    return 'PostState(place: $place, date: $date, week: $week, category: $category, price: $price, method: $method, other: $other, isEditingCategory: $isEditingCategory, isEditingMethod: $isEditingMethod, methodFormOffsetTop: $methodFormOffsetTop, otherFormOffsetTop: $otherFormOffsetTop, placeFormOffsetTop: $placeFormOffsetTop, categoryQuery: $categoryQuery, methodQuery: $methodQuery, categoryList: $categoryList, methodList: $methodList)';
+    return 'PostState(place: $place, date: $date, week: $week, category: $category, price: $price, method: $method, other: $other, isEditingCategory: $isEditingCategory, isEditingMethod: $isEditingMethod, methodFormOffsetTop: $methodFormOffsetTop, otherFormOffsetTop: $otherFormOffsetTop, placeFormOffsetTop: $placeFormOffsetTop, categoryQuery: $categoryQuery, methodQuery: $methodQuery, categoryList: $categoryList, methodList: $methodList, errorText: $errorText)';
   }
 
   @override
@@ -394,7 +414,9 @@ class _$PostStateImpl implements _PostState {
             const DeepCollectionEquality()
                 .equals(other._categoryList, _categoryList) &&
             const DeepCollectionEquality()
-                .equals(other._methodList, _methodList));
+                .equals(other._methodList, _methodList) &&
+            (identical(other.errorText, errorText) ||
+                other.errorText == errorText));
   }
 
   @override
@@ -415,7 +437,8 @@ class _$PostStateImpl implements _PostState {
       categoryQuery,
       methodQuery,
       const DeepCollectionEquality().hash(_categoryList),
-      const DeepCollectionEquality().hash(_methodList));
+      const DeepCollectionEquality().hash(_methodList),
+      errorText);
 
   @JsonKey(ignore: true)
   @override
@@ -441,7 +464,8 @@ abstract class _PostState implements PostState {
       final String categoryQuery,
       final String methodQuery,
       required final List<String> categoryList,
-      required final List<String> methodList}) = _$PostStateImpl;
+      required final List<String> methodList,
+      final String errorText}) = _$PostStateImpl;
 
   @override
   String get place;
@@ -449,7 +473,7 @@ abstract class _PostState implements PostState {
   DateTime get date;
   @override
   int get week;
-  @override
+  @override //#TODO categoryとmethodをrequiredにする
   String? get category;
   @override
   int get price;
@@ -475,6 +499,8 @@ abstract class _PostState implements PostState {
   List<String> get categoryList;
   @override
   List<String> get methodList;
+  @override
+  String get errorText;
   @override
   @JsonKey(ignore: true)
   _$$PostStateImplCopyWith<_$PostStateImpl> get copyWith =>

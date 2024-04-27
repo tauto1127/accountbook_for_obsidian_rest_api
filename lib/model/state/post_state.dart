@@ -22,5 +22,6 @@ class PostState with _$PostState {
     @Default("") String methodQuery,
     required List<String> categoryList,
     required List<String> methodList,
+    @Default("") String errorText,
   }) = _PostState;
 }
