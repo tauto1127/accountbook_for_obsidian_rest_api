@@ -39,7 +39,7 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
     prefs.setStringList(SharedPreferencesFieldName.method.name, state.method!);
   }
 
-  void saveServerSettings() async {
+  Future<void> saveServerSettings() async {
     // Save settings to local storage
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if ((await ref.read(obsidianRepositoryProvider).checkInvalidServer(state)).status != RestApiConnectionStatus.success) {
@@ -70,7 +70,7 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
         .checkInvalidServer(SettingsModel(port: setting.port, serverAddress: setting.serverAddress, token: setting.token));
     if (result.status == RestApiConnectionStatus.success) {
       state = state.copyWith(serverAddress: setting.serverAddress, port: setting.port, token: setting.token, rootPath: setting.rootPath);
-      saveServerSettings();
+      await saveServerSettings();
       return result;
     }
     return result;

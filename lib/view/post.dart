@@ -125,7 +125,7 @@ class Post extends StatelessWidget {
                       },
                       controller: ref.read(postViewModelProvider.notifier).priceController,
                     ),
-                    VersionLabel(),
+                    const VersionLabel(),
                   ]);
                 }
                 if (ref.watch(postViewModelProvider).isEditingCategory || !(ref.watch(postViewModelProvider).isEditingMethod)) {

@@ -24,7 +24,9 @@ class ObsidianRepository implements ObsidianRepositoryInterface {
     // 接続のチェックを行うロジックを実装する
     try {
       Uri uri = _getUri(settingState);
-      //debugPrint("$settingState.token");
+      if (settingState.token == null) {
+        return RestApiConnectionResult(RestApiConnectionStatus.invalidToken, 'Invalid token');
+      }
       http.Response response =
           await http.get(uri, headers: {"Authorization": DefaultValue.authorizationHeaderPrefix + settingState.token!});
 
