@@ -9,9 +9,9 @@ class PostState with _$PostState {
     required DateTime date,
     required int week,
     //#TODO categoryとmethodをrequiredにする
-    String? category,
+    @Default("") String category,
     required int price,
-    String? method,
+    @Default("") String method,
     required String other,
     @Default(false) bool isEditingCategory,
     @Default(false) bool isEditingMethod,
@@ -22,5 +22,6 @@ class PostState with _$PostState {
     @Default("") String methodQuery,
     required List<String> categoryList,
     required List<String> methodList,
+    @Default("") String errorText,
   }) = _PostState;
 }

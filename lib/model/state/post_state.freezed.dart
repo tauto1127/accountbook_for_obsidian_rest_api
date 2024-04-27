@@ -18,10 +18,11 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PostState {
   String get place => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
-  int get week => throw _privateConstructorUsedError;
-  String? get category => throw _privateConstructorUsedError;
+  int get week =>
+      throw _privateConstructorUsedError; //#TODO categoryとmethodをrequiredにする
+  String get category => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
-  String? get method => throw _privateConstructorUsedError;
+  String get method => throw _privateConstructorUsedError;
   String get other => throw _privateConstructorUsedError;
   bool get isEditingCategory => throw _privateConstructorUsedError;
   bool get isEditingMethod => throw _privateConstructorUsedError;
@@ -32,6 +33,7 @@ mixin _$PostState {
   String get methodQuery => throw _privateConstructorUsedError;
   List<String> get categoryList => throw _privateConstructorUsedError;
   List<String> get methodList => throw _privateConstructorUsedError;
+  String get errorText => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PostStateCopyWith<PostState> get copyWith =>
@@ -47,9 +49,9 @@ abstract class $PostStateCopyWith<$Res> {
       {String place,
       DateTime date,
       int week,
-      String? category,
+      String category,
       int price,
-      String? method,
+      String method,
       String other,
       bool isEditingCategory,
       bool isEditingMethod,
@@ -59,7 +61,8 @@ abstract class $PostStateCopyWith<$Res> {
       String categoryQuery,
       String methodQuery,
       List<String> categoryList,
-      List<String> methodList});
+      List<String> methodList,
+      String errorText});
 }
 
 /// @nodoc
@@ -78,9 +81,9 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
     Object? place = null,
     Object? date = null,
     Object? week = null,
-    Object? category = freezed,
+    Object? category = null,
     Object? price = null,
-    Object? method = freezed,
+    Object? method = null,
     Object? other = null,
     Object? isEditingCategory = null,
     Object? isEditingMethod = null,
@@ -91,6 +94,7 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
     Object? methodQuery = null,
     Object? categoryList = null,
     Object? methodList = null,
+    Object? errorText = null,
   }) {
     return _then(_value.copyWith(
       place: null == place
@@ -105,18 +109,18 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as int,
-      category: freezed == category
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      method: freezed == method
+      method: null == method
           ? _value.method
           : method // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       other: null == other
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
@@ -157,6 +161,10 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
           ? _value.methodList
           : methodList // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      errorText: null == errorText
+          ? _value.errorText
+          : errorText // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -173,9 +181,9 @@ abstract class _$$PostStateImplCopyWith<$Res>
       {String place,
       DateTime date,
       int week,
-      String? category,
+      String category,
       int price,
-      String? method,
+      String method,
       String other,
       bool isEditingCategory,
       bool isEditingMethod,
@@ -185,7 +193,8 @@ abstract class _$$PostStateImplCopyWith<$Res>
       String categoryQuery,
       String methodQuery,
       List<String> categoryList,
-      List<String> methodList});
+      List<String> methodList,
+      String errorText});
 }
 
 /// @nodoc
@@ -202,9 +211,9 @@ class __$$PostStateImplCopyWithImpl<$Res>
     Object? place = null,
     Object? date = null,
     Object? week = null,
-    Object? category = freezed,
+    Object? category = null,
     Object? price = null,
-    Object? method = freezed,
+    Object? method = null,
     Object? other = null,
     Object? isEditingCategory = null,
     Object? isEditingMethod = null,
@@ -215,6 +224,7 @@ class __$$PostStateImplCopyWithImpl<$Res>
     Object? methodQuery = null,
     Object? categoryList = null,
     Object? methodList = null,
+    Object? errorText = null,
   }) {
     return _then(_$PostStateImpl(
       place: null == place
@@ -229,18 +239,18 @@ class __$$PostStateImplCopyWithImpl<$Res>
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
               as int,
-      category: freezed == category
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
-      method: freezed == method
+      method: null == method
           ? _value.method
           : method // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       other: null == other
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
@@ -281,6 +291,10 @@ class __$$PostStateImplCopyWithImpl<$Res>
           ? _value._methodList
           : methodList // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      errorText: null == errorText
+          ? _value.errorText
+          : errorText // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -292,9 +306,9 @@ class _$PostStateImpl implements _PostState {
       {required this.place,
       required this.date,
       required this.week,
-      this.category,
+      this.category = "",
       required this.price,
-      this.method,
+      this.method = "",
       required this.other,
       this.isEditingCategory = false,
       this.isEditingMethod = false,
@@ -304,7 +318,8 @@ class _$PostStateImpl implements _PostState {
       this.categoryQuery = "",
       this.methodQuery = "",
       required final List<String> categoryList,
-      required final List<String> methodList})
+      required final List<String> methodList,
+      this.errorText = ""})
       : _categoryList = categoryList,
         _methodList = methodList;
 
@@ -314,12 +329,15 @@ class _$PostStateImpl implements _PostState {
   final DateTime date;
   @override
   final int week;
+//#TODO categoryとmethodをrequiredにする
   @override
-  final String? category;
+  @JsonKey()
+  final String category;
   @override
   final int price;
   @override
-  final String? method;
+  @JsonKey()
+  final String method;
   @override
   final String other;
   @override
@@ -360,8 +378,12 @@ class _$PostStateImpl implements _PostState {
   }
 
   @override
+  @JsonKey()
+  final String errorText;
+
+  @override
   String toString() {
-    return 'PostState(place: $place, date: $date, week: $week, category: $category, price: $price, method: $method, other: $other, isEditingCategory: $isEditingCategory, isEditingMethod: $isEditingMethod, methodFormOffsetTop: $methodFormOffsetTop, otherFormOffsetTop: $otherFormOffsetTop, placeFormOffsetTop: $placeFormOffsetTop, categoryQuery: $categoryQuery, methodQuery: $methodQuery, categoryList: $categoryList, methodList: $methodList)';
+    return 'PostState(place: $place, date: $date, week: $week, category: $category, price: $price, method: $method, other: $other, isEditingCategory: $isEditingCategory, isEditingMethod: $isEditingMethod, methodFormOffsetTop: $methodFormOffsetTop, otherFormOffsetTop: $otherFormOffsetTop, placeFormOffsetTop: $placeFormOffsetTop, categoryQuery: $categoryQuery, methodQuery: $methodQuery, categoryList: $categoryList, methodList: $methodList, errorText: $errorText)';
   }
 
   @override
@@ -394,7 +416,9 @@ class _$PostStateImpl implements _PostState {
             const DeepCollectionEquality()
                 .equals(other._categoryList, _categoryList) &&
             const DeepCollectionEquality()
-                .equals(other._methodList, _methodList));
+                .equals(other._methodList, _methodList) &&
+            (identical(other.errorText, errorText) ||
+                other.errorText == errorText));
   }
 
   @override
@@ -415,7 +439,8 @@ class _$PostStateImpl implements _PostState {
       categoryQuery,
       methodQuery,
       const DeepCollectionEquality().hash(_categoryList),
-      const DeepCollectionEquality().hash(_methodList));
+      const DeepCollectionEquality().hash(_methodList),
+      errorText);
 
   @JsonKey(ignore: true)
   @override
@@ -429,9 +454,9 @@ abstract class _PostState implements PostState {
       {required final String place,
       required final DateTime date,
       required final int week,
-      final String? category,
+      final String category,
       required final int price,
-      final String? method,
+      final String method,
       required final String other,
       final bool isEditingCategory,
       final bool isEditingMethod,
@@ -441,7 +466,8 @@ abstract class _PostState implements PostState {
       final String categoryQuery,
       final String methodQuery,
       required final List<String> categoryList,
-      required final List<String> methodList}) = _$PostStateImpl;
+      required final List<String> methodList,
+      final String errorText}) = _$PostStateImpl;
 
   @override
   String get place;
@@ -449,12 +475,12 @@ abstract class _PostState implements PostState {
   DateTime get date;
   @override
   int get week;
-  @override
-  String? get category;
+  @override //#TODO categoryとmethodをrequiredにする
+  String get category;
   @override
   int get price;
   @override
-  String? get method;
+  String get method;
   @override
   String get other;
   @override
@@ -475,6 +501,8 @@ abstract class _PostState implements PostState {
   List<String> get categoryList;
   @override
   List<String> get methodList;
+  @override
+  String get errorText;
   @override
   @JsonKey(ignore: true)
   _$$PostStateImplCopyWith<_$PostStateImpl> get copyWith =>

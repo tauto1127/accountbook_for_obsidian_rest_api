@@ -12,9 +12,9 @@ class PostViewModel extends StateNotifier<PostState> {
       : super(PostState(
             date: DateTime.now(),
             week: _getWeekNumber(DateTime.now()),
-            category: null,
+            category: '',
             price: 0,
-            method: null,
+            method: '',
             other: "",
             place: '',
             categoryList: ref.read(settingsNotifierProvider).category!,
@@ -43,6 +43,7 @@ class PostViewModel extends StateNotifier<PostState> {
     state = state.copyWith(
         place: placeController.text,
         other: otherController.text,
+        //#TODO parseが失敗した時
         price: int.parse(priceController.text),
         category: categoryController.text,
         method: methodController.text,
@@ -53,9 +54,35 @@ class PostViewModel extends StateNotifier<PostState> {
         week: _getWeekNumber(DateTime.parse(dateController.text)));
   }
 
-  void addPost(PostModel post, BuildContext context) async {
+  Future<void> addPost(PostModel post, BuildContext context) async {
     syncState();
-    ObsidianRepository.addPost(post, state, context);
+    final result = await ref.read(obsidianRepositoryProvider).addPost(post, state, context);
+    debugPrint('addPost: ${result.status.toString()}');
+    if (result.status == RestApiConnectionStatus.success) {
+      clear();
+    } else {
+      state = state.copyWith(errorText: result.errorMessage);
+    }
+  }
+
+  void clear() {
+    placeController.clear();
+    dateController.text = DateTime.now().toString();
+    priceController.text = '0';
+    categoryController.text = '';
+    methodController.text = '';
+    otherController.text = '';
+    state = state.copyWith(
+        place: '',
+        date: DateTime.now(),
+        week: _getWeekNumber(DateTime.now()),
+        category: '',
+        price: 0,
+        method: '',
+        other: '',
+        categoryList: ref.read(settingsNotifierProvider).category!,
+        methodList: ref.read(settingsNotifierProvider).method!,
+        errorText: '');
   }
 
   PostModel generatePost() {
@@ -79,7 +106,7 @@ class PostViewModel extends StateNotifier<PostState> {
     }
   }
 
-  void changeMethod(String? value) => state = state.copyWith(method: value);
+  void changeMethod(String? value) => state = state.copyWith(method: value!);
 
   void setMethodFormOffsetTop(double value) => state = state.copyWith(methodFormOffsetTop: value);
   void setOtherFormOffsetTop(double value) => state = state.copyWith(otherFormOffsetTop: value);
@@ -110,6 +137,8 @@ class PostViewModel extends StateNotifier<PostState> {
   void changeScroll(double value) {
     scrollController.jumpTo(value);
   }
+
+  void setErrorText(String value) => state = state.copyWith(errorText: value);
 }
 
 final postViewModelProvider = StateNotifierProvider.autoDispose<PostViewModel, PostState>((ref) => PostViewModel(ref));

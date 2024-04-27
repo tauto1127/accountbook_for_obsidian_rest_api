@@ -125,7 +125,7 @@ class Post extends StatelessWidget {
                       },
                       controller: ref.read(postViewModelProvider.notifier).priceController,
                     ),
-                    VersionLabel(),
+                    const VersionLabel(),
                   ]);
                 }
                 if (ref.watch(postViewModelProvider).isEditingCategory || !(ref.watch(postViewModelProvider).isEditingMethod)) {
@@ -197,6 +197,7 @@ class Post extends StatelessWidget {
                       );
                     }),
                     Text(ref.watch(postViewModelProvider).other),
+                    Text(ref.watch(postViewModelProvider).errorText, style: const TextStyle(color: Colors.red)),
                     Text(
                         "port:${ref.watch(settingsNotifierProvider).port.toString()} address:${ref.watch(settingsNotifierProvider).serverAddress ?? ''}"),
                     // if (ref.watch(postViewModelProvider).isFocusOnCategory || ref.watch(postViewModelProvider).isFocusOnMethod)
