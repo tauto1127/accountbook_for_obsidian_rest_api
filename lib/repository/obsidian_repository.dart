@@ -11,11 +11,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-final obsidianRepositoryProvider = Provider<ObsidianRepositoryInterface>((ref) => ObsidianRepository());
+final obsidianRepositoryProvider = Provider<ObsidianRepositoryInterface>((ref) => ObsidianTestRepository());
 
 abstract class ObsidianRepositoryInterface {
   Future<RestApiConnectionResult> checkInvalidServer(SettingsModel settingState);
   Future<RestApiConnectionResult> addPost(PostModel post, PostState postState, BuildContext context);
+}
+
+class ObsidianTestRepository implements ObsidianRepositoryInterface {
+  @override
+  Future<RestApiConnectionResult> checkInvalidServer(SettingsModel settingState) async {
+    return RestApiConnectionResult(RestApiConnectionStatus.success, 'succeed');
+  }
+
+  @override
+  Future<RestApiConnectionResult> addPost(PostModel post, PostState postState, BuildContext context) async {
+    return RestApiConnectionResult(RestApiConnectionStatus.success, 'succeed');
+  }
 }
 
 class ObsidianRepository implements ObsidianRepositoryInterface {
@@ -32,10 +44,6 @@ class ObsidianRepository implements ObsidianRepositoryInterface {
 
       debugPrint(
           "check connection ¥n serverAddress: ${settingState.serverAddress}, port: ${settingState.port}, token: ${settingState.token}");
-
-      if (settingState.token == null) {
-        return RestApiConnectionResult(RestApiConnectionStatus.invalidToken, 'Invalid token');
-      }
 
       if (response.statusCode != 200) {
         return RestApiConnectionResult(RestApiConnectionStatus.connectionError, 'Connection error. Status code: ${response.statusCode}');
@@ -67,6 +75,7 @@ class ObsidianRepository implements ObsidianRepositoryInterface {
     //TODO rootPathのさまざまな条件のハンドリング
     //TODO タイトルに.mdがない時
     Uri uri = Uri.parse('${_getUri(settings).toString()}/vault${settings.rootPath}/${post.title}.md');
+    if (settings.token == null) return RestApiConnectionResult(RestApiConnectionStatus.invalidToken, 'Invalid token');
 
     http.Response res = await http.post(
         headers: {"Authorization": DefaultValue.authorizationHeaderPrefix + settings.token!, "Content-Type": "text/markdown"},
