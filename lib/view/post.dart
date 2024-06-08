@@ -201,7 +201,12 @@ class Post extends StatelessWidget {
                     Text(
                         "port:${ref.watch(settingsNotifierProvider).port.toString()} address:${ref.watch(settingsNotifierProvider).serverAddress ?? ''}"),
                     // if (ref.watch(postViewModelProvider).isFocusOnCategory || ref.watch(postViewModelProvider).isFocusOnMethod)
-                    const SizedBox(height: 1000),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/home/camera');
+                      },
+                      child: const Text("画像認識を使う！"),
+                    )
                   ]);
                 }
                 return Form(
