@@ -9,19 +9,17 @@ class ReceiptReader extends StatefulWidget {
 }
 
 class _ReceiptReaderState extends State<ReceiptReader> {
-  late CameraController controller;
-  late List<CameraDescription> _cameras;
+  CameraController? controller;
+  List<CameraDescription>? _cameras;
   String? errorText;
 
   @override
   void dispose() {
-    controller.dispose();
+    controller?.dispose();
     super.dispose();
   }
 
-  @override
-  Future<void> initState() async {
-    super.initState();
+  Future<void> initializeCamera() async {
     WidgetsFlutterBinding.ensureInitialized();
     try {
       print("カメラとる");
@@ -29,19 +27,38 @@ class _ReceiptReaderState extends State<ReceiptReader> {
       print("カメラ取得終わった");
     } catch (e) {
       errorText = e.toString();
+      print(e);
+      return;
     }
-    controller = CameraController(
-      _cameras[0],
-      ResolutionPreset.high,
-    );
+    if (_cameras!.isNotEmpty) {
+      print("isnotempty");
+      controller = CameraController(
+        _cameras![0],
+        ResolutionPreset.high,
+      );
+      await controller?.initialize();
+    }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    if (controller == null) initializeCamera();
     return Scaffold(
         appBar: AppBar(
           title: const Text('Receipt Reader'),
         ),
-        body: (controller.value.isInitialized) ? const SizedBox.shrink() : CameraPreview(controller));
+        body: Column(
+          children: [
+            if (errorText != null) Text(errorText.toString()),
+            if (controller != null)
+              Column(
+                children: [
+                  Text("カメラきた"),
+                  CameraPreview(controller!),
+                ],
+              )
+          ],
+        ));
   }
 }
